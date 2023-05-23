@@ -72,7 +72,7 @@ module.exports = (passport) => {
                     return done(null, existingUser);
                 }
     
-                console.log(`user doesn't exist in the database`);
+                console.log(`user doesn't exist in the database, creating a new one`);
                 // User does not exist, create new user
                 const newUser = await Users.create({
                     first_name: profile.name.givenName,

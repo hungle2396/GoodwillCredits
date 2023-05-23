@@ -4,10 +4,10 @@
     "description": "",
     "main": "index.js",
     "scripts": {
-        "start:build": "tsc -w",
-        "start:run": "nodemon dist/index.js",
-        "start:server": "concurrently \"npm run start:build\" \"npm run start:run\"",
-        "start": "node index.js"
+        "start": "node index.js",
+        "server": "nodemon index.js",
+        "client": "npm run start --prefix client",
+        "dev": "concurrently \"npm run server\" \"npm run client\""
     },
     "author": "",
     "license": "ISC",

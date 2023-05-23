@@ -42,7 +42,7 @@ db.sequelize.sync().then(() => {
     // Sync the session store with the database
     sessionStore.sync();
 
-    app.listen(process.env.PORT, () => {
+    app.listen(PORT, () => {
         console.log(`Server running on port ${PORT}`);
     })
 });
