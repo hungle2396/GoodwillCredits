@@ -59,3 +59,17 @@
     background-repeat: no-repeat;
     background-position: center;
 }
+
+.btn-gradient-border {
+    background: linear-gradient(white, white) padding-box,
+                linear-gradient(to right, #c447e8, #aa2ece) border-box;
+    border-radius: 10px;
+    border: 3px solid transparent;
+}
+
+
+.line-grey {
+    border-top: 1.5px solid #eeeeee;
+    margin: 2rem auto;
+    width: 90%;
+}
