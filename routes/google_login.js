@@ -2,39 +2,27 @@ const passport = require("passport");
 
 module.exports = (app) => {
     app.get('/', (req, res) => {
-        res.send("Hello World!")
+        // res.send("Hello World!")
+        console.log("Hello");
+        res.redirect('/dashboard');
     });
 
+
+    app.get('/dashboard', (req, res) => {
+        console.log('In dashboard');
+        res.send('Hello Dashboard');
+    });
 
     app.get('/auth/google', passport.authenticate('google', {
             scope: ['profile', 'email']
         })
     );
     
-    app.get('/auth/google/callback', passport.authenticate('google'));
-
-    app.get('/api/current_user', (req, res) => {
-        res.send(req.user);
-    });
-
-    app.get('/api/logout', (req, res) => {
-        req.logout((err) => {
-            if (err) {
-                console.error(err);
-                return res.status(500).send('Internal Server Error');
-            }
-            res.send(req.user);
-        });
-    });
-
-    // Testing
-    app.get("/set-session", (req, res) => {
-        req.session.exampleValue = "Hello, session!";
-        res.send("Session value set.")
-    });
-
-    app.get('/get-session', (req, res) => {
-        const sessionValue = req.session.exampleValue || 'No session value set.';
-        res.send(`Session value: ${sessionValue}`);
-    });
+    app.get(
+        '/auth/google/callback', 
+        passport.authenticate('google'),
+        (req, res) => {
+            res.redirect('/dashboard')
+        }
+    );
 }

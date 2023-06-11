@@ -2,6 +2,7 @@ const Users = require("../models/index")["Users"];
 const bcrypt = require("bcrypt");
 const GoogleStrategy = require("passport-google-oauth20").Strategy;
 const LocalStrategy = require("passport-local").Strategy;
+const { promisify } = require('util');
 const keys = require("../config/keys");
 
 
@@ -14,7 +15,7 @@ module.exports = (passport) => {
     passport.deserializeUser( async (id, done) => {
         try {
             const user = await Users.findByPk(id);
-            done(null, user);
+            done(null, user.get());
         } catch (err) {
             done(err, null)
         }
@@ -26,26 +27,45 @@ module.exports = (passport) => {
             {
                 usernameField: "email",
                 passwordField: "password",
+                passReqToCallback: true, // allows us to pass back the entire request to the callback
                 session: true,
             },
-            async (username, password, done) => {
-                console.log(`trying to log in as ${username}`);
+            async (req, email, password, done) => {
+                console.log("trying to log in as ", email);
+
                 const user = await Users.findOne({
-                    where: { email: username }
+                    where: { email: email }
                 });
 
+                console.log("user is: ", user);
                 if (!user) {
-                    return done(null, false);
+                    return done(null, false, { message: 'Incorrect email.' });
                 }
+
+                // const compareAsync = promisify(bcrypt.compare);
+
+                // const passwordMatch = await compareAsync(password, user.password);
+
+                // if (passwordMatch) {
+                //     console.log('Successful login');
+                //     const userinfo = user.get();
+                //     return done(null, userinfo);
+                // } else {
+                //     console.log('Incorrect password');
+                //     return done(null, false, { message: 'Incorrect password.' });
+                // }
+
 
                 bcrypt.compare(password, user.password, (err, res) => {
                     if (res) {
-                        console.log("successful login");
-                        return done(null, user);
+                        console.log("Successfully login!");
+                        const userinfo = user.get();
+                        return done(null, userinfo);
                     } else {
-                        return done(null, false);
+                        console.log("Incorrect password");
+                        return done(null, false, { message: "Incorrect password."});
                     }
-                });
+                })
             }
         )
     );
@@ -63,7 +83,7 @@ module.exports = (passport) => {
             try {
                 // Check if the user already exists in the database
                 const existingUser = await Users.findOne({
-                    where: { google_id: profile.id }
+                    where: { google_id: profile.id, email: profile.emails[0].value }
                 });
     
                 if (existingUser) {
