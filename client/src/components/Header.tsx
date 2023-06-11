@@ -51,7 +51,7 @@ const Header = () => {
                 )
             default:
                 return (
-                    <a className="text-white" href="/api/logout">Log out</a>
+                    <a className="text-white" href="/api/logout">Log out now</a>
                 )
         }
     };
