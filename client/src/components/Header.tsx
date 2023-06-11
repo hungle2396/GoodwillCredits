@@ -58,7 +58,7 @@ const Header = () => {
 
     return (
         <header className="h-14">
-            <div className="flex justify-between items-center h-full mx-10">
+            <div className="flex justify-between items-center h-full mx-10 border-bottom">
                 <Link to={data ? '/dashboard' : '/'} className="text-lg btn-normal">Goodwill Credit</Link>
                 {renderContent()}
             </div>
