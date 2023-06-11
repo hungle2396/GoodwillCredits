@@ -46,8 +46,16 @@
     border-top: 1px solid #eeeeee;
 }
 
+.border-bottom {
+    border-bottom: 1px solid #eeeeee;
+}
+
 .bg_landing {
     background-image: url('./img/landingbackground.jpeg');
-    background-size: cover;
+    -o-background-size: 80rem;
+    -webkit-background-size: 80rem;
+    -moz-background-size: 80rem;
+    background-size: 80rem;
+    background-repeat: no-repeat;
     background-position: center;
 }
