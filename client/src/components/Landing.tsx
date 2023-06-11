@@ -1,6 +1,5 @@
 import VolunteerImage from "../img/volunteer.png";
 
-
 const Landing = () => {
     console.log("In Landing component");
     return (
