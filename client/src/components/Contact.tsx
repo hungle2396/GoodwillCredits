@@ -1,8 +1,10 @@
+import { ReactComponent as SomeSVG } from "../img/volunteer.svg";
+
 
 const Contact = () => {
     return (
         <div>
-            Contact
+            <SomeSVG />
         </div>
     )
     
