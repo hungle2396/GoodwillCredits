@@ -1,0 +1,51 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+    .btn-primary {
+        @apply 
+        py-2 px-8 
+        bg-primary-purple hover:bg-primary-purple-light
+        text-white
+        rounded-md
+        active:bg-primary-purple-dark active:translate-y-px
+        ;
+    }
+
+    .btn-normal {
+        @apply
+        bg-transparent
+        text-white
+        hover:text-primary-purple
+        active:text-primary-purple-dark
+        active:translate-y-px
+    }
+}
+
+.input {
+    border-bottom: 1px solid #e2e2e2;
+    background-color: transparent;
+    padding: 2px 0;
+}
+
+.input::placeholder {
+    font-size: 14px;
+}
+
+.input:focus {
+    outline: none;
+    border-bottom: 1px solid #BD33E5;
+}
+
+.background-primary {
+    background: linear-gradient(100deg, #f8ebfc, #fff, #f8ebfc)
+}
+
+.border-top {
+    border-top: 1px solid #eeeeee;
+}
+
+.gradient__background {
+    background-image: linear-gradient(to right bottom,#f2d6fa, #ffcff0, #ffcbd2, #ffd1a9);
+}
