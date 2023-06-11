@@ -57,9 +57,9 @@ const Header = () => {
     };
 
     return (
-        <header className="h-14 bg-zinc-800">
+        <header className="h-14">
             <div className="flex justify-between items-center h-full mx-10">
-                <Link to={data ? '/dashboard' : '/'} className="text-white text-lg btn-normal">Goodwill Credit</Link>
+                <Link to={data ? '/dashboard' : '/'} className="text-lg btn-normal">Goodwill Credit</Link>
                 {renderContent()}
             </div>
         </header>

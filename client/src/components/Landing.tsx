@@ -1,9 +1,11 @@
 import VolunteerImage from "../img/volunteer.png";
+import BackgroundImage from "../img/landingbackground.jpeg";
 
 const Landing = () => {
     console.log("In Landing component");
     return (
-        <main className="flex justify-center flex-grow min-h-full">
+        <main className="bg_landing flex-grow min-h-full">
+
             <div className="landing_quote flex flex-col items-center gap-5">
                 <img className="max-w-sm mt-10" src={VolunteerImage} alt="Volunteer" />           
                 <blockquote className="text-4xl flex flex-col items-center justify-center gap-3 mb-5">
