@@ -16,7 +16,7 @@
     .btn-normal {
         @apply
         bg-transparent
-        text-white
+        text-black
         hover:text-primary-purple
         active:text-primary-purple-dark
         active:translate-y-px
@@ -46,6 +46,8 @@
     border-top: 1px solid #eeeeee;
 }
 
-.gradient__background {
-    background-image: linear-gradient(to right bottom,#f2d6fa, #ffcff0, #ffcbd2, #ffd1a9);
+.bg_landing {
+    background-image: url('./img/landingbackground.jpeg');
+    background-size: cover;
+    background-position: center;
 }
