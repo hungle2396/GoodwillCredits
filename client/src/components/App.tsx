@@ -10,8 +10,6 @@ import Copyright from "./Copyright";
 import ProtectedRoute from "./ProtectedRoute";
 
 const App = () => {
-
-    console.log("In the App Component");
     return (
         <div className="flex flex-col min-h-screen">
             <BrowserRouter>
