@@ -1,4 +1,4 @@
-import VolunteerImage from "../img/volunteer.png";
+import VolunteerImage from "../../UI/img/volunteer.png";
 
 const Landing = () => {
     console.log("In Landing component");

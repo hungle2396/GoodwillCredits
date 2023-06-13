@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from "react-router-dom";
-import { useFetchUserQuery, useUserLoginMutation } from '../redux/store';
-import GoogleImage from "../img/google.png";
+import { useFetchUserQuery, useUserLoginMutation } from '../../redux/store';
+import GoogleImage from "../../UI/img/google.png";
 
 const Login = () => {
   console.log("In Login Component");
@@ -57,15 +57,15 @@ const Login = () => {
         <h2 className="text-center text-4xl font-semibold">Log in</h2>
       {registrationError && <div>{registrationError}</div>}
 
-        <div className="login__container flex flex-col mt-10 relative">
-          <button className="flex items-center justify-center gap-3 w-full btn-gradient-border text-primary-purple bg-green-300 py-2 px-8 text-center">
+        <div className="flex flex-col mt-10">
+          <button className="spread_animation flex items-center justify-center gap-3 w-full btn-gradient-border text-primary-purple bg-green-300 py-2 px-8 text-center">
             <a href="/auth/google">Login with Google</a>
             <img className="w-5" src={GoogleImage} alt="google icon" />
           </button>
 
           <div className="line-grey"></div>
 
-          <form className="form flex flex-col" onSubmit={handleLogin}>
+          <form className="form flex flex-col mb-10" onSubmit={handleLogin}>
             <div className="field-group flex flex-col mb-5">
               <label className="label" htmlFor="email">Email</label>
               <input
@@ -80,7 +80,7 @@ const Login = () => {
               />
             </div>
             
-            <div className="field-group flex flex-col mb-5">
+            <div className="field-group flex flex-col mb-10">
               <label className="label" htmlFor="password">Password</label>
               <input
                 className="input"
@@ -98,6 +98,8 @@ const Login = () => {
               {isLoading ? 'Logging in' : 'Login'}
             </button>
           </form>
+
+          <div>Don't have an account? <a className="ml-1 col text-blue-500" href="/register">Sign up</a></div>
         </div>
         
       

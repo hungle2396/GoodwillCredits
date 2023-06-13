@@ -1,5 +1,5 @@
 import { Navigate } from "react-router-dom";
-import { useFetchUserQuery } from "../redux/store";
+import { useFetchUserQuery } from "../../redux/store";
 
 const ProtectedRoute = ({ element }: protectedRouteProps) => {
     console.log("In Protected Route Component");
