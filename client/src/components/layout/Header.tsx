@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { useFetchUserQuery } from "../redux/store";
+import { useFetchUserQuery } from "../../redux/store";
 import { useLocation } from "react-router-dom";
 
 const Header = () => {
@@ -35,7 +35,7 @@ const Header = () => {
                         {location.pathname !== "/register" && (
                             <li>
                             <a className="btn-primary" href="/register">
-                                Register
+                                Sign up
                             </a>
                         </li>
                         )}

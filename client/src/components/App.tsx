@@ -1,30 +1,14 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Header from "./Header";
-import Register from "./Register";
-import Login from "./Login";
-import Dashboard from "./Dashboard";
-import Landing from "./Landing";
-import About from "./About";
-import Contact from "./Contact";
-import Copyright from "./Copyright";
-import ProtectedRoute from "./ProtectedRoute";
+import { BrowserRouter} from "react-router-dom";
+import Header from "./layout/Header";
+import Copyright from "./layout/Copyright";
+import ClientRoutes from "./Routes/ClientRoutes";
 
 const App = () => {
     return (
         <div className="flex flex-col min-h-screen">
             <BrowserRouter>
                 <Header />
-                <Routes>
-                    <Route path="/" element={<Landing />} />
-                    <Route path="/about" element={<About />} />
-                    <Route path="/contact" element={<Contact />} />
-                    <Route path="/register" element={<Register />} />
-                    <Route path="/login" element={<Login />} />
-                    <Route 
-                        path="/dashboard" element={<ProtectedRoute element={<Dashboard />} />}    
-                    />
-                    
-                </Routes>
+                    <ClientRoutes />
                 <Copyright />
             </BrowserRouter>
         </div>

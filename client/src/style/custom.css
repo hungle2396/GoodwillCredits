@@ -1,28 +1,3 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
-@layer components {
-    .btn-primary {
-        @apply 
-        py-2 px-8 
-        bg-primary-purple hover:bg-primary-purple-light
-        text-white
-        rounded-md
-        active:bg-primary-purple-dark active:translate-y-px
-        ;
-    }
-
-    .btn-normal {
-        @apply
-        bg-transparent
-        text-black
-        hover:text-primary-purple
-        active:text-primary-purple-dark
-        active:translate-y-px
-    }
-}
-
 .input {
     border-bottom: 1px solid #e2e2e2;
     background-color: transparent;
@@ -51,7 +26,7 @@
 }
 
 .bg_landing {
-    background-image: url('./img/landingbackground.jpeg');
+    background-image: url('../UI/img/blue_blurry_bg.jpg');
     -o-background-size: 80rem;
     -webkit-background-size: 80rem;
     -moz-background-size: 80rem;
@@ -72,4 +47,16 @@
     border-top: 1.5px solid #eeeeee;
     margin: 2rem auto;
     width: 90%;
+}
+
+.spread_animation {
+    transition: transform 0.2s ease;
+}
+
+.spread_animation:hover img {
+    transform: translateX(3px);
+}
+
+.spread_animation:hover a {
+    transform: translateX(-3px);
 }
