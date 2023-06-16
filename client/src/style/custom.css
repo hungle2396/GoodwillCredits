@@ -60,3 +60,7 @@
 .spread_animation:hover a {
     transform: translateX(-3px);
 }
+
+.shadow-box {
+    box-shadow: 0 3px 10px rgb(0,0,0,0.2);
+}

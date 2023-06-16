@@ -1,7 +1,7 @@
-
+const Event = require("./Event");
 
 module.exports = (sequelize, DataTypes) => {
-    const Users = sequelize.define("Users", {
+    const User = sequelize.define("User", {
         id: {
             primaryKey: true,
             type: DataTypes.UUID,
@@ -54,5 +54,5 @@ module.exports = (sequelize, DataTypes) => {
         }
     });
 
-    return Users;
+    return User;
 };

@@ -6,6 +6,7 @@ import Register from "../layout/Register";
 import Login from "../layout/Login";
 import ProtectedRoute from "./ProtectedRoute";
 import Dashboard from "../layout/Dashboard";
+import UserSetting from "../layout/UserSetting";
 
 const ClientRoutes = () => {
     return (
@@ -16,7 +17,10 @@ const ClientRoutes = () => {
             <Route path="/register" element={<Register />} />
             <Route path="/login" element={<Login />} />
             <Route 
-                path="/dashboard" element={<ProtectedRoute element={<Dashboard />} />}    
+                path="/dashboard" element={<ProtectedRoute element={<Dashboard />} />}
+            />
+            <Route 
+                path="/usersetting" element={<ProtectedRoute element={<UserSetting />} />}
             />
         </Routes>
     )
