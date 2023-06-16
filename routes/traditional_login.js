@@ -1,6 +1,6 @@
 const passport = require('passport');
 const bcrypt = require('bcrypt');
-const Users = require("../models/index")["Users"];
+const User = require("../models/index")["User"];
 
 module.exports = (app) => {
     // Register a new user
@@ -10,7 +10,7 @@ module.exports = (app) => {
         const { first_name, last_name, email, password } = req.body;
       
         // Check if the user already exists in the database
-        const existingUser = await Users.findOne({
+        const existingUser = await User.findOne({
             where: { email: email }
         });
 
@@ -21,7 +21,7 @@ module.exports = (app) => {
 
         try {
             const hashedPassword = await bcrypt.hash(password, 10);
-            const newUser = await Users.create({
+            const newUser = await User.create({
                 first_name: first_name,
                 last_name: last_name,
                 email: email,

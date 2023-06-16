@@ -1,4 +1,4 @@
-const Users = require("../models/index")["Users"];
+const User = require("../models/index")["User"];
 const bcrypt = require("bcrypt");
 const GoogleStrategy = require("passport-google-oauth20").Strategy;
 const LocalStrategy = require("passport-local").Strategy;
@@ -14,7 +14,7 @@ module.exports = (passport) => {
 
     passport.deserializeUser( async (id, done) => {
         try {
-            const user = await Users.findByPk(id);
+            const user = await User.findByPk(id);
             done(null, user.get());
         } catch (err) {
             done(err, null)
@@ -33,7 +33,7 @@ module.exports = (passport) => {
             async (req, email, password, done) => {
                 console.log("trying to log in as ", email);
 
-                const user = await Users.findOne({
+                const user = await User.findOne({
                     where: { email: email }
                 });
 
@@ -82,7 +82,7 @@ module.exports = (passport) => {
             console.log(profile);
             try {
                 // Check if the user already exists in the database
-                const existingUser = await Users.findOne({
+                const existingUser = await User.findOne({
                     where: { google_id: profile.id, email: profile.emails[0].value }
                 });
     
@@ -94,7 +94,7 @@ module.exports = (passport) => {
     
                 console.log(`user doesn't exist in the database, creating a new one`);
                 // User does not exist, create new user
-                const newUser = await Users.create({
+                const newUser = await User.create({
                     first_name: profile.name.givenName,
                     last_name: profile.name.familyName,
                     email: profile.emails[0].value,

@@ -13,7 +13,7 @@ const Landing = () => {
                     <h1>Welcome To Goodwill Credit!</h1>
                 </blockquote>
 
-                <button className="btn-primary py-3 px-12 text-2xl"><a href="/login" >See my scores</a></button>
+                <button className="btn-primary py-3 px-12 text-2xl"><a href="/login">See my scores</a></button>
             </div>
         </main>
     )

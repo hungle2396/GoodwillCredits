@@ -1,6 +1,18 @@
 // Associations
 
 module.exports = (db) => {
-    db.permissions.hasMany(db.users);
-    db.users.belongsTo(db.permissions, { foreignKey: "permission_id" });
+
+    // User and Event
+    // A user can be a host of many events
+    // An event can only have to host
+    // one to many relationship
+    db.User.hasMany(db.Event, { foreignKey: 'host_id' });
+    db.Event.belongsTo(db.User, { foreignKey: 'host_id' });
+
+    // Associate UserEvent
+    // A user can have many events
+    // An event can have many users in it
+    // many to many relationship
+    db.User.belongsToMany(db.Event, { through: db.UserEvent, foreignKey: 'user_id' });
+    db.Event.belongsToMany(db.User, { through: db.UserEvent, foreignKey: 'event_id' });
 }

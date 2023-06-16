@@ -1,12 +1,35 @@
+import { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import { useFetchUserQuery } from "../../redux/store";
 import { useLocation } from "react-router-dom";
+import UserDropDown from "./UserDropDown";
+import CuteDog from "../../UI/img/cute_dog.jpg";
 
 const Header = () => {
     console.log("In the header component");
     const { data, isFetching } = useFetchUserQuery();
     const location = useLocation();
 
+    const [isDropDownOpen, setIsDropDownOpen] = useState(false);
+    const dropDownRef = useRef<HTMLDivElement>(null);
+
+    const handleDropDownOpen = () => {
+        setIsDropDownOpen((prevState) => !prevState);
+    }
+
+    const handleDropDownOutside = (event: MouseEvent) => {
+        if (dropDownRef.current && !dropDownRef.current.contains(event.target as Node)) {
+            setIsDropDownOpen(false);
+        }
+    }
+
+    useEffect(() => {
+        document.addEventListener('click', handleDropDownOutside);
+
+        return () => {
+            document.removeEventListener('click', handleDropDownOutside);
+        }
+    }, []);
 
     console.log("location: ", location);
 
@@ -51,7 +74,18 @@ const Header = () => {
                 )
             default:
                 return (
-                    <a className="btn-normal" href="/api/logout">Log out</a>
+                    <div 
+                        className="user_profile--container flex items-center gap-4 relative"
+                        onClick={handleDropDownOpen}
+                        ref={dropDownRef}
+                    >
+                        <img className="w-10 h-10 rounded-full" src={CuteDog} alt="dog" />
+                        {/* <a className="btn-normal" href="/api/logout">Log out</a> */}
+                        
+                        <p className="font-medium">{data.first_name}</p>
+
+                        {isDropDownOpen && <UserDropDown />}
+                    </div>
                 )
         }
     };
@@ -59,7 +93,7 @@ const Header = () => {
     return (
         <header className="h-14">
             <div className="flex justify-between items-center h-full mx-10 border-bottom">
-                <Link to={data ? '/dashboard' : '/'} className="text-lg btn-normal">Goodwill Credit</Link>
+                <Link to={data ? '/dashboard' : '/'} className="text-lg btn-normal font-medium">Goodwill Credit</Link>
                 {renderContent()}
             </div>
         </header>
