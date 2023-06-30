@@ -7,7 +7,7 @@ const Landing = () => {
         <main className="bg_landing flex-grow min-h-full">
 
             <div className="landing_quote flex flex-col items-center gap-5">
-                <img className="max-w-sm mt-10" src={AnimatedPiggyBank} alt="Volunteer" />           
+                <img className="max-w-md mt-10" src={AnimatedPiggyBank} alt="Volunteer" />           
                 {/* <AnimatedPiggyBank className='w-96'/> */}
                 <blockquote className="text-4xl flex flex-col items-center justify-center gap-3 mb-5">
                     <h1>Score your actions, elevate your life</h1>
