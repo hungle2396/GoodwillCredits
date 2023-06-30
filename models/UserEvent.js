@@ -16,8 +16,8 @@ module.exports = (sequelize, DataTypes) => {
             foreignKey: true,
             allowNull: false
         },
-        is_host: {
-            type: DataTypes.BOOLEAN,
+        host_id: {
+            type: DataTypes.UUID,
             allowNull: false,
             defaultValue: false
         }
