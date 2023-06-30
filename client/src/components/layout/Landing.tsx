@@ -1,4 +1,5 @@
-import VolunteerImage from "../../UI/img/volunteer.png";
+import { ReactComponent as VolunteerImage } from "../../UI/img/volunteer.svg";
+let AnimatedPiggyBank = require("../../UI/img/PiggyBank.gif");
 
 const Landing = () => {
     console.log("In Landing component");
@@ -6,7 +7,8 @@ const Landing = () => {
         <main className="bg_landing flex-grow min-h-full">
 
             <div className="landing_quote flex flex-col items-center gap-5">
-                <img className="max-w-sm mt-10" src={VolunteerImage} alt="Volunteer" />           
+                <img className="max-w-sm mt-10" src={AnimatedPiggyBank} alt="Volunteer" />           
+                {/* <AnimatedPiggyBank className='w-96'/> */}
                 <blockquote className="text-4xl flex flex-col items-center justify-center gap-3 mb-5">
                     <h1>Score your actions, elevate your life</h1>
 

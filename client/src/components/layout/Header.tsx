@@ -14,19 +14,25 @@ const Header = () => {
     const dropDownRef = useRef<HTMLDivElement>(null);
 
     const handleDropDownOpen = () => {
+        console.log("In the handleDropDownOpen function");
         setIsDropDownOpen((prevState) => !prevState);
     }
 
     const handleDropDownOutside = (event: MouseEvent) => {
+        console.log("In the handleDropDownOutside function");
+        console.log("event target: ", event.target);
+        console.log("dropDownRef.current: ", dropDownRef.current);
         if (dropDownRef.current && !dropDownRef.current.contains(event.target as Node)) {
             setIsDropDownOpen(false);
         }
     }
 
     useEffect(() => {
+        console.log("Setting up event listener in useEffect!");
         document.addEventListener('click', handleDropDownOutside);
 
         return () => {
+            console.log("Cleaning up the event listener in useEffect!");
             document.removeEventListener('click', handleDropDownOutside);
         }
     }, []);
@@ -79,6 +85,7 @@ const Header = () => {
                         onClick={handleDropDownOpen}
                         ref={dropDownRef}
                     >
+                        <a href="/about">about</a>
                         <img className="w-10 h-10 rounded-full" src={CuteDog} alt="dog" />
                         {/* <a className="btn-normal" href="/api/logout">Log out</a> */}
                         
