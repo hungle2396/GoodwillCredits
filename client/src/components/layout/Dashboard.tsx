@@ -9,7 +9,7 @@ const Dashboard = () => {
     console.log(data);
     return (
         <main className="flex-grow">
-            
+            <button className=''>Create Event</button>
         </main>
     )
 };

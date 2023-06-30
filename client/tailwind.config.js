@@ -9,7 +9,12 @@ module.exports = {
         'primary-purple-light': '#c447e8',
         'primary-purple-dark': '#aa2ece',
         'purple-light-1': '#f8ebfc',
-        'purple-light-2': '#f2d6fa'
+        'purple-light-2': '#f2d6fa',
+        'secondary-blue': '#2388FF',
+        'secondary-green': '#42CB1A',
+        'secondary-red': '#E45C29',
+        'secondary-grey': '#7E7C7C',
+        'secondary-grey-light': '#d9d9d9'
       }
     },
   },
