@@ -10,13 +10,15 @@ const db = require("./models");
 const SequelizeStore = require("connect-session-sequelize")(session.Store);
 
 require("./routes/authenticated");
-const googleRoutes = require("./routes/google_login");
-const localLoginRoutes = require("./routes/traditional_login");
+const googleRoutes = require('./routes/google_login');
+const localLoginRoutes = require('./routes/traditional_login');
 
 const PORT = process.env.PORT || 5000;
 
 // Create the Express app
 const app = express();
+const eventRoutes = require('./routes/eventRoutes');
+
 
 // Enable CORS
 app.use(cors());
@@ -59,9 +61,14 @@ db.sequelize.sync().then(() => {
     })
 });
 
+
+// Routes
 googleRoutes(app);
 localLoginRoutes(app);
+app.use('/api/events', eventRoutes);
 
+
+// Heroku - Live setup
 if (process.env.NODE_ENV === "production") {
     // Express will serve up production assets
     // like our main.js file, or main.css file
