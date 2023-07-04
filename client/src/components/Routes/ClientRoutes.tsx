@@ -7,6 +7,8 @@ import Login from "../layout/Login";
 import ProtectedRoute from "./ProtectedRoute";
 import Dashboard from "../layout/Dashboard";
 import UserSetting from "../layout/UserSetting";
+import People from "../layout/People";
+import Logs from "../layout/Logs";
 
 const ClientRoutes = () => {
     return (
@@ -21,6 +23,14 @@ const ClientRoutes = () => {
             />
             <Route 
                 path="/usersetting" element={<ProtectedRoute element={<UserSetting />} />}
+            />
+
+            <Route 
+                path="/people" element={<ProtectedRoute element={<People />} />}
+            />
+
+            <Route 
+                path="/logs" element={<ProtectedRoute element={<Logs />} />}
             />
         </Routes>
     )

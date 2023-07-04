@@ -2,14 +2,14 @@
 
 module.exports = (db) => {
 
-    // User and Event
+    // ** USER and EVENT **
     // A user can be a host of many events
     // An event can only have to host
     // one to many relationship
     db.User.hasMany(db.Event, { foreignKey: 'host_id' });
     db.Event.belongsTo(db.User, { foreignKey: 'host_id' });
 
-    // Associate UserEvent
+    // ** USER | USEREVENT | EVENT
     // A user can have many events
     // An event can have many users in it
     // many to many relationship

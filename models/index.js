@@ -42,9 +42,6 @@ fs
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;
 
-// db.permission.hasMany(db.user);
-// db.user.belongsTo(db.permission);
-
 const association = require("./associations/associations");
 association(db);
 

@@ -28,4 +28,10 @@
         active:text-primary-purple-dark
         active:translate-y-px
     }
+
+    .bg-black-transparent {
+        @apply
+        bg-black
+        bg-opacity-20
+    }
 }
