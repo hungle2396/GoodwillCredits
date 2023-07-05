@@ -8,7 +8,7 @@ const eventApi = createApi({
     tagTypes: ['Event'],
     endpoints(builder) {
         return {
-            fetchEvents: builder.query({
+            fetchEvents: builder.query<any, void>({
                 providesTags: ['Event'],
                 query: () => {
                     return {

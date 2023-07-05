@@ -27,12 +27,14 @@ const EventForm = ({ onClose }: any) => {
 
         console.log('Event Info being submitting soon: ', Event);
         createEvent(newEvent);
+
+        onClose(false);
     };
 
     return ReactDOM.createPortal (
         <div className='w-full'>
             <div className='absolute inset-0 bg-black-transparent'></div>
-            <div className='absolute inset-0 flex flex-col items-center mt-20'>
+            <div className='absolute inset-0 flex flex-col items-center mt-28'>
                 <div className='w-[40rem] bg-white p-10 rounded-md relative'>
                     <CloseIcon className='w-8 h-8 absolute top-3 right-3 hover:cursor-pointer' onClick={onClose} />
                     

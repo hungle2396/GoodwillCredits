@@ -22,4 +22,9 @@ export {
     useFetchUserQuery,
     useUserLoginMutation,
     useUserRegistrationMutation,
-} from "./api/authApi";
+} from './api/authApi';
+
+export {
+    useFetchEventsQuery,
+    useCreateEventMutation
+} from './api/eventApi';
