@@ -29,6 +29,16 @@ const Dashboard = () => {
 
     console.log(eventsData);
 
+    const limit_words = (paragraph: string) => {
+        const words = paragraph.split(" ");
+        
+        if (words.length > 20) {
+            return words.splice(0, 20).join(" ") + "...";
+        }
+
+        return paragraph;
+    };
+
     let renderedEvents = null;
 
     if (isLoading) {
@@ -39,7 +49,7 @@ const Dashboard = () => {
             return (
                 <li 
                     key={event.id}
-                    className='flex items-center shadow-box rounded-md px-5 py-5'>
+                    className='flex items-center shadow-box rounded-md px-5 py-5 h-36 my-1 mx-5'>
                     <div className='flex-shrink-0 flex flex-col items-center gap-1'>
                         <img src={PreviewImage} className='w-14 h-14 rounded-full' alt='test cute dog'/>
     
@@ -51,7 +61,7 @@ const Dashboard = () => {
 
                         <p>{event.start_date} - {event.end_date}</p>
 
-                        <p className='mt-2'>{event.description}</p>
+                        <p className='mt-2'>{limit_words(event.description)}</p>
                     </div>
     
                     <div className='flex flex-col items-center gap-1 flex-shrink-0 ml-auto border-transparent border-l-secondary-grey-light border pl-5'>
@@ -93,7 +103,7 @@ const Dashboard = () => {
                 </div>
                 
 
-                <ul className='flex flex-col my-5 gap-5'>
+                <ul className='flex flex-col my-5 gap-5 max-h-[44rem] overflow-y-scroll'>
                     {renderedEvents}
                 </ul>
             </div>
