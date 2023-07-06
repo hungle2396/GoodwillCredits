@@ -1,3 +1,7 @@
+body {
+    overflow: hidden;
+}
+
 .input {
     border-bottom: 1px solid #e2e2e2;
     background-color: transparent;
@@ -63,4 +67,27 @@
 
 .shadow-box {
     box-shadow: 0 3px 10px rgb(0,0,0,0.2);
+}
+
+
+/* Rainbow animation */
+
+/* #StarsIcon {
+    animation: rainbow-animation 6s infinite;   
+} */
+
+.rainbow {
+    animation: rainbow-animation 6s infinite alternate;
+}
+
+@keyframes rainbow-animation {
+    0% { fill:#aa2ece}
+    14% { fill: #ff0099}
+    28% { fill: #ff3854}
+    42% { fill: #ef761a }
+    57%  { fill: #c3a000; }
+    71%  { fill: #98b22c; }
+    80%  { fill: #66bf5b; }
+    90% { fill: #00c1bb; }
+    100% { fill: #2388ff; }
 }
