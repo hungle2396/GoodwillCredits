@@ -26,11 +26,21 @@ const eventApi = createApi({
                         body: event
                     }
                 }
+            }),
+            editEvent: builder.mutation({
+                invalidatesTags: ['Event'],
+                query: ({ eventId, event }) => {
+                    return {
+                        url: `/events/${eventId}`,
+                        method: 'PATCH',
+                        body: event
+                    }
+                }
             })
         }
     }
 });
 
-export const { useFetchEventsQuery, useCreateEventMutation } = eventApi;
+export const { useFetchEventsQuery, useCreateEventMutation, useEditEventMutation } = eventApi;
 
 export { eventApi };
