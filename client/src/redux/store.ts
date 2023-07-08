@@ -26,5 +26,6 @@ export {
 
 export {
     useFetchEventsQuery,
-    useCreateEventMutation
+    useCreateEventMutation,
+    useEditEventMutation
 } from './api/eventApi';

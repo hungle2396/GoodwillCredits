@@ -69,25 +69,38 @@ body {
     box-shadow: 0 3px 10px rgb(0,0,0,0.2);
 }
 
-
 /* Rainbow animation */
-
-/* #StarsIcon {
-    animation: rainbow-animation 6s infinite;   
-} */
 
 .rainbow {
     animation: rainbow-animation 6s infinite alternate;
 }
 
 @keyframes rainbow-animation {
-    0% { fill:#aa2ece}
-    14% { fill: #ff0099}
-    28% { fill: #ff3854}
-    42% { fill: #ef761a }
-    57%  { fill: #c3a000; }
-    71%  { fill: #98b22c; }
-    80%  { fill: #66bf5b; }
-    90% { fill: #00c1bb; }
-    100% { fill: #2388ff; }
+    10% { fill: #D65DB1 }
+    20% { fill: #FF6F91 }
+    40%  { fill: #FF9671; }
+    60%  { fill: #FFC75F; }
+    80% { fill: #2388FF; }
+    100%  { fill: #66bf5b; }
 }
+
+
+/* Scrollbar */
+.hide-scrollbar {
+    overflow-y: auto;
+}
+
+* {
+    scrollbar-width: thin;
+    scrollbar-color: blue;
+  }
+  
+  /* Chrome, Edge, and Safari */
+  *::-webkit-scrollbar {
+    width: 3px;
+  }
+  
+  *::-webkit-scrollbar-thumb {
+    border-radius: 20px;
+    border: 5px solid #bebebe;
+  }

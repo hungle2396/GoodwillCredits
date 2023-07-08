@@ -85,7 +85,6 @@ const Header = () => {
                         onClick={handleDropDownOpen}
                         ref={dropDownRef}
                     >
-                        <a href="/about">about</a>
                         <img className="w-10 h-10 rounded-full" src={CuteDog} alt="dog" />
                         {/* <a className="btn-normal" href="/api/logout">Log out</a> */}
                         
