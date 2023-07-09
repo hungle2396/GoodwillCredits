@@ -1,23 +1,34 @@
-import { Navigate } from "react-router-dom";
-import { useFetchUserQuery } from "../../redux/store";
+import { Navigate, useLocation, Outlet } from "react-router-dom";
 
-const ProtectedRoute = ({ element }: protectedRouteProps) => {
+const ProtectedRoute = ({ user, children }: protectedRouteProps) => {
+    const location = useLocation();
     console.log("In Protected Route Component");
-    const { data, isFetching } = useFetchUserQuery();
 
-    console.log("ProtectedRoute Data: ", data);
-    if (isFetching) {
-        return <div>loading...</div>
-    }
+    console.log("ProtectedRoute Data: ", user);
 
-    if (!data) {
-        // console.log("user is missing");
-        // User is not authenticated, redirect to the login page
+    if (!user) {
+        
+        // If the user is not authenticated, and trying to go to landing route
+        // Redirect to landing route
+        if (location.pathname === '/') {
+            return <Navigate to='/landing' />;
+        }
+
+        // User is not authenticated, and trying to go to Other routes
+        // redirect to the login page
         return <Navigate to='/login' />;
+    } else if (user) {
+        console.log('user does exist');
+        // If the user logged in, and going to the landing page
+        // Redirect the user to dashboard instead
+        if (location.pathname === '/') {
+            return <Navigate to='/dashboard' />
+        }
+    } else {
+        return <Navigate to='/error' />
     }
 
-
-    return <>{element}</>;
+    return children ? children : <Outlet />;
 };
 
 export default ProtectedRoute;
