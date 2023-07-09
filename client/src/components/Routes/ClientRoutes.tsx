@@ -1,4 +1,4 @@
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useLocation } from "react-router-dom";
 import Landing from "../layout/Landing";
 import About from "../layout/About";
 import Contact from "../layout/Contact";
@@ -9,30 +9,37 @@ import Dashboard from "../layout/Dashboard";
 import UserSetting from "../layout/UserSetting";
 import People from "../layout/People";
 import Logs from "../layout/Logs";
+import Error from "../layout/Error";
+import Header from "../common/Header";
+import Copyright from "../common/Copyright";
 
-const ClientRoutes = () => {
+const ClientRoutes = ( { user }: clientRoutesProp ) => {
+    const location = useLocation();
+    const isErrorPage = location.pathname === '/error';
+
     return (
-        <Routes>
-            <Route path="/" element={<Landing />} />
-            <Route path="/about" element={<About />} />
-            <Route path="/contact" element={<Contact />} />
-            <Route path="/register" element={<Register />} />
-            <Route path="/login" element={<Login />} />
-            <Route 
-                path="/dashboard" element={<ProtectedRoute element={<Dashboard />} />}
-            />
-            <Route 
-                path="/usersetting" element={<ProtectedRoute element={<UserSetting />} />}
-            />
+        <>
+            {!isErrorPage && <Header />}
+            <Routes>
+                <Route path="/landing" element={<Landing />} />
+                <Route path="/about" element={<About />} />
+                <Route path="/contact" element={<Contact />} />
+                <Route path="/register" element={<Register />} />
+                <Route path="/login" element={<Login />} />
 
-            <Route 
-                path="/people" element={<ProtectedRoute element={<People />} />}
-            />
+                <Route element={<ProtectedRoute user={user} />}>
+                    <Route path='/' element={<Landing />} />
+                    <Route path='/dashboard' element={<Dashboard />} />
+                    <Route path='/usersetting' element={<UserSetting />} />
+                    <Route path='/people' element={<People />} />
+                    <Route path='/logs' element={<Logs />} />
+                </Route>
 
-            <Route 
-                path="/logs" element={<ProtectedRoute element={<Logs />} />}
-            />
-        </Routes>
+                {/* Error Page */}
+                <Route path='*' element={<Error />} />
+            </Routes>
+            {!isErrorPage && <Copyright />}
+        </>
     )
 }
 

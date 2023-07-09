@@ -1,6 +1,11 @@
+interface clientRoutesProp {
+    user: string
+}
+
 
 interface protectedRouteProps {
-    element: React.ReactNode
+    children?: ReactNode,
+    user: string
 }
 
 interface eventProp {
