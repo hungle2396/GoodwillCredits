@@ -16,12 +16,12 @@ const Register = () => {
     const { refetch } = useFetchUserQuery();
     const [userRegistration, { isLoading }] = useUserRegistrationMutation();
 
-    // Redirect the user 
-    useEffect(() => {
-        if (data) {
-          navigate('/dashboard');
-        }
-    }, [data, navigate]);
+    // Redirect the user if the user already logged in
+    // useEffect(() => {
+    //     if (data) {
+    //       navigate('/dashboard');
+    //     }
+    // }, [data, navigate]);
 
     const handleRegister = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();

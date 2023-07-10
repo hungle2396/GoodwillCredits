@@ -1,10 +1,11 @@
-import { Routes, Route, useLocation } from "react-router-dom";
+import React, { useEffect } from 'react';
+import { Routes, Route, useLocation, useNavigate } from "react-router-dom";
 import Landing from "../layout/Landing";
 import About from "../layout/About";
 import Contact from "../layout/Contact";
 import Register from "../layout/Register";
 import Login from "../layout/Login";
-import ProtectedRoute from "./ProtectedRoute";
+import ProtectedRoutes from "./ProtectedRoutes";
 import Dashboard from "../layout/Dashboard";
 import UserSetting from "../layout/UserSetting";
 import People from "../layout/People";
@@ -14,21 +15,18 @@ import Header from "../common/Header";
 import Copyright from "../common/Copyright";
 
 const ClientRoutes = ( { user }: clientRoutesProp ) => {
-    const location = useLocation();
-    const isErrorPage = location.pathname === '/error';
-
     return (
         <>
-            {!isErrorPage && <Header />}
+            <Header />
             <Routes>
-                <Route path="/landing" element={<Landing />} />
-                <Route path="/about" element={<About />} />
-                <Route path="/contact" element={<Contact />} />
-                <Route path="/register" element={<Register />} />
-                <Route path="/login" element={<Login />} />
+                {/* <Route path='/' element={<Landing />} /> */}
+                <Route path='/about' element={<About />} />
+                <Route path='/contact' element={<Contact />} />
+                <Route path='/' element={<Landing />} />
 
-                <Route element={<ProtectedRoute user={user} />}>
-                    <Route path='/' element={<Landing />} />
+                <Route element={<ProtectedRoutes user={user} />}>
+                    <Route path='/login' element={<Login />} />
+                    <Route path='/register' element={<Register />} />
                     <Route path='/dashboard' element={<Dashboard />} />
                     <Route path='/usersetting' element={<UserSetting />} />
                     <Route path='/people' element={<People />} />
@@ -38,7 +36,7 @@ const ClientRoutes = ( { user }: clientRoutesProp ) => {
                 {/* Error Page */}
                 <Route path='*' element={<Error />} />
             </Routes>
-            {!isErrorPage && <Copyright />}
+            <Copyright />
         </>
     )
 }

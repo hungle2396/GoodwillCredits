@@ -2,8 +2,7 @@ interface clientRoutesProp {
     user: string
 }
 
-
-interface protectedRouteProps {
+interface protectedRoutesProps {
     children?: ReactNode,
     user: string
 }

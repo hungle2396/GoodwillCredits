@@ -3,7 +3,7 @@ let AnimatedPiggyBank = require("../../UI/img/PiggyBank.gif");
 const Landing = () => {
     console.log("In Landing component");
     return (
-        <main className="bg_landing flex-grow min-h-full">
+        <main className="bg_landing min-h-full">
 
             <div className="landing_quote flex flex-col items-center gap-5">
                 <img className="max-w-md mt-10" src={AnimatedPiggyBank} alt="Piggy Bank" />           

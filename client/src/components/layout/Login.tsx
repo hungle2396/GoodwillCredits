@@ -16,13 +16,13 @@ const Login = () => {
   // If the user already authenticated
   // Redirect the user to dashboard route
 
-  useEffect(() => {
-    if (data) {
-      navigate('/dashboard');
-    } else {
-      console.error(error);
-    }
-  }, [data, navigate, error]);
+  // useEffect(() => {
+  //   if (data) {
+  //     navigate('/dashboard');
+  //   } else {
+  //     console.error(error);
+  //   }
+  // }, [data, navigate, error]);
 
   const handleLogin = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();

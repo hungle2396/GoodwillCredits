@@ -6,6 +6,7 @@ const Logs = () => {
         
         <div>
             <Navigation isActive='logs' />
+            Logs
         </div>
     )
 };
