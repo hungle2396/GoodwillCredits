@@ -5,6 +5,7 @@ const People = () => {
     return (
         <div>
             <Navigation isActive='people' />
+            People
         </div>
     )
 };

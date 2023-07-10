@@ -1,6 +1,4 @@
 import { BrowserRouter } from 'react-router-dom';
-import Header from './common/Header';
-import Copyright from './common/Copyright';
 import ClientRoutes from './Routes/ClientRoutes';
 import { useFetchUserQuery } from '../redux/store';
 
