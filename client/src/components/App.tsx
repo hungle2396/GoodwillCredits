@@ -1,7 +1,8 @@
 import { BrowserRouter } from 'react-router-dom';
 import ClientRoutes from './routes/ClientRoutes';
 import { useFetchUserQuery } from '../redux/store';
-
+import Header from './common/Header';
+import Copyright from './common/Copyright';
 
 const App = () => {
     const { data, isLoading } = useFetchUserQuery();
@@ -18,7 +19,9 @@ const App = () => {
     return (
         <div className="flex flex-col min-h-screen mx-20">
             <BrowserRouter>
+                <Header />
                 <ClientRoutes user={userId}  />
+                <Copyright />
             </BrowserRouter>
         </div>
     )

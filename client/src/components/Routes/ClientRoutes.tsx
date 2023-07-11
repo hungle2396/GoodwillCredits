@@ -16,8 +16,7 @@ import Copyright from "../common/Copyright";
 
 const ClientRoutes = ( { user }: clientRoutesProp ) => {
     return (
-        <>
-            <Header />
+            
             <Routes>
                 <Route path='/' element={<Landing />} />
                 <Route path='/about' element={<About />} />
@@ -28,7 +27,7 @@ const ClientRoutes = ( { user }: clientRoutesProp ) => {
                 <Route path='/people' element={<People />} />
                 <Route path='/logs' element={<Logs />} />
 
-                
+
                 {/* <Route element={<ProtectedRoutes user={user} />}>
                     <Route path='/' element={<Landing />} />
                     <Route path='/login' element={<Login />} />
@@ -43,8 +42,7 @@ const ClientRoutes = ( { user }: clientRoutesProp ) => {
                 {/* Error Page */}
                 {/* <Route path='*' element={<Error />} /> */}
             </Routes>
-            <Copyright />
-        </>
+            
     )
 }
 
