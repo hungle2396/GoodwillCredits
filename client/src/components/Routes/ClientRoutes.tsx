@@ -1,5 +1,5 @@
-import React, { useEffect } from 'react';
-import { Routes, Route, useLocation, useNavigate } from "react-router-dom";
+import React from 'react';
+import { Routes, Route } from "react-router-dom";
 import Landing from "../layout/Landing";
 import About from "../layout/About";
 import Contact from "../layout/Contact";
@@ -34,7 +34,7 @@ const ClientRoutes = ( { user }: clientRoutesProp ) => {
 
                 
                 {/* Error Page */}
-                <Route path='*' element={<Error />} />
+                {/* <Route path='*' element={<Error />} /> */}
             </Routes>
             <Copyright />
         </>
