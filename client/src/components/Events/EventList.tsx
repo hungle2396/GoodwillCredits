@@ -1,18 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import { useFetchEventsQuery } from '../../redux/store';
 
 import PreviewImage from '../../UI/img/cute_dog.jpg';
 import HappyKid from '../../UI/img/Happy_Kid.jpg';
 import EventShow from './EventShow';
 
+import { useFetchEventsQuery } from '../../redux/store';
 
 const EventList = () => {
     const [activeEvent, setActiveEvent] = useState<string>('');
-    const { data: eventsData, isError, isLoading } = useFetchEventsQuery();
-
-    const handleActiveEvent = (eventId: string) => {
-        setActiveEvent(eventId);
-    };
+    const { data: eventsData, isLoading, isError } = useFetchEventsQuery();
 
     useEffect(() => {
         if (eventsData && eventsData.length > 0) {
@@ -20,25 +16,25 @@ const EventList = () => {
         }
     }, [eventsData]);
 
+    console.log('events: ', eventsData);
     let renderedEvents = null;
 
     if (isLoading) {
         renderedEvents = <p>Loading...</p>
     } else if (eventsData && Array.isArray(eventsData)) {
         renderedEvents = eventsData.map((event: eventProp) => {
-            
-            const isActive = activeEvent === event.id ? 'text-white bg-primary-purple-dark' : '';
-            
             return ( 
-                <EventShow event={event} hostImage={PreviewImage} participantImage={HappyKid} onClickActive={handleActiveEvent} active={isActive} /> 
+                <EventShow event={event} hostImage={PreviewImage} participantImage={HappyKid} /> 
             )
         });
     }
 
     return (
-        <ul className='flex flex-col my-10 gap-3 max-h-[41rem] hide-scrollbar'>
-            {eventsData ? renderedEvents : 'No Event So Far, Please Create One.'}
-        </ul>
+        <div className="max-h-[46rem] hide-scrollbar py-2">
+            <ul className='flex flex-col gap-5'>
+                {eventsData && eventsData.length > 0 ? renderedEvents : <p className='text-2xl text-gray-400'>No Event So Far, Please Create One.</p>}
+            </ul>
+        </div>
     )
 };
 

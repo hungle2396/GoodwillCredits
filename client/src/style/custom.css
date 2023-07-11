@@ -87,7 +87,7 @@ body {
 
 /* Scrollbar */
 .hide-scrollbar {
-    overflow-y: auto;
+    overflow-y: scroll;
 }
 
 * {

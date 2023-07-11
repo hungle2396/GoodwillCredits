@@ -30,7 +30,7 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.ENUM('google', 'email'),
             allowNull: false
         },
-        idAdmin: {
+        isAdmin: {
             type: DataTypes.BOOLEAN,
             defaultValue: false
         },
