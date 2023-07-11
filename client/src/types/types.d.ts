@@ -7,6 +7,11 @@ interface protectedRoutesProps {
     user: string
 }
 
+interface eventListProp {
+    title: string,
+    data: eventProp[]
+}
+
 interface eventProp {
     id: string,
     name: string,

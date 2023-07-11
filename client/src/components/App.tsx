@@ -1,5 +1,5 @@
 import { BrowserRouter } from 'react-router-dom';
-import ClientRoutes from './Routes/ClientRoutes';
+import ClientRoutes from './routes/ClientRoutes';
 import { useFetchUserQuery } from '../redux/store';
 
 
@@ -11,13 +11,14 @@ const App = () => {
     }
 
     const userId = data?.id || '';
-
+     
+    console.log('data, ', data);
     // Check if the current route is the error page
 
     return (
-        <div className="flex flex-col min-h-screen mx-10">
+        <div className="flex flex-col min-h-screen mx-20">
             <BrowserRouter>
-                <ClientRoutes user={userId} />
+                <ClientRoutes user={userId}  />
             </BrowserRouter>
         </div>
     )

@@ -19,12 +19,11 @@ const ClientRoutes = ( { user }: clientRoutesProp ) => {
         <>
             <Header />
             <Routes>
-                {/* <Route path='/' element={<Landing />} /> */}
                 <Route path='/about' element={<About />} />
                 <Route path='/contact' element={<Contact />} />
-                <Route path='/' element={<Landing />} />
-
+                
                 <Route element={<ProtectedRoutes user={user} />}>
+                    <Route path='/' element={<Landing />} />
                     <Route path='/login' element={<Login />} />
                     <Route path='/register' element={<Register />} />
                     <Route path='/dashboard' element={<Dashboard />} />
@@ -33,6 +32,7 @@ const ClientRoutes = ( { user }: clientRoutesProp ) => {
                     <Route path='/logs' element={<Logs />} />
                 </Route>
 
+                
                 {/* Error Page */}
                 <Route path='*' element={<Error />} />
             </Routes>

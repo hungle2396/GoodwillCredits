@@ -1,65 +1,35 @@
 import React, { useState } from 'react';
-import EventForm from '../Events/EventForm';
+
+
 import Navigation from '../common/Navigation';
-
-import { ReactComponent as SearchIcon } from '../../UI/img/searchIcon.svg';
-
-import EventList from '../Events/EventList';
+import EventCreate from '../events/EventCreate';
+import EventList from '../events/EventList';
 
 const Dashboard = () => {
-    console.log("In the dashboard component");
-    const [showEventModal, setShowEventModal] = useState<boolean>(false);
-    const [eventSearch, setEventSearch] = useState<string>('');
-
-    const handleOpenEventModal = () => {
-        setShowEventModal(true);
-    }
-
-    const handleCloseEventModal = () => {
-        setShowEventModal(false);
-    }
-     
-
+    console.log('In the dashboard component');
+    
     return (
-        <main className="flex-grow relative">
-            {/* App Navigation */}
-            <Navigation isActive='events' />
+        <main className='flex-grow relative
+                         flex gap-5 my-5
+                        '
+        >
+            <div className='basis-1/5'>
+                <Navigation isActive='events' />
+            </div>
             
-            {/* Left Panel */}
-            <div className='w-1/2 flex flex-col my-5'>
-
+            <div className='basis-4/5
+                            flex flex-col gap-5
+                           '
+            >
+                <h1 className='text-3xl font-semibold ml-5'>Events</h1>
                 {/* Event Search and Create Event */}
-                <div className='w-full flex justify-between'>
-                    <div className='flex items-center rounded-md bg-secondary-grey-light p-2 w-96'>
-                        <SearchIcon className='w-4 h-4' />
-                        <input 
-                            className='event_search bg-transparent text-gray-600 outline-none mx-2'
-                            placeholder='Search Event'
-                            value={eventSearch}
-                            onChange={(event) => setEventSearch(event?.target.value)}
-                        />
-                    </div>
+                <EventCreate />
 
-                    <button 
-                        className='btn-blue rounded-md'
-                        onClick={handleOpenEventModal}
-                    >
-                    Create Event
-                    </button>
+                <div className='w-full flex flex-col'>
+                    {/* Display Event List */}
+                    <EventList />
                 </div>
-                
-                {/* Display Event List */}
-                <EventList />
-                
             </div>
-
-            {/* Right Panel */}
-            <div>
-
-            </div>
-
-            {/* Create Event Form */}
-            {showEventModal && <EventForm onClose={handleCloseEventModal} />}
         </main>
     )
 };
