@@ -18,7 +18,7 @@ const EventShow = ({ event, hostImage, participantImage }: any) => {
     return (
         <li 
             key={event.id}
-            className={`flex items-center shadow-box rounded-md px-5 mx-5 h-40 cursor-pointer`}
+            className={`flex items-center shadow-box rounded-md px-5 mx-5 h-[10rem] cursor-pointer`}
         >
             <div className='flex-shrink-0 flex flex-col items-center gap-1'>
                 <img src={hostImage} className='w-14 h-14 rounded-full' alt='test cute dog'/>
@@ -39,7 +39,7 @@ const EventShow = ({ event, hostImage, participantImage }: any) => {
 
             <div className='flex flex-col justify-center items-center gap-1 flex-shrink-0 ml-auto border-transparent border-l-secondary-grey-light border pl-5 h-full relative'>
                 {/* <StarsIcon className='w-5 h-5 star-icon' /> */}
-                <div className='flex gap-2 absolute top-1.5 right-[-0.5rem]'>
+                <div className='flex gap-2 absolute top-2 right-[-0.5rem]'>
                     <EditIcon className='w-4 h-4' />
                     <DeleteIcon className='w-4 h-4' />
                 </div>
