@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 
 
 import Navigation from '../common/Navigation';
-import EventCreate from '../eventsClient/EventCreate';
-import EventList from '../eventsClient/EventList';
+import EventCreate from '../events/EventCreate';
+import EventList from '../events/EventList';
 
 const Dashboard = () => {
     console.log('In the dashboard component');
