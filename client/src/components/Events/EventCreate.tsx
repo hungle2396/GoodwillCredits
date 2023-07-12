@@ -33,7 +33,7 @@ const EventCreate = () => {
             Create Event
             </button>
 
-            {/* Create Event Form */}
+            {/* Create Event Form Yes!*/}
             {showEventModal && <EventForm onClose={handleCloseEventModal} />}
         </div>
     )
