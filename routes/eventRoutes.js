@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const Event = require('../models/index')['Event'];
+const UserEvent = require('../models/index')['UserEvent'];
 
 // Get all events
 router.get('/', async (req, res) => {
@@ -25,6 +26,13 @@ router.post('/', async (req, res) => {
             description: description,
             start_date: startDate,
             end_date: endDate
+        });
+
+        // Add the host user to the Userevent table
+        await UserEvent.create({
+            user_id: userId,
+            event_id: event.id,
+            host_id: userId
         });
 
         res.json(event);

@@ -46,7 +46,7 @@ const EventShow = ({ event, hostImage, participantImage }: any) => {
                 <p className='text-md font-medium'>Ucbi</p>
             </div>
 
-            <div className='mx-5 px-2 self-start my-5'>
+            <div className='w-full px-2 self-start mx-5 my-5'>
                 <div className='flex w-full items-center justify-between '>
                     <h1 className='text-xl font-semibold'>{event.name}</h1>
 
@@ -88,7 +88,7 @@ const EventShow = ({ event, hostImage, participantImage }: any) => {
                             Delete
                         </button>
                         
-                        <button className='flex items-center gap-1 mt-2 bg-secondary-grey-light py-1 px-3 rounded-md hover:bg-zinc-400' onClick={handleCloseSetting}>
+                        <button className='flex items-center gap-1 mt-2 bg-secondary-grey-light py-1 px-2 rounded-md hover:bg-zinc-400' onClick={handleCloseSetting}>
                             <CloseIcon className='w-5 h-5' />
                             Cancel
                         </button>
