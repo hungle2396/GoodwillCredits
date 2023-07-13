@@ -4,7 +4,7 @@ import { ReactComponent as CloseIcon } from '../../UI/img/close.svg';
 import { useCreateEventMutation } from '../../redux/api/eventApi';
 import { useFetchUserQuery } from '../../redux/store';
 
-const EventForm = ({ onClose }: any) => {
+const EventForm = ({ mode, onClose }: any) => {
     const [eventName, setEventName] = useState<string>('');
     const [eventDescription, setEventDescription] = useState<string>('');
     const [eventStartDate, setEventStartDate] = useState<string>('');
@@ -12,7 +12,6 @@ const EventForm = ({ onClose }: any) => {
     const { data, isFetching } = useFetchUserQuery();
     const [createEvent, results] = useCreateEventMutation();
 
-    console.log(data.id);
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         console.log('in the handleSubmit function in EventForm');
         event.preventDefault();
@@ -38,7 +37,7 @@ const EventForm = ({ onClose }: any) => {
                 <div className='w-[40rem] bg-white p-10 rounded-md relative'>
                     <CloseIcon className='w-8 h-8 absolute top-3 right-3 hover:cursor-pointer' onClick={onClose} />
                     
-                    <h1 className='event_title text-4xl font-semibold mb-5'>New Event</h1>
+                    <h1 className='event_title text-4xl font-semibold mb-5'>{mode === 'create' ? 'New Event' : 'Edit Event'}</h1>
 
                     <form className='event_form flex flex-col' onSubmit={handleSubmit}>
                         <div className='field-group flex flex-col mb-5'>
