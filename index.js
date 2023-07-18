@@ -51,10 +51,9 @@ const googleRoutes = require('./routes/google_login');
 const localLoginRoutes = require('./routes/traditional_login');
 const eventRoutes = require('./routes/eventRoutes');
 
-// googleRoutes(app);
-
 app.use('/auth/google', googleRoutes);
-localLoginRoutes(app);
+// localLoginRoutes(app);
+app.use('/api', localLoginRoutes);
 app.use('/api/events', eventRoutes);
 
 
