@@ -2,12 +2,36 @@ const express = require('express');
 const router = express.Router();
 const Event = require('../models/index')['Event'];
 const UserEvent = require('../models/index')['UserEvent'];
+const User = require('../models/index')['User'];
 
 // Get all events
 router.get('/', async (req, res) => {
     try {
-        const events = await Event.findAll();
-        res.json(events);
+        const userEvents = await UserEvent.findAll({
+            include: [
+                {
+                    model: User,
+                    as: 'users',
+                    attributes: ['first_name', 'last_name']
+                },
+                {
+                    model: Event,
+                    attributes: ['id', 'name', 'description', 'start_date', 'end_date']
+                }
+            ]
+        });
+
+        // Extract the required data and send the response back
+        const formattedEvents = userEvents.map(userEvent => ({
+            id: userEvent.Event.id,
+            name: userEvent.Event.name,
+            description: userEvent.Event.description,
+            start_date: userEvent.Event.start_date,
+            end_date: userEvent.Event.end_date,
+            host: `${userEvent.users.first_name} ${userEvent.users.last_name}`
+        }));
+
+        res.json(formattedEvents);
     } catch (error) {
         console.error('Error retrieving events: ', error);
         res.status(500).json({ error: 'An error occured while retrieving events data' });
