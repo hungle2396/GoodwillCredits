@@ -43,7 +43,7 @@ const EventShow = ({ event, hostImage, participantImage }: any) => {
             <div className='flex-shrink-0 flex flex-col items-center gap-1'>
                 <img src={hostImage} className='w-14 h-14 rounded-full' alt='test cute dog'/>
 
-                <p className='text-md font-medium'>Ucbi</p>
+                <p className='text-md font-medium'>{event.host}</p>
             </div>
 
             <div className='w-full px-2 self-start mx-5 my-5'>

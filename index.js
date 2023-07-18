@@ -6,19 +6,12 @@ const dotenvConfig = require("dotenv").config();
 const passport = require("passport");
 const keys = require("./config/keys");
 const passportConfig = require('./services/passport')(passport);
-const db = require("./models");
+
 const SequelizeStore = require("connect-session-sequelize")(session.Store);
-
-require("./routes/authenticated");
-const googleRoutes = require('./routes/google_login');
-const localLoginRoutes = require('./routes/traditional_login');
-
-const PORT = process.env.PORT || 5000;
+const db = require("./models");
 
 // Create the Express app
 const app = express();
-const eventRoutes = require('./routes/eventRoutes');
-
 
 // Enable CORS
 app.use(cors());
@@ -52,21 +45,43 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
-db.sequelize.sync().then(() => {
-    // Sync the session store with the database
-    sessionStore.sync();
-
-    app.listen(PORT, () => {
-        console.log(`Server running on port ${PORT}`);
-    })
-});
-
-
 // Routes
-googleRoutes(app);
+require("./routes/authenticated");
+const googleRoutes = require('./routes/google_login');
+const localLoginRoutes = require('./routes/traditional_login');
+const eventRoutes = require('./routes/eventRoutes');
+
+// googleRoutes(app);
+
+app.use('/auth/google', googleRoutes);
 localLoginRoutes(app);
 app.use('/api/events', eventRoutes);
 
+
+
+// connect to the database
+const connectToDatabase = async () => {
+    sessionStore.sync();
+
+    try {
+        await db.sequelize.authenticate();
+        console.log('Connect to database successfully!');
+    } catch (error) {
+        console.log('Unable to connect to the database', error);
+    }
+};
+
+// Start the Server
+const startServer = () => {
+    const PORT = process.env.PORT || 5000;
+
+    app.listen(PORT, () => {
+        console.log(`Server listening on port ${PORT}`)
+    });
+};
+
+connectToDatabase();
+startServer();
 
 // Heroku - Live setup
 if (process.env.NODE_ENV === "production") {
