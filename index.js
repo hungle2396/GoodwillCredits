@@ -52,10 +52,8 @@ const localLoginRoutes = require('./routes/traditional_login');
 const eventRoutes = require('./routes/eventRoutes');
 
 app.use('/auth/google', googleRoutes);
-// localLoginRoutes(app);
 app.use('/api', localLoginRoutes);
 app.use('/api/events', eventRoutes);
-
 
 
 // connect to the database

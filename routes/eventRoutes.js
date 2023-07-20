@@ -2,41 +2,60 @@ const express = require('express');
 const router = express.Router();
 const Event = require('../models/index')['Event'];
 const UserEvent = require('../models/index')['UserEvent'];
-const User = require('../models/index')['User'];
+const { User } = require('../models/index');
 
 // Get all events
 router.get('/', async (req, res) => {
     try {
-        const userEvents = await UserEvent.findAll({
-            include: [
-                {
-                    model: User,
-                    as: 'users',
-                    attributes: ['first_name', 'last_name']
-                },
-                {
-                    model: Event,
-                    attributes: ['id', 'name', 'description', 'start_date', 'end_date']
-                }
-            ]
-        });
+        const events = await Event.findAll();
 
-        // Extract the required data and send the response back
-        const formattedEvents = userEvents.map(userEvent => ({
-            id: userEvent.Event.id,
-            name: userEvent.Event.name,
-            description: userEvent.Event.description,
-            start_date: userEvent.Event.start_date,
-            end_date: userEvent.Event.end_date,
-            host: `${userEvent.users.first_name} ${userEvent.users.last_name}`
-        }));
-
-        res.json(formattedEvents);
+        return res.json(events);
     } catch (error) {
         console.error('Error retrieving events: ', error);
         res.status(500).json({ error: 'An error occured while retrieving events data' });
     }
 })
+
+
+// Get all events related to specific user
+router.get('/users/:userId', async (req, res) => {
+    // Get the user id
+    const userId = req.params.userId;
+
+    console.log('In the events route');
+    console.log('userId', userId);
+    try {
+        // Check if the user exist
+        const user = await User.findByPk(userId);
+
+        if (!user) {
+            return res.status(404).json({
+                error: 'User does not exist'
+            });
+        }
+
+        console.log('Finding specific events');
+        // Find the events related to this user
+        const events = await Event.findAll({
+            include: [
+                {
+                    model: User,
+                    as: 'users',
+                    where: { id: user.id }
+                }
+            ]
+        });
+
+        console.log('events ', events);
+        return res.json(events);
+    } catch (error) {
+        console.error('Error: ', error);
+
+        return res.status(500).json({
+            error: error
+        });
+    }
+});
 
 
 // Create a new event
@@ -45,18 +64,17 @@ router.post('/', async (req, res) => {
         const { userId, name, description, startDate, endDate  } = req.body;
 
         const event = await Event.create({
-            host_id: userId,
             name: name,
             description: description,
-            start_date: startDate,
-            end_date: endDate
+            startDate: startDate,
+            endDate: endDate
         });
 
         // Add the host user to the Userevent table
         await UserEvent.create({
-            user_id: userId,
-            event_id: event.id,
-            host_id: userId
+            userId: userId,
+            eventId: event.id,
+            hostId: userId
         });
 
         res.json(event);

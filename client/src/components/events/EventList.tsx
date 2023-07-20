@@ -4,15 +4,20 @@ import PreviewImage from '../../UI/img/cute_dog.jpg';
 import HappyKid from '../../UI/img/Happy_Kid.jpg';
 import EventShow from './EventShow';
 
-import { useFetchEventsQuery } from '../../redux/store';
+import { useFetchUserEventsQuery } from '../../redux/store';
+import { useFetchUserQuery } from "../../redux/store";
+
 
 const EventList = () => {
-    const { data: eventsData, isLoading, isError } = useFetchEventsQuery();
+    const { data: userData, isLoading: isUserLoading } = useFetchUserQuery();
+    const { data: eventsData, isLoading: isEventsLoading, isError } = useFetchUserEventsQuery({ userId: userData.id });
+
+    console.log('user: ', userData);
 
     console.log('events: ', eventsData);
     let renderedEvents = null;
 
-    if (isLoading) {
+    if (isUserLoading || isEventsLoading) {
         renderedEvents = <p>Loading...</p>
     } else if (eventsData && Array.isArray(eventsData)) {
         renderedEvents = eventsData.map((event: eventProp) => {
@@ -20,6 +25,10 @@ const EventList = () => {
                 <EventShow key={event.id} event={event} hostImage={PreviewImage} participantImage={HappyKid} /> 
             )
         });
+    }
+
+    if (isError) {
+        return <p>Error fetching data</p>;
     }
 
     return (

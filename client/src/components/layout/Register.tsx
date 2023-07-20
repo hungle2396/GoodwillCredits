@@ -1,5 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from "react-router-dom";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import GoogleImage from "../../UI/img/google.png";
 import { useFetchUserQuery, useUserRegistrationMutation } from '../../redux/store';
 
@@ -14,7 +16,7 @@ const Register = () => {
     const navigate = useNavigate();
     const { data } = useFetchUserQuery();
     const { refetch } = useFetchUserQuery();
-    const [userRegistration, { isLoading }] = useUserRegistrationMutation();
+    const [userRegistration, results] = useUserRegistrationMutation();
 
     // Redirect the user if the user already logged in
     // useEffect(() => {
@@ -22,9 +24,12 @@ const Register = () => {
     //       navigate('/dashboard');
     //     }
     // }, [data, navigate]);
+    console.log('results: ', results);
+
 
     const handleRegister = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
+        let response;
 
         try {
             const credentials = {
@@ -34,7 +39,7 @@ const Register = () => {
                 password: password
             };
 
-            const response = await userRegistration(credentials).unwrap();
+            response = await userRegistration(credentials).unwrap();
 
             console.log(response);
 
@@ -42,13 +47,19 @@ const Register = () => {
                 // Registration successed, refetch the most updated user data
                 await refetch();
                 navigate('/dashboard');
-            } else {
-                // Registration failed, display error message
-                setRegistrationError(data.error);
+                toast.success('Registration Successful');
             }
+
+            
         } catch (error) {
-            console.error('Error registering user:', error);
-            setRegistrationError('An error occurred during registration.');
+            console.error('error: ', error);
+            // toast.error('Email Already Exist');
+    
+            if ((error as { status: number}).status === 409) {
+                toast.error('Email Already Exist');
+            } else {
+                toast.error('Failed To Register')
+            }
         }
     }
 
@@ -56,8 +67,6 @@ const Register = () => {
         <div className="flex-grow flex justify-center">
             <div className="form__container flex flex-col w-96 mt-28">
                 <h2 className="text-center text-4xl font-semibold">Sign up</h2>
-                {/* Registration error message */}
-                {registrationError && <div>{registrationError}</div>}
 
                 <div className="flex flex-col mt-10">
                     <button className="spread_animation flex items-center justify-center gap-3 w-full btn-gradient-border text-primary-purple bg-green-300 py-2 px-8 text-center">
@@ -116,13 +125,15 @@ const Register = () => {
                         </div>
                     
 
-                        <button className="btn-primary" disabled={isLoading}>{isLoading ? 'Registering' : 'Sign up'}</button>
+                        <button className="btn-primary" disabled={results.isLoading}>{results.isLoading ? 'Registering' : 'Sign up'}</button>
                     </form>
                 </div>
                 
 
                 <div>Already have an account? <a className="ml-1 col text-blue-500" href="/login">Login</a></div>
             </div>
+
+            <ToastContainer position="top-right" />
         </div>
     )
 };

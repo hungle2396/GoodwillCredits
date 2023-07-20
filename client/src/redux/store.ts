@@ -26,6 +26,7 @@ export {
 
 export {
     useFetchEventsQuery,
+    useFetchUserEventsQuery,
     useCreateEventMutation,
     useEditEventMutation,
     useDeleteEventMutation

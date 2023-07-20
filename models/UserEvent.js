@@ -1,27 +1,41 @@
-
+'use strict';
+const {
+  Model, UUIDV4
+} = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-    const UserEvent = sequelize.define("UserEvent", {
-        id: {
-            type: DataTypes.UUID,
-            primaryKey: true,
-            defaultValue: DataTypes.UUIDV4
-        },
-        user_id: {
-            type: DataTypes.UUID,
-            foreignKey: true,
-            allowNull: false
-        },
-        event_id: {
-            type: DataTypes.UUID,
-            foreignKey: true,
-            allowNull: false
-        },
-        host_id: {
-            type: DataTypes.UUID,
-            allowNull: false,
-            defaultValue: false
-        }
-    });
-
-    return UserEvent;
-}
+  class UserEvent extends Model {
+    /**
+     * Helper method for defining associations.
+     * This method is not a part of Sequelize lifecycle.
+     * The `models/index` file will call this method automatically.
+     */
+    static associate(models) {
+      // define association here
+    }
+  }
+  UserEvent.init({
+    id: {
+      type: DataTypes.UUID,
+      defaultValue: UUIDV4,
+      allowNull: false,
+      primaryKey: true
+    },
+    userId: {
+      type: DataTypes.UUID,
+      allowNull: false
+    },
+    eventId: {
+      type: DataTypes.UUID,
+      allowNull: false
+    },
+    hostId: {
+      type: DataTypes.UUID,
+      allowNull: false
+    }
+  }, {
+    sequelize,
+    tableName: 'userevents',
+    modelName: 'UserEvent',
+  });
+  return UserEvent;
+};

@@ -1,39 +1,37 @@
-
+'use strict';
+const {
+  Model, UUIDV4
+} = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-    const Event = sequelize.define("Event", {
-        id: {
-            type: DataTypes.UUID,
-            primaryKey: true,
-            defaultValue: DataTypes.UUIDV4
-        },
-        name: {
-            type: DataTypes.STRING,
-            allowNull: false
-        },
-        description: {
-            type: DataTypes.STRING,
-            allowNull: false
-        },
-        host_id: {
-            type: DataTypes.UUID,
-            foreignKey: true,
-            allowNull: false
-        },
-        start_date: {
-            type: DataTypes.DATEONLY,
-            allowNull: false
-        },
-        end_date: {
-            type: DataTypes.DATEONLY,
-            allowNull: false
-        },
-        updated_at: {
-            type: DataTypes.DATE
-        },
-        created_at: {
-            type: DataTypes.DATE
-        }
-    });
-
-    return Event;
-}
+  class Event extends Model {
+    /**
+     * Helper method for defining associations.
+     * This method is not a part of Sequelize lifecycle.
+     * The `models/index` file will call this method automatically.
+     */
+    static associate(models) {
+      // define association here
+      Event.belongsToMany(models.User, {
+        through: 'userevents',
+        as: 'users',
+        foreignKey: 'eventId'
+      })
+    }
+  }
+  Event.init({
+    id: {
+      type: DataTypes.UUID,
+      defaultValue: UUIDV4,
+      primaryKey: true
+    },
+    name: DataTypes.STRING,
+    description: DataTypes.STRING,
+    startDate: DataTypes.DATEONLY,
+    endDate: DataTypes.DATEONLY
+  }, {
+    sequelize,
+    tableName: 'events',
+    modelName: 'Event',
+  });
+  return Event;
+};

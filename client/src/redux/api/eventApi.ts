@@ -17,6 +17,15 @@ const eventApi = createApi({
                     }
                 }
             }),
+            fetchUserEvents: builder.query({
+                providesTags: ['Event'],
+                query: ({ userId }) => {
+                    return {
+                        url: `/events/users/${userId}`,
+                        method: 'GET'
+                    }
+                }
+            }),
             createEvent: builder.mutation({
                 invalidatesTags: ['Event'],
                 query: (event) => {
@@ -51,10 +60,11 @@ const eventApi = createApi({
 });
 
 export const { 
-        useFetchEventsQuery, 
-        useCreateEventMutation, 
-        useEditEventMutation,
-        useDeleteEventMutation
-    } = eventApi;
+    useFetchEventsQuery,
+    useFetchUserEventsQuery, 
+    useCreateEventMutation, 
+    useEditEventMutation,
+    useDeleteEventMutation
+} = eventApi;
 
 export { eventApi };
