@@ -88,7 +88,7 @@ const Header = () => {
                         <img className="w-10 h-10 rounded-full" src={CuteDog} alt="dog" />
                         {/* <a className="btn-normal" href="/api/logout">Log out</a> */}
                         
-                        <p className="font-medium">{data.first_name}</p>
+                        <p className="font-medium">{data.firstName}</p>
 
                         {isDropDownOpen && <UserDropDown />}
                     </div>

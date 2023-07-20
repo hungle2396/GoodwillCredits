@@ -1,58 +1,40 @@
-const Event = require("./Event");
-
+'use strict';
+const {
+  Model, UUIDV4
+} = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-    const User = sequelize.define("User", {
-        id: {
-            primaryKey: true,
-            type: DataTypes.UUID,
-            defaultValue: DataTypes.UUIDV4
-        },
-        first_name: {
-            type: DataTypes.STRING,
-            allowNull: false
-        },
-        last_name: {
-            type: DataTypes.STRING,
-            allowNull: false
-        },
-        email: {
-            type: DataTypes.STRING,
-            isEmail: true,
-            allowNull: false
-        },
-        password: {
-            type: DataTypes.STRING,
-        },
-        google_id: {
-            type: DataTypes.STRING
-        },
-        registration_type: {
-            type: DataTypes.ENUM('google', 'email'),
-            allowNull: false
-        },
-        isAdmin: {
-            type: DataTypes.BOOLEAN,
-            defaultValue: false
-        },
-        updated_at: {
-            type: DataTypes.DATE
-        },
-        created_at: {
-            type: DataTypes.DATE
-        }
+  class User extends Model {
+    /**
+     * Helper method for defining associations.
+     * This method is not a part of Sequelize lifecycle.
+     * The `models/index` file will call this method automatically.
+     */
+    static associate(models) {
+      // define association here
+      User.belongsToMany(models.Event, {
+        through: 'userevents',
+        as: 'events',
+        foreignKey: 'userId'
+      })
+    }
+  }
+  User.init({
+    id: {
+      primaryKey: true,
+      type: DataTypes.UUID,
+      defaultValue: UUIDV4
     },
-    {
-        underscored: true,
-        paranoid: true,
-        hooks: {
-            beforeValidate: (user) => {
-                if (user.registration_type === "google") {
-                    user.username = null;
-                    user.password = null;
-                }
-            }
-        }
-    });
-
-    return User;
+    firstName: DataTypes.STRING,
+    lastName: DataTypes.STRING,
+    email: DataTypes.STRING,
+    password: DataTypes.STRING,
+    googleId: DataTypes.STRING,
+    registrationType: DataTypes.ENUM('google', 'email'),
+    isAdmin: DataTypes.BOOLEAN
+  }, {
+    sequelize,
+    tableName: 'users',
+    modelName: 'User',
+  });
+  return User;
 };

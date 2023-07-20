@@ -1,4 +1,4 @@
-const User = require("../models/index")["User"];
+const { User } = require("../models/index");
 const bcrypt = require("bcrypt");
 const GoogleStrategy = require("passport-google-oauth20").Strategy;
 const LocalStrategy = require("passport-local").Strategy;
@@ -42,20 +42,6 @@ module.exports = (passport) => {
                     return done(null, false, { message: 'Incorrect email.' });
                 }
 
-                // const compareAsync = promisify(bcrypt.compare);
-
-                // const passwordMatch = await compareAsync(password, user.password);
-
-                // if (passwordMatch) {
-                //     console.log('Successful login');
-                //     const userinfo = user.get();
-                //     return done(null, userinfo);
-                // } else {
-                //     console.log('Incorrect password');
-                //     return done(null, false, { message: 'Incorrect password.' });
-                // }
-
-
                 bcrypt.compare(password, user.password, (err, res) => {
                     if (res) {
                         console.log("Successfully login!");
@@ -79,13 +65,15 @@ module.exports = (passport) => {
         },
         async (accessToken, refreshToken, profile, done) => {
     
-            console.log(profile);
+            console.log('profile: ', profile);
             try {
+                console.log('Finding existing user! ');
                 // Check if the user already exists in the database
                 const existingUser = await User.findOne({
-                    where: { google_id: profile.id, email: profile.emails[0].value }
+                    where: { googleId: profile.id, email: profile.emails[0].value }
                 });
     
+                console.log('existingUser: ', existingUser);
                 if (existingUser) {
                     // User already exists, proceed with authentication
                     console.log(`user already exist in the database`);
@@ -95,16 +83,16 @@ module.exports = (passport) => {
                 console.log(`user doesn't exist in the database, creating a new one`);
                 // User does not exist, create new user
                 const newUser = await User.create({
-                    first_name: profile.name.givenName,
-                    last_name: profile.name.familyName,
+                    firstName: profile.name.givenName,
+                    lastName: profile.name.familyName,
                     email: profile.emails[0].value,
-                    registration_type: 'google',
-                    google_id: profile.id,
-                    created_at: new Date()
+                    registrationType: 'google',
+                    googleId: profile.id
                 });
                 
                 return done(null, newUser);
             } catch (error) {
+                console.log('error', error);
                 return done(error);
             }
         })
