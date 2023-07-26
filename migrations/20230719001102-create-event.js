@@ -20,6 +20,22 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false
       },
+      hostId: {
+        type: Sequelize.UUID,
+        allowNull: false,
+        references: {
+          model: 'users',
+          key: 'id'
+        }
+      },
+      tag: {
+        type: Sequelize.STRING,
+        allowNull: false
+      },
+      active: {
+        type: Sequelize.BOOLEAN,
+        allowNull: false
+      },
       startDate: {
         type: Sequelize.DATEONLY,
         allowNull: false

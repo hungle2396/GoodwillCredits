@@ -28,8 +28,8 @@ module.exports = {
           key: 'id'
         }
       },
-      hostId: {
-        type: Sequelize.UUID,
+      isHost: {
+        type: Sequelize.BOOLEAN,
         allowNull: false
       },
       createdAt: {

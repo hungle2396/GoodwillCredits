@@ -35,9 +35,9 @@ module.exports = {
           type: Sequelize.ENUM('google', 'email'),
           allowNull: false
       },
-      isAdmin: {
-          type: Sequelize.BOOLEAN,
-          defaultValue: false
+      role: {
+          type: Sequelize.STRING,
+          defaultValue: 'User'
       },
       updatedAt: {
           type: Sequelize.DATE

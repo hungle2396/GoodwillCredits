@@ -1,8 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const Event = require('../models/index')['Event'];
-const UserEvent = require('../models/index')['UserEvent'];
-const { User } = require('../models/index');
+const { User, Event, UserEvent } = require('../models/index');
 
 // Get all events
 router.get('/', async (req, res) => {
@@ -41,7 +39,17 @@ router.get('/users/:userId', async (req, res) => {
                 {
                     model: User,
                     as: 'users',
-                    where: { id: user.id }
+                    where: { id: user.id },
+                    attributes: ['id', 'firstName', 'lastName'],
+                    through: {
+                        attributes: []
+                    }
+                },
+                {
+                    model: User,
+                    as: 'host',
+                    // Include the host first and last name
+                    attributes: ['firstName', 'lastName']
                 }
             ]
         });
@@ -61,11 +69,14 @@ router.get('/users/:userId', async (req, res) => {
 // Create a new event
 router.post('/', async (req, res) => {
     try {
-        const { userId, name, description, startDate, endDate  } = req.body;
+        const { userId, name, description, tag, active, startDate, endDate  } = req.body;
 
         const event = await Event.create({
             name: name,
             description: description,
+            tag: tag,
+            active: active,
+            hostId: userId,
             startDate: startDate,
             endDate: endDate
         });
@@ -74,7 +85,7 @@ router.post('/', async (req, res) => {
         await UserEvent.create({
             userId: userId,
             eventId: event.id,
-            hostId: userId
+            isHost: true
         });
 
         res.json(event);
@@ -84,34 +95,102 @@ router.post('/', async (req, res) => {
     }
 });
 
-// Delete an event
-router.delete('/:id', async (req, res) => {
+// Edit an event
+router.put('/:id', async (req, res) => {
+    const eventId = req.params.id;
+    const { 
+        userId, 
+        name, 
+        description,
+        tag,
+        active, 
+        startDate, 
+        endDate 
+    } = req.body;
+
+    console.log('In the event Edit Route');
+    console.log('eventId: ', eventId);
+
     try {
-        console.log('req: ', req);
-        // Get the event id
-        const eventId = req.params.id;
-        
-        // Check if the event exists in the database
+        // Check if the event exist
         const event = await Event.findByPk(eventId);
 
         if (!event) {
             return res.status(404).json({
-                error: 'Event not found'
+                message: 'Event Does Not Exist'
+            });
+        }
+
+        // Check if the event associated with the user
+        const userEvent = await UserEvent.findOne({
+            where: {
+                eventId: eventId,
+                userId: userId
+            }
+        });
+
+        if (!userEvent) {
+            return res.status(404).json({
+                error: 'Event does not have any association with this user'
+            });
+        };
+
+        // Check if the user has permission to edit
+        if (!userEvent.isHost) {
+            return res.status(403).json({
+                error: 'You do not have authority to edit this event'
+            })
+        };
+
+        // Update Event
+        event.name = name;
+        event.description = description;
+        event.tag = tag;
+        event.active = active;
+        event.startDate = startDate;
+        event.endDate = endDate;
+
+        await event.save();
+
+        return res.json({
+            message: 'Edited the event successfully!'
+        });
+
+    } catch (error) {
+        console.error('Error Editing Event: ', error);
+
+        return res.status(500).json({
+            error: 'Error Editing the Event'
+        });
+    }
+})
+
+// Delete an event
+router.delete('/:id', async (req, res) => {
+    const eventId = req.params.id;
+
+    try {
+        // Find the event
+        const event = await Event.findByPk(eventId);
+
+        if (!event) {
+            return res.status(404).json({
+                error: 'Event does not exist'
             });
         }
 
         // Delete the event
         await event.destroy();
 
-        // Return the result
-        res.json({
-            message: 'Event deleted successfully'
+        // Send the response to the client
+        return res.json({
+            message: 'Successfully deleted the event'
         });
     } catch (error) {
         console.error('Error deleting event: ', error);
-        res.status(500).json({
+        return res.status(500).json({
             error: 'An error occurred while deleting the event'
-        })
+        });
     }
 });
 
