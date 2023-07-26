@@ -84,6 +84,11 @@ body {
     100%  { fill: #66bf5b; }
 }
 
+/* Select option */
+select.decorated option:hover {
+    box-shadow: 0 0 10px 100px #aa2ece inset;
+}
+
 
 /* Scrollbar */
 .hide-scrollbar {

@@ -1,33 +1,82 @@
 import React, { useState } from 'react';
 import ReactDOM from 'react-dom';
 import { ReactComponent as CloseIcon } from '../../UI/img/close.svg';
-import { useCreateEventMutation } from '../../redux/api/eventApi';
+
 import { useFetchUserQuery } from '../../redux/store';
+import { useCreateEventMutation } from '../../redux/api/eventApi';
+import { useEditEventMutation } from '../../redux/api/eventApi';
 
-const EventForm = ({ mode, onClose }: any) => {
-    const [eventName, setEventName] = useState<string>('');
-    const [eventDescription, setEventDescription] = useState<string>('');
-    const [eventStartDate, setEventStartDate] = useState<string>('');
-    const [eventEndDate, setEventEndDate] = useState<string>('');
-    const { data, isFetching } = useFetchUserQuery();
-    const [createEvent, results] = useCreateEventMutation();
+const EventForm = ({ mode, eventData, onClose, onCloseSetting }: any) => {
+    const [eventName, setEventName] = useState<string>(
+        mode === 'edit' ? eventData.name : ''
+    );
+    const [eventDescription, setEventDescription] = useState<string>(
+        mode === 'edit' ? eventData.description : ''
+    );
+    const [eventTag, setEventTag] = useState<string>(
+        mode === 'edit' ? eventData.tag : 'Other'
+    );
+    const [eventActive, setEventActive] = useState<boolean>(
+        mode === 'edit' ? eventData.active : ''
+    );
+    const [eventStartDate, setEventStartDate] = useState<string>(
+        mode === 'edit' ? eventData.startDate : ''
+    );
+    const [eventEndDate, setEventEndDate] = useState<string>(
+        mode === 'edit' ? eventData.endDate : ''
+    );
 
-    const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    const { data: userData, isFetching } = useFetchUserQuery();
+    const [createEvent] = useCreateEventMutation();
+    const [editEvent] = useEditEventMutation();
+
+    // console.log('eventId: ', eventData.id);
+
+    console.log('eventActive: ', eventActive);
+    const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         console.log('in the handleSubmit function in EventForm');
         event.preventDefault();
 
         const newEvent = {
-            userId: data.id,
+            userId: userData.id,
             name: eventName,
             description: eventDescription,
+            tag: eventTag,
+            active: eventActive,
             startDate: eventStartDate,
             endDate: eventEndDate
         }
 
-        console.log('Event Info being submitting soon: ', Event);
-        createEvent(newEvent);
+        try {
+            if (mode === 'create') {
+                
+                const response = await createEvent(newEvent);
 
-        onClose(false);
+                console.log('response: ', response);
+
+                // Check if the response come back successfully or not
+            }
+    
+            if (mode === 'edit') {
+                
+                console.log('newEvent: ', newEvent);
+                const response = await editEvent({
+                    eventId: eventData.id,
+                    event: newEvent
+                });
+
+                console.log('edited response: ', response)
+
+                // Check if the response come back successfully or not
+            }
+    
+            // Close the Event Form
+            onClose();
+            onCloseSetting();
+        } catch (error) {
+            console.error('Error during API call: ', error);
+        }
+        
     };
 
     return ReactDOM.createPortal (
@@ -65,6 +114,53 @@ const EventForm = ({ mode, onClose }: any) => {
 
                         <div className='field group flex justify-between mb-5'>
                             <div className='field-group flex flex-col w-48'>
+                                <label className='label' htmlFor='event_tag'>Tag</label>
+                                <select
+                                    name='event_tag'
+                                    className='input resize-none'
+                                    id="select"
+                                    value={eventTag}
+                                    onChange={((e) => setEventTag(e.target.value))}
+                                    required
+                                >
+                                    <option value='Other'>Other</option>
+                                    <option value='Homework'>Homework</option>
+                                    <option value='Chores'>Chores</option>
+                                    <option value='Holiday'>Holiday</option>
+                                    <option value='Healthy Habits'>Healthy Habits</option>
+                                    <option value='Responsibilities'>Responsibilities</option>
+                                </select>
+                            </div>
+
+                            <div className='field-group flex flex-col w-48 gap-1'>
+                                <h1>Is this event active?</h1>
+                                <div className='flex gap-5'>
+                                    <div>
+                                        <input 
+                                        type="radio" className="accent-primary-purple-light" id="event_active" 
+                                        name="event_active" 
+                                        value='true' 
+                                        onClick={() => setEventActive(true)} />
+                                        <label htmlFor="event_active">Yes</label>
+                                    </div>
+                                    
+                                    <div>
+                                        <input 
+                                            type="radio"
+                                            id="event_inactive"
+                                            className="accent-primary-purple-light" name="event_active" 
+                                            value='false' 
+                                            onClick={() => setEventActive(false)} />
+                                        <label htmlFor="event_inactive">No</label>
+                                    </div>
+                                </div>
+                                
+                            </div>
+                        </div>
+                        
+
+                        <div className='field group flex justify-between mb-5'>
+                            <div className='field-group flex flex-col w-48'>
                                 <label className='label' htmlFor='event_date'>Start Date</label>
                                 <input 
                                     className='input'
@@ -88,7 +184,7 @@ const EventForm = ({ mode, onClose }: any) => {
                         </div>
 
                         
-                        <button className='cancel_btn flex flex-shrink ml-auto btn-primary mt-5'>Create</button>
+                        <button className='cancel_btn flex flex-shrink ml-auto btn-primary mt-5'>{mode === 'create' ? <>Create</> : <>Submit</>}</button>
                     </form>
                 </div>
             </div>

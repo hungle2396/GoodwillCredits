@@ -28,9 +28,8 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.UUID,
       allowNull: false
     },
-    hostId: {
-      type: DataTypes.UUID,
-      allowNull: false
+    isHost: {
+      type: DataTypes.BOOLEAN
     }
   }, {
     sequelize,

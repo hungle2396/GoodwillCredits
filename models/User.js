@@ -14,7 +14,9 @@ module.exports = (sequelize, DataTypes) => {
       User.belongsToMany(models.Event, {
         through: 'userevents',
         as: 'events',
-        foreignKey: 'userId'
+        foreignKey: 'userId',
+        onDelete: 'CASCADE',
+        hooks: true
       })
     }
   }
@@ -30,7 +32,10 @@ module.exports = (sequelize, DataTypes) => {
     password: DataTypes.STRING,
     googleId: DataTypes.STRING,
     registrationType: DataTypes.ENUM('google', 'email'),
-    isAdmin: DataTypes.BOOLEAN
+    role: {
+      type: DataTypes.STRING,
+      defaultValue: 'User'
+    }
   }, {
     sequelize,
     tableName: 'users',

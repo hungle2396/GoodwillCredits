@@ -87,7 +87,8 @@ module.exports = (passport) => {
                     lastName: profile.name.familyName,
                     email: profile.emails[0].value,
                     registrationType: 'google',
-                    googleId: profile.id
+                    googleId: profile.id,
+                    role: 'User'
                 });
                 
                 return done(null, newUser);
