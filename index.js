@@ -50,11 +50,11 @@ require("./routes/authenticated");
 const googleRoutes = require('./routes/google_login');
 const localLoginRoutes = require('./routes/traditional_login');
 const eventRoutes = require('./routes/eventRoutes');
+const userRoutes = require('./routes/userRoutes');
 
 app.use('/auth/google', googleRoutes);
 app.use('/api', localLoginRoutes);
 app.use('/api/events', eventRoutes);
-
 
 // connect to the database
 const connectToDatabase = async () => {

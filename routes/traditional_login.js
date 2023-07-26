@@ -29,7 +29,8 @@ router.post('/register', async (req, res) => {
             email: email,
             password: hashedPassword,
             isAdmin: false,
-            registrationType: 'email'
+            registrationType: 'email',
+            role: 'User'
         });
 
         req.login(newUser, (error) => {
