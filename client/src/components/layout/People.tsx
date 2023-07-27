@@ -1,7 +1,7 @@
 import React from 'react';
 import Navigation from '../common/Navigation';
-import EventCreate from '../events/EventCreate';
-import EventList from '../events/EventList';
+import PeopleCreate from "../people/PeopleCreate";
+import PeopleList from '../people/PeopleList';
 
 const People = () => {
     return (
@@ -19,11 +19,11 @@ const People = () => {
             >
                 <h1 className='text-3xl font-semibold ml-5'>People</h1>
                 {/* Event Search and Create Event */}
-                <EventCreate />
+                <PeopleCreate />
 
                 <div className='w-full flex flex-col'>
                     {/* Display Event List */}
-                    <EventList />
+                    <PeopleList />
                 </div>
             </div>
         </main>
