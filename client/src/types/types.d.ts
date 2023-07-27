@@ -21,6 +21,14 @@ interface eventProp {
     host_id: string
 }
 
+interface userProp {
+    id: string,
+    firstName: string,
+    lastName: string,
+    email: string,
+    role: string
+}
+
 declare module "*.jpg" {
     const path: string;
     export default path;
