@@ -54,6 +54,7 @@ const userRoutes = require('./routes/userRoutes');
 
 app.use('/auth/google', googleRoutes);
 app.use('/api', localLoginRoutes);
+app.use('/api/users', userRoutes);
 app.use('/api/events', eventRoutes);
 
 // connect to the database
