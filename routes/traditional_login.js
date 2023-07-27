@@ -30,7 +30,8 @@ router.post('/register', async (req, res) => {
             password: hashedPassword,
             isAdmin: false,
             registrationType: 'email',
-            role: 'User'
+            role: 'User',
+            isOnline: true
         });
 
         req.login(newUser, (error) => {
