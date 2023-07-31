@@ -28,7 +28,8 @@ export {
 } from './api/authApi';
 
 export {
-    useFetchUsersQuery
+    useFetchUsersQuery,
+    useDeleteUserMutation
 } from './api/userApi';
 
 export {

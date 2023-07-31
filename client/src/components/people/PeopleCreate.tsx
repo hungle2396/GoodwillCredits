@@ -31,7 +31,7 @@ const PeopleCreate = () => {
                 className='btn-blue rounded-md mr-5'
                 onClick={handleOpenPeopleModal}
             >
-            Create Event
+            New Person
             </button>
 
             {/* Create Event Form */}

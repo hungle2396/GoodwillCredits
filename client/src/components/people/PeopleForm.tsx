@@ -6,24 +6,33 @@ import { useFetchUserQuery } from '../../redux/store';
 import { useCreateEventMutation } from '../../redux/api/eventApi';
 import { useEditEventMutation } from '../../redux/api/eventApi';
 
-const PeopleForm = ({ mode, eventData, onClose, onCloseSetting }: any) => {
-    const [eventName, setEventName] = useState<string>(
-        mode === 'edit' ? eventData.name : ''
+const PeopleForm = ({ mode, personData, onClose, onCloseSetting }: any) => {
+    const [firstName, setFirstName] = useState<string>(
+        mode === 'edit' ? personData.firstName : ''
     );
-    const [eventDescription, setEventDescription] = useState<string>(
-        mode === 'edit' ? eventData.description : ''
+    const [lastName, setLastName] = useState<string>(
+        mode === 'edit' ? personData.lastName : ''
     );
-    const [eventTag, setEventTag] = useState<string>(
-        mode === 'edit' ? eventData.tag : 'Other'
+    const [birthday, setBirthday] = useState<string>(
+        mode = 'edit' ? personData.birthday: ''
     );
-    const [eventActive, setEventActive] = useState<boolean>(
-        mode === 'edit' ? eventData.active : ''
+    const [phone, setPhone] = useState<string>(
+        mode === 'edit' ? personData.phone : ''
     );
-    const [eventStartDate, setEventStartDate] = useState<string>(
-        mode === 'edit' ? eventData.startDate : ''
+    const [email, setEmail] = useState<string>(
+        mode === 'edit' ? personData.email : ''
     );
-    const [eventEndDate, setEventEndDate] = useState<string>(
-        mode === 'edit' ? eventData.endDate : ''
+    const [address, setAddress] = useState<string>(
+        mode === 'edit' ? personData.address : ''
+    );
+    const [city, setCity] = useState<string>(
+        mode === 'edit' ? personData.city : ''
+    );
+    const [state, setState] = useState<string>(
+        mode === 'edit' ? personData.state : ''
+    );
+    const [role, setRole] = useState<string>(
+        mode === 'edit' ? personData.state : 'User'
     );
 
     const { data: userData, isFetching } = useFetchUserQuery();
@@ -32,20 +41,19 @@ const PeopleForm = ({ mode, eventData, onClose, onCloseSetting }: any) => {
 
     // console.log('eventId: ', eventData.id);
 
-    console.log('eventActive: ', eventActive);
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         console.log('in the handleSubmit function in EventForm');
         event.preventDefault();
 
-        const newEvent = {
-            userId: userData.id,
-            name: eventName,
-            description: eventDescription,
-            tag: eventTag,
-            active: eventActive,
-            startDate: eventStartDate,
-            endDate: eventEndDate
-        }
+        // const newEvent = {
+        //     userId: userData.id,
+        //     name: eventName,
+        //     description: eventDescription,
+        //     tag: eventTag,
+        //     active: eventActive,
+        //     startDate: eventStartDate,
+        //     endDate: eventEndDate
+        // }
 
         try {
             if (mode === 'create') {
