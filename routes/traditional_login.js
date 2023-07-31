@@ -91,8 +91,7 @@ router.get('/logout', (req, res, next) => {
         }
         res.clearCookie("connect.sid");
         console.log("cleared the cookie");
-        res.redirect('/');
-        console.log("redirect");
+        return res.redirect('/');
     });
 });
 

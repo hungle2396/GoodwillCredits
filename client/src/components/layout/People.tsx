@@ -3,7 +3,11 @@ import Navigation from '../common/Navigation';
 import PeopleCreate from "../people/PeopleCreate";
 import PeopleList from '../people/PeopleList';
 
+import { useFetchUserQuery } from '../../redux/store';
+
 const People = () => {
+    const { data: userData } = useFetchUserQuery();
+
     return (
         <main className='flex-grow relative
                          flex gap-5 my-5
@@ -18,8 +22,10 @@ const People = () => {
                            '
             >
                 <h1 className='text-3xl font-semibold ml-5'>People</h1>
+
                 {/* Event Search and Create Event */}
-                <PeopleCreate />
+                {/* Only admin can create new person */}
+                {userData.role === 'Admin' && <PeopleCreate />}
 
                 <div className='w-full flex flex-col'>
                     {/* Display Event List */}

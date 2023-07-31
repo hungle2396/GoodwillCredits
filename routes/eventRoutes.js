@@ -168,6 +168,7 @@ router.put('/:id', async (req, res) => {
 // Delete an event
 router.delete('/:id', async (req, res) => {
     const eventId = req.params.id;
+    const { userId } = req.body;
 
     try {
         // Find the event
@@ -178,6 +179,27 @@ router.delete('/:id', async (req, res) => {
                 error: 'Event does not exist'
             });
         }
+
+        // Check if the event associated with the user
+        const userEvent = await UserEvent.findOne({
+            where: {
+                eventId: eventId,
+                userId: userId
+            }
+        });
+
+        if (!userEvent) {
+            return res.status(404).json({
+                error: 'Event does not have any association with this user'
+            });
+        };
+
+        // Check if the user has permission to edit
+        if (!userEvent.isHost) {
+            return res.status(403).json({
+                error: 'You do not have authority to delete this event'
+            })
+        };
 
         // Delete the event
         await event.destroy();

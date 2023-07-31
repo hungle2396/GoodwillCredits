@@ -16,13 +16,27 @@ const userApi = createApi({
                         method: 'GET'
                     }
                 }
+            }),
+            deleteUser: builder.mutation({
+                invalidatesTags: ['User'],
+                query: ({ accountId, userId, role }) => {
+                    return {
+                        url: `/users/${accountId}`,
+                        method: 'DELETE',
+                        body: {
+                            role,
+                            userId
+                        }
+                    }
+                }
             })
         }
     }
 });
 
 export const {
-    useFetchUsersQuery
+    useFetchUsersQuery,
+    useDeleteUserMutation
 } = userApi;
 
 export { userApi };

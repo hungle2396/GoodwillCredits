@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import PreviewImage from '../../UI/img/cute_dog.jpg';
 import { ReactComponent as EditIcon } from '../../UI/img/edit.svg';
 import { ReactComponent as DeleteIcon } from '../../UI/img/trash-can.svg';
@@ -6,9 +6,18 @@ import { ReactComponent as EventSettingIcon } from '../../UI/img/more.svg';
 import { ReactComponent as CloseIcon } from '../../UI/img/close.svg';
 import { ReactComponent as RightArrowIcon } from '../../UI/img/right-chevron.svg';
 
+import { useNavigate } from 'react-router-dom';
+import { useFetchUserQuery } from '../../redux/store';
+import { useDeleteUserMutation } from '../../redux/store';
 import { lastLoginDate } from '../utils/Formatting';
+import { store } from '../../redux/store';
+import { authApi } from '../../redux/api/authApi';
 
 const PeopleShow = ({user}: any) => {
+    const navigate = useNavigate();
+    const { data: userData, isLoading: userIsLoading } = useFetchUserQuery();
+    const [ deletePeople, { isLoading } ] = useDeleteUserMutation();
+
     const [openSetting, setOpenSetting] = useState<boolean>(false);
     const [showPeopleModal, setShowPeopleModal] = useState<boolean>(false);
 
@@ -30,11 +39,24 @@ const PeopleShow = ({user}: any) => {
     };
 
     /* Need fixing */
-    const handleDeletePeople = (eventId: string) => {
-        // deleteEvent({ 
-        //     eventId: eventId,
-        //     userId: userData.id
-        // });
+    const handleDeletePeople = async (accountId: string) => {
+        try {
+            await deletePeople({
+                userId: userData.id,
+                accountId: accountId,
+                role: userData.role
+            });
+
+            // reset cache
+            store.dispatch(authApi.util.resetApiState());
+
+            console.log('userData: ', userData);
+            // window.location.reload();
+            navigate('/');
+            
+        } catch (error) {
+            console.error('Error deleting user: ', error);
+        }
     };
 
     return (
@@ -47,7 +69,7 @@ const PeopleShow = ({user}: any) => {
                 <img src={PreviewImage} className='w-14 h-14 rounded-full' alt='test cute dog'/>
             </div>
 
-            <div className='flex w-full justify-between mx-5'>
+            <div className='flex w-full justify-between mx-10 gap-2'>
                 <div className='flex flex-col gap-1 w-20'>
                     <h1 className='text-sm text-secondary-grey'>First Name</h1>
                     <p className='overflow-hidden whitespace-nowrap text-ellipsis'>{user.firstName}</p>
@@ -58,17 +80,12 @@ const PeopleShow = ({user}: any) => {
                     <p className='overflow-hidden whitespace-nowrap text-ellipsis'>{user.lastName}</p>
                 </div>
 
-                <div className='flex flex-col gap-1 w-20'>
-                    <h1 className='text-sm text-secondary-grey'>Phone</h1>
-                    <p className='overflow-hidden whitespace-nowrap text-ellipsis'>-</p>
-                </div>
-
                 <div className='flex flex-col gap-1 w-30'>
                     <h1 className='text-sm text-secondary-grey'>Email</h1>
                     <p className='overflow-hidden whitespace-nowrap text-ellipsis'>{user.email}</p>
                 </div>
 
-                <div className='flex flex-col gap-1 w-10'>
+                <div className='flex flex-col gap-1 w-20'>
                     <h1 className='text-sm text-secondary-grey'>Role</h1>
                     <p className='overflow-hidden whitespace-nowrap text-ellipsis'>{user.role}</p>
                 </div>
@@ -83,9 +100,14 @@ const PeopleShow = ({user}: any) => {
                 
                 {!openSetting && (
                     <>
-                        <div className='flex gap-2 absolute top-1 right-3' onClick={handleOpenSetting}>
+                        {(userData.id === user.id || userData.role === 'Admin') ? 
+                            <div className='flex gap-2 absolute top-1 right-3' onClick={handleOpenSetting}>
                             <EventSettingIcon className='w-5 h-5 fill-secondary-grey' />
-                        </div>
+                            </div>
+                            :
+                            ''
+                        }
+                        
 
                         <div>
                             <RightArrowIcon className='w-10 h-10' />
