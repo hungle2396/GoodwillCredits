@@ -29,6 +29,8 @@ export {
 
 export {
     useFetchUsersQuery,
+    useCreateUserMutation,
+    useEditUserMutation,
     useDeleteUserMutation
 } from './api/userApi';
 

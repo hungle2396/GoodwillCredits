@@ -5,13 +5,14 @@ import { ReactComponent as DeleteIcon } from '../../UI/img/trash-can.svg';
 import { ReactComponent as EventSettingIcon } from '../../UI/img/more.svg';
 import { ReactComponent as CloseIcon } from '../../UI/img/close.svg';
 import { ReactComponent as RightArrowIcon } from '../../UI/img/right-chevron.svg';
-
 import { useNavigate } from 'react-router-dom';
 import { useFetchUserQuery } from '../../redux/store';
 import { useDeleteUserMutation } from '../../redux/store';
 import { lastLoginDate } from '../utils/Formatting';
 import { store } from '../../redux/store';
 import { authApi } from '../../redux/api/authApi';
+
+import PeopleForm from './PeopleForm';
 
 const PeopleShow = ({user}: any) => {
     const navigate = useNavigate();
@@ -80,9 +81,9 @@ const PeopleShow = ({user}: any) => {
                     <p className='overflow-hidden whitespace-nowrap text-ellipsis'>{user.lastName}</p>
                 </div>
 
-                <div className='flex flex-col gap-1 w-30'>
+                <div className='flex flex-col gap-1 w-48'>
                     <h1 className='text-sm text-secondary-grey'>Email</h1>
-                    <p className='overflow-hidden whitespace-nowrap text-ellipsis'>{user.email}</p>
+                    <p title={user.email} className='overflow-hidden whitespace-nowrap text-ellipsis'>{user.email}</p>
                 </div>
 
                 <div className='flex flex-col gap-1 w-20'>
@@ -90,7 +91,7 @@ const PeopleShow = ({user}: any) => {
                     <p className='overflow-hidden whitespace-nowrap text-ellipsis'>{user.role}</p>
                 </div>
 
-                <div className='flex flex-col gap-1'>
+                <div className='flex flex-col gap-1 w-30'>
                     <h1 className='text-sm text-secondary-grey'>Last Login</h1>
                     <p className='overflow-hidden whitespace-nowrap text-ellipsis'>{lastLoginDate(user.updatedAt)}</p>
                 </div>
@@ -141,7 +142,7 @@ const PeopleShow = ({user}: any) => {
             </div>
 
             {/* Edit Event Form */}
-            {/* {showPeopleModal && <PeopleForm mode='edit' userData={user} onClose={handleClosePeopleModal} onCloseSetting={handleCloseSetting} />} */}
+            {showPeopleModal && <PeopleForm mode='edit' personData={user} onClose={handleClosePeopleModal} onCloseSetting={handleCloseSetting} />}
         </li>
     )
 };
