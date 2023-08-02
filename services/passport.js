@@ -2,7 +2,6 @@ const { User } = require("../models/index");
 const bcrypt = require("bcrypt");
 const GoogleStrategy = require("passport-google-oauth20").Strategy;
 const LocalStrategy = require("passport-local").Strategy;
-const { promisify } = require('util');
 const keys = require("../config/keys");
 
 
@@ -90,6 +89,11 @@ module.exports = (passport) => {
                     firstName: profile.name.givenName,
                     lastName: profile.name.familyName,
                     email: profile.emails[0].value,
+                    birthday: '',
+                    phone: '',
+                    address: '',
+                    city: '',
+                    state: '',
                     registrationType: 'google',
                     googleId: profile.id,
                     role: 'User',

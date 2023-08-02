@@ -3,8 +3,9 @@ import ReactDOM from 'react-dom';
 import { ReactComponent as CloseIcon } from '../../UI/img/close.svg';
 
 import { useFetchUserQuery } from '../../redux/store';
-import { useCreateEventMutation } from '../../redux/api/eventApi';
-import { useEditEventMutation } from '../../redux/api/eventApi';
+import { useCreateUserMutation } from '../../redux/store';
+import { useEditUserMutation } from '../../redux/store';
+import { states } from '../utils/ArrayItems';
 
 const PeopleForm = ({ mode, personData, onClose, onCloseSetting }: any) => {
     const [firstName, setFirstName] = useState<string>(
@@ -14,13 +15,16 @@ const PeopleForm = ({ mode, personData, onClose, onCloseSetting }: any) => {
         mode === 'edit' ? personData.lastName : ''
     );
     const [birthday, setBirthday] = useState<string>(
-        mode = 'edit' ? personData.birthday: ''
+        mode === 'edit' ? personData.birthday : ''
     );
     const [phone, setPhone] = useState<string>(
         mode === 'edit' ? personData.phone : ''
     );
     const [email, setEmail] = useState<string>(
         mode === 'edit' ? personData.email : ''
+    );
+    const [password, setPassword] = useState<string>(
+        mode === 'edit' ? personData.password : ''
     );
     const [address, setAddress] = useState<string>(
         mode === 'edit' ? personData.address : ''
@@ -31,34 +35,49 @@ const PeopleForm = ({ mode, personData, onClose, onCloseSetting }: any) => {
     const [state, setState] = useState<string>(
         mode === 'edit' ? personData.state : ''
     );
+    const [zipCode, setZipCode] = useState<string>(
+        mode === 'edit' ? personData.zipCode : ''
+    );
     const [role, setRole] = useState<string>(
-        mode === 'edit' ? personData.state : 'User'
+        mode === 'edit' ? personData.role : 'User'
     );
 
     const { data: userData, isFetching } = useFetchUserQuery();
-    const [createEvent] = useCreateEventMutation();
-    const [editEvent] = useEditEventMutation();
+    const [createUser] = useCreateUserMutation();
+    const [editUser] = useEditUserMutation();
 
     // console.log('eventId: ', eventData.id);
 
+    const renderedStates = states.map((state: string, index: number) => {
+        return <option key={index} value={state}>{state}</option>
+    });
+
+    console.log('personData: ', personData);
+
+    console.log('role: ', role);
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         console.log('in the handleSubmit function in EventForm');
         event.preventDefault();
 
-        // const newEvent = {
-        //     userId: userData.id,
-        //     name: eventName,
-        //     description: eventDescription,
-        //     tag: eventTag,
-        //     active: eventActive,
-        //     startDate: eventStartDate,
-        //     endDate: eventEndDate
-        // }
+        const newData = {
+            userId: userData.id,
+            firstName: firstName,
+            lastName: lastName,
+            birthday: birthday,
+            phone: phone,
+            email: email,
+            password: password,
+            address: address,
+            city: city,
+            state: state,
+            role: role
+        }
 
+        console.log('newData: ', newData);
         try {
             if (mode === 'create') {
                 
-                const response = await createEvent(newEvent);
+                const response = await createUser(newData);
 
                 console.log('response: ', response);
 
@@ -67,10 +86,10 @@ const PeopleForm = ({ mode, personData, onClose, onCloseSetting }: any) => {
     
             if (mode === 'edit') {
                 
-                console.log('newEvent: ', newEvent);
-                const response = await editEvent({
-                    eventId: eventData.id,
-                    event: newEvent
+                console.log('newPerson: ', newData);
+                const response = await editUser({
+                    accountId: personData.id,
+                    newData
                 });
 
                 console.log('edited response: ', response)
@@ -94,103 +113,161 @@ const PeopleForm = ({ mode, personData, onClose, onCloseSetting }: any) => {
                 <div className='w-[40rem] bg-white p-10 rounded-md relative'>
                     <CloseIcon className='w-8 h-8 absolute top-3 right-3 hover:cursor-pointer' onClick={onClose} />
                     
-                    <h1 className='event_title text-4xl font-semibold mb-5'>{mode === 'create' ? 'New Event' : 'Edit Event'}</h1>
+                    <h1 className='event_title text-4xl font-semibold'>{mode === 'create' ? 'Create New Person' : `Edit ${personData.firstName} ${personData.lastName}`}</h1>
 
-                    <form className='event_form flex flex-col' onSubmit={handleSubmit}>
-                        <div className='field-group flex flex-col mb-5'>
-                            <label className='label' htmlFor='event_name'>Name</label>
-                            <input 
-                                className='input'
-                                type='text'
-                                placeholder='Event Name'
-                                value={eventName}
-                                onChange={((e) => setEventName(e.target.value))}
-                                required 
-                            />
-                        </div>
-
-                        <div className='field-group flex flex-col mb-5'>
-                            <label className='label' htmlFor='event_description'>Description</label>
-                            <textarea
-                                className='input h-24 resize-none'
-                                placeholder='Event Description'
-                                value={eventDescription}
-                                onChange={((e) => setEventDescription(e.target.value))}
-                                required
-                            />
-                        </div>
-
-                        <div className='field group flex justify-between mb-5'>
-                            <div className='field-group flex flex-col w-48'>
-                                <label className='label' htmlFor='event_tag'>Tag</label>
-                                <select
-                                    name='event_tag'
-                                    className='input resize-none'
-                                    id="select"
-                                    value={eventTag}
-                                    onChange={((e) => setEventTag(e.target.value))}
-                                    required
-                                >
-                                    <option value='Other'>Other</option>
-                                    <option value='Homework'>Homework</option>
-                                    <option value='Chores'>Chores</option>
-                                    <option value='Holiday'>Holiday</option>
-                                    <option value='Healthy Habits'>Healthy Habits</option>
-                                    <option value='Responsibilities'>Responsibilities</option>
-                                </select>
+                    <form className='people_form flex flex-col gap-5 mt-10' onSubmit={handleSubmit}>
+                        <div className='flex justify-between'>
+                            <div className='field-group flex flex-col w-60'>
+                                <label className='label' htmlFor='first_name'>First Name</label>
+                                <input 
+                                    className='input'
+                                    type='text'
+                                    placeholder='First Name'
+                                    value={firstName}
+                                    onChange={((e) => setFirstName(e.target.value))}
+                                    required 
+                                />
                             </div>
 
-                            <div className='field-group flex flex-col w-48 gap-1'>
-                                <h1>Is this event active?</h1>
-                                <div className='flex gap-5'>
-                                    <div>
-                                        <input 
-                                        type="radio" className="accent-primary-purple-light" id="event_active" 
-                                        name="event_active" 
-                                        value='true' 
-                                        onClick={() => setEventActive(true)} />
-                                        <label htmlFor="event_active">Yes</label>
-                                    </div>
-                                    
-                                    <div>
-                                        <input 
-                                            type="radio"
-                                            id="event_inactive"
-                                            className="accent-primary-purple-light" name="event_active" 
-                                            value='false' 
-                                            onClick={() => setEventActive(false)} />
-                                        <label htmlFor="event_inactive">No</label>
-                                    </div>
-                                </div>
-                                
+                            <div className='field-group flex flex-col w-60'>
+                                <label className='label' htmlFor='last_name'>Last Name</label>
+                                <input 
+                                    className='input'
+                                    type='text'
+                                    placeholder='Last Name'
+                                    value={lastName}
+                                    onChange={((e) => setLastName(e.target.value))}
+                                    required 
+                                />
                             </div>
                         </div>
                         
 
-                        <div className='field group flex justify-between mb-5'>
-                            <div className='field-group flex flex-col w-48'>
-                                <label className='label' htmlFor='event_date'>Start Date</label>
+                        <div className='flex justify-between'>
+                            <div className='field-group flex flex-col w-60'>
+                                <label className='label' htmlFor='birthday'>Birthday</label>
                                 <input 
                                     className='input'
                                     type='date'
-                                    value={eventStartDate}
-                                    onChange={((e) => setEventStartDate(e.target.value))}
-                                    required
+                                    value={birthday}
+                                    onChange={((e) => setBirthday(e.target.value))}
                                 />
                             </div>
 
-                            <div className='field-group flex flex-col w-48'>
-                                <label className='label' htmlFor='event_date'>End Date</label>
+                            <div className='field-group flex flex-col w-60'>
+                                <label className='label' htmlFor='role'>Role</label>
+                                <select
+                                    name='role'
+                                    className='input resize-none'
+                                    id="select"
+                                    value={role}
+                                    onChange={((e) => setRole(e.target.value))}
+                                    required
+                                >
+                                    <option value='User'>User</option>
+                                    <option value='Admin'>Administrator</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div className='field group'>
+                            <div className='field-group flex flex-col'>
+                                <label className='label' htmlFor='Address'>Address</label>
                                 <input 
                                     className='input'
-                                    type='date'
-                                    value={eventEndDate}
-                                    onChange={((e) => setEventEndDate(e.target.value))}
-                                    required
+                                    type='text'
+                                    placeholder='Address'
+                                    value={address}
+                                    onChange={((e) => setAddress(e.target.value))}
                                 />
                             </div>
                         </div>
 
+                        <div className='flex justify-between'>
+                            <div className='field-group flex flex-col w-60'>
+                                <label className='label' htmlFor='city'>City</label>
+                                <input 
+                                    className='input'
+                                    type='text'
+                                    placeholder='City'
+                                    value={city}
+                                    onChange={((e) => setCity(e.target.value))}
+                                />
+                            </div>
+
+                            <div className='flex w-60 gap-4'>
+                                <div className='field-group flex flex-col w-28'>
+                                    <label className='label' htmlFor='states'>State</label>
+                                    <select
+                                        name='states'
+                                        className='input resize-none'
+                                        id="select"
+                                        value={state}
+                                        onChange={((e) => setState(e.target.value))}
+                                        required
+                                    >
+                                        {renderedStates}
+                                    </select>
+                                </div>
+                                
+                                <div className='field-group flex flex-col w-28'>
+                                    <label className='label' htmlFor='zipCode'>Zip Code</label>
+                                    <input 
+                                        className='input'
+                                        type='text'
+                                        placeholder='Zip code'
+                                        value={zipCode}
+                                        maxLength={5}
+                                        minLength={5}
+                                        onChange={((e) => setZipCode(e.target.value))}
+                                    />
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div className='flex justify-between'>
+                            <div className='field-group flex flex-col w-60'>
+                                <label className='label' htmlFor='email'>Email</label>
+                                <input 
+                                    className='input'
+                                    type='email'
+                                    placeholder='Email'
+                                    value={email}
+                                    onChange={((e) => setEmail(e.target.value))}
+                                    required 
+                                />
+                            </div>
+
+                            <div className='field-group flex flex-col w-60'>
+                                <label className='label' htmlFor='phone'>Phone</label>
+                                <input 
+                                    className='input'
+                                    id='phone'
+                                    type='tel'
+                                    pattern='[0-9]{3}-[0-9]{3}-[0-9]{4}'
+                                    placeholder='510-931-3387'
+                                    value={phone}
+                                    onChange={((e) => setPhone(e.target.value))}
+                                />
+                            </div>
+                        </div>
+                        
+                        { (userData.registrationType === 'email' || mode === 'create') && 
+                            <div className='field group'>
+                                <div className='field-group flex flex-col'>
+                                    <label className='label' htmlFor='password'>Password</label>
+                                    <input 
+                                        className='input'
+                                        type='password'
+                                        placeholder='password'
+                                        value={password} 
+                                        onChange={((e) => setPassword(e.target.value))}
+                                        required
+                                    />
+                                </div>
+                            </div>
+                        }
+                        
                         
                         <button className='cancel_btn flex flex-shrink ml-auto btn-primary mt-5'>{mode === 'create' ? <>Create</> : <>Submit</>}</button>
                     </form>

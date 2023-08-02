@@ -17,6 +17,29 @@ const userApi = createApi({
                     }
                 }
             }),
+            createUser: builder.mutation({
+                invalidatesTags: ['User'],
+                query: (data) => {
+                    return {
+                        url: '/users',
+                        body: data,
+                        method: 'POST'
+                    }
+                }
+            }),
+            editUser: builder.mutation({
+                invalidatesTags: ['User'],
+                query: ({ accountId, newData }) => {
+                    console.log('---- In the userApi! ------');
+                    console.log('accountId: ', accountId);
+                    console.log('personData: ', newData);
+                    return {
+                        url:`/users/edit/${accountId}`,
+                        body: newData,
+                        method: 'PUT'
+                    }
+                }
+            }),
             deleteUser: builder.mutation({
                 invalidatesTags: ['User'],
                 query: ({ accountId, userId, role }) => {
@@ -36,6 +59,8 @@ const userApi = createApi({
 
 export const {
     useFetchUsersQuery,
+    useCreateUserMutation,
+    useEditUserMutation,
     useDeleteUserMutation
 } = userApi;
 

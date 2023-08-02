@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const { User } = require('../models');
+const bcrypt = require('bcrypt');
 
 // Get All the users
 router.get('/', async (req, res) => {
@@ -24,6 +25,126 @@ router.get('/', async (req, res) => {
     }
 });
 
+/*** Create User (Admin only) ***/
+router.post('/', async (req, res) => {
+    const {
+        userId,
+        firstName,
+        lastName,
+        birthday,
+        phone,
+        email,
+        password,
+        address,
+        city,
+        state,
+        role
+    } = req.body;
+
+    try {
+        const user = await User.findOne({
+            where: {
+                id: userId
+            }
+        });
+
+        if (user.role !== 'Admin') {
+            return res.json({
+                error: 'You are not authorized to create new account'
+            });
+        };
+
+        const hashedPassword = await bcrypt.hash(password, 10);
+        const newUser = await User.create({
+            firstName: firstName,
+            lastName: lastName,
+            birthday: birthday,
+            phone: phone,
+            password: hashedPassword,
+            email: email,
+            address: address,
+            city: city,
+            state: state,
+            role: role,
+            isOnline: false,
+            registrationType: 'email'
+        });
+
+        return res.json(newUser);
+    } catch (error) {
+        console.log('Error creating new user', error);
+
+        return res.json({
+            error: error
+        });
+    }
+});
+
+/*** Edit User (Admin and User themselves only) ***/
+router.put('/edit/:id', async (req, res) => {
+    const accountId = req.params.id;
+    const {
+        userId,
+        firstName,
+        lastName,
+        birthday,
+        phone,
+        email,
+        password,
+        address,
+        city,
+        state,
+        role
+    } = req.body;
+
+    console.log('accountId: ', accountId);
+    console.log('body :', req.body);
+    try {
+        const user = await User.findOne({
+            where: {
+                id: userId
+            }
+        });
+
+        if (user.role !== 'Admin' && user.id !== accountId) {
+            return res.json({
+                error: 'You are not authorized to edit account'
+            });
+        };
+
+        const editUser = await User.findOne({
+            where: {
+                id: accountId
+            }
+        });
+
+        if (password) {
+            const hashedPassword = await bcrypt.hash(password, 10);
+            
+            editUser.password = hashedPassword;
+        }
+
+        editUser.firstName = firstName;
+        editUser.lastName = lastName;
+        editUser.birthday = birthday;
+        editUser.phone = phone;
+        editUser.email = email;
+        editUser.address = address;
+        editUser.city = city;
+        editUser.state = state;
+        editUser.role = role;
+
+        await editUser.save();
+
+        return res.json(editUser);
+    } catch (error) {
+        console.log('Error creating new user', error);
+
+        return res.json({
+            error: error
+        });
+    }
+});
 
 /**** Delete a user ****/ 
 router.delete('/:id', async (req, res) => {
