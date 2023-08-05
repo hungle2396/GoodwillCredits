@@ -94,6 +94,7 @@ router.put('/edit/:id', async (req, res) => {
         address,
         city,
         state,
+        zipCode,
         role
     } = req.body;
 
@@ -132,6 +133,7 @@ router.put('/edit/:id', async (req, res) => {
         editUser.address = address;
         editUser.city = city;
         editUser.state = state;
+        editUser.zipCode = zipCode;
         editUser.role = role;
 
         await editUser.save();

@@ -8,7 +8,7 @@ export const lastLoginDate = (date: Date) => {
 
     console.log('date: ', date);
     const month = months[date.getMonth()];
-    const day = date.getDate();
+    const day = date.getUTCDate();
     const year = date.getFullYear();
 
     console.log('monthNumber: ', month);

@@ -7,38 +7,38 @@ import { useCreateUserMutation } from '../../redux/store';
 import { useEditUserMutation } from '../../redux/store';
 import { states } from '../utils/ArrayItems';
 
-const PeopleForm = ({ mode, personData, onClose, onCloseSetting }: any) => {
-    const [firstName, setFirstName] = useState<string>(
+const PeopleForm = ({ mode, personData, onClose, onCloseSetting }: peopleFormProp) => {
+    const [firstName, setFirstName] = useState(
         mode === 'edit' ? personData.firstName : ''
     );
-    const [lastName, setLastName] = useState<string>(
+    const [lastName, setLastName] = useState(
         mode === 'edit' ? personData.lastName : ''
     );
-    const [birthday, setBirthday] = useState<string>(
+    const [birthday, setBirthday] = useState(
         mode === 'edit' ? personData.birthday : ''
     );
-    const [phone, setPhone] = useState<string>(
+    const [phone, setPhone] = useState(
         mode === 'edit' ? personData.phone : ''
     );
-    const [email, setEmail] = useState<string>(
+    const [email, setEmail] = useState(
         mode === 'edit' ? personData.email : ''
     );
-    const [password, setPassword] = useState<string>(
+    const [password, setPassword] = useState(
         mode === 'edit' ? personData.password : ''
     );
-    const [address, setAddress] = useState<string>(
+    const [address, setAddress] = useState(
         mode === 'edit' ? personData.address : ''
     );
-    const [city, setCity] = useState<string>(
+    const [city, setCity] = useState(
         mode === 'edit' ? personData.city : ''
     );
-    const [state, setState] = useState<string>(
+    const [state, setState] = useState(
         mode === 'edit' ? personData.state : ''
     );
-    const [zipCode, setZipCode] = useState<string>(
+    const [zipCode, setZipCode] = useState(
         mode === 'edit' ? personData.zipCode : ''
     );
-    const [role, setRole] = useState<string>(
+    const [role, setRole] = useState(
         mode === 'edit' ? personData.role : 'User'
     );
 
@@ -70,6 +70,7 @@ const PeopleForm = ({ mode, personData, onClose, onCloseSetting }: any) => {
             address: address,
             city: city,
             state: state,
+            zipCode: zipCode,
             role: role
         }
 
@@ -99,7 +100,7 @@ const PeopleForm = ({ mode, personData, onClose, onCloseSetting }: any) => {
     
             // Close the Event Form
             onClose();
-            onCloseSetting();
+            onCloseSetting?.();
         } catch (error) {
             console.error('Error during API call: ', error);
         }

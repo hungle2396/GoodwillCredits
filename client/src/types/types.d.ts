@@ -22,11 +22,26 @@ interface eventProp {
 }
 
 interface userProp {
-    id: string,
-    firstName: string,
-    lastName: string,
-    email: string,
-    role: string
+    id?: string,
+    firstName?: string,
+    lastName?: string,
+    email?: string,
+    role?: string,
+    password?: string,
+    birthday?: string,
+    address?: string,
+    city?: string,
+    state?: string,
+    zipCode?: string,
+    isOnline?: boolean,
+    phone?: string,
+}
+
+interface peopleFormProp {
+    mode: string,
+    personData: userProp,
+    onClose: () => void;
+    onCloseSetting?: () => void;
 }
 
 declare module "*.jpg" {
