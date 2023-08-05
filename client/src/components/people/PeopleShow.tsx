@@ -7,20 +7,20 @@ import { ReactComponent as CloseIcon } from '../../UI/img/close.svg';
 import { ReactComponent as RightArrowIcon } from '../../UI/img/right-chevron.svg';
 import { useNavigate } from 'react-router-dom';
 import { useFetchUserQuery } from '../../redux/store';
-import { useDeleteUserMutation } from '../../redux/store';
+import useDeletePeople from '../customHooks/useDeletePeople';
 import { lastLoginDate } from '../utils/Formatting';
-import { store } from '../../redux/store';
-import { authApi } from '../../redux/api/authApi';
 
 import PeopleForm from './PeopleForm';
+import { CircularProgress } from '@mui/material';
 
 const PeopleShow = ({user}: any) => {
     const navigate = useNavigate();
-    const { data: userData, isLoading: userIsLoading } = useFetchUserQuery();
-    const [ deletePeople, { isLoading } ] = useDeleteUserMutation();
+    const { data: userData, isLoading: isUserLoading } = useFetchUserQuery();
 
+    const {handleDeletePeople, isDeletingPeople} = useDeletePeople();
     const [openSetting, setOpenSetting] = useState<boolean>(false);
     const [showPeopleModal, setShowPeopleModal] = useState<boolean>(false);
+    
 
     const handleOpenPeopleModal = () => {
         setShowPeopleModal(true);
@@ -39,26 +39,17 @@ const PeopleShow = ({user}: any) => {
         setOpenSetting(false);
     };
 
-    /* Need fixing */
-    const handleDeletePeople = async (accountId: string) => {
-        try {
-            await deletePeople({
-                userId: userData.id,
-                accountId: accountId,
-                role: userData.role
-            });
+    const handlePeopleDetails = () => {
+        navigate(`/people/${user.id}`);
+    }
 
-            // reset cache
-            store.dispatch(authApi.util.resetApiState());
+    if (isUserLoading) {
+        return <CircularProgress />
+    }
 
-            console.log('userData: ', userData);
-            // window.location.reload();
-            navigate('/');
-            
-        } catch (error) {
-            console.error('Error deleting user: ', error);
-        }
-    };
+    if (isDeletingPeople) {
+        return <CircularProgress />
+    }
 
     return (
         <li
@@ -70,7 +61,7 @@ const PeopleShow = ({user}: any) => {
                 <img src={PreviewImage} className='w-14 h-14 rounded-full' alt='test cute dog'/>
             </div>
 
-            <div className='flex w-full justify-between mx-10 gap-2'>
+            <div className='flex w-full justify-between mx-10'>
                 <div className='flex flex-col gap-1 w-20'>
                     <h1 className='text-sm text-secondary-grey'>First Name</h1>
                     <p className='overflow-hidden whitespace-nowrap text-ellipsis'>{user.firstName}</p>
@@ -91,7 +82,7 @@ const PeopleShow = ({user}: any) => {
                     <p className='overflow-hidden whitespace-nowrap text-ellipsis'>{user.role}</p>
                 </div>
 
-                <div className='flex flex-col gap-1 w-30'>
+                <div className='flex flex-col gap-1 w-28'>
                     <h1 className='text-sm text-secondary-grey'>Last Login</h1>
                     <p className='overflow-hidden whitespace-nowrap text-ellipsis'>{lastLoginDate(user.updatedAt)}</p>
                 </div>
@@ -111,7 +102,10 @@ const PeopleShow = ({user}: any) => {
                         
 
                         <div>
-                            <RightArrowIcon className='w-10 h-10' />
+                            <RightArrowIcon 
+                                className='w-10 h-10'
+                                onClick={handlePeopleDetails} 
+                            />
                         </div>
                     </>
                 )}
@@ -127,7 +121,7 @@ const PeopleShow = ({user}: any) => {
                         
 
                         <button className='flex items-center gap-2 hover:fill-primary-purple hover:text-primary-purple'
-                            onClick={() => handleDeletePeople(user.id)}    
+                            onClick={() => handleDeletePeople(user.id, userData.id, userData.role)}    
                         >
                             <DeleteIcon className='w-5 h-5' />
                             Delete

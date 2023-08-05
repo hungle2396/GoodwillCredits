@@ -35,7 +35,7 @@ const PeopleCreate = () => {
             </button>
 
             {/* Create Event Form */}
-            {showPeopleModal && <PeopleForm mode='create' peopleData={''} onClose={handleClosePeopleModal} />}
+            {showPeopleModal && <PeopleForm mode='create' personData={{}} onClose={handleClosePeopleModal} />}
         </div>
     )
 };

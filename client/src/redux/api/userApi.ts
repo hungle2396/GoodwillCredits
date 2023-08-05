@@ -42,13 +42,13 @@ const userApi = createApi({
             }),
             deleteUser: builder.mutation({
                 invalidatesTags: ['User'],
-                query: ({ accountId, userId, role }) => {
+                query: ({ accountId, userId, role}) => {
                     return {
                         url: `/users/${accountId}`,
                         method: 'DELETE',
                         body: {
-                            role,
-                            userId
+                            userId,
+                            role
                         }
                     }
                 }
