@@ -9,6 +9,7 @@ import ProtectedRoutes from "./ProtectedRoutes";
 import Dashboard from "../layout/Dashboard";
 import UserSetting from "../layout/UserSetting";
 import People from "../layout/People";
+import PeopleDetails from '../people/PeopleDetails';
 import Logs from "../layout/Logs";
 import Error from "../layout/Error";
 import Header from "../common/Header";
@@ -29,6 +30,7 @@ const ClientRoutes = ( { user }: clientRoutesProp ) => {
                     <Route path='/dashboard' element={<Dashboard />} />
                     <Route path='/usersetting' element={<UserSetting />} />
                     <Route path='/people' element={<People />} />
+                    <Route path='/people/:id' element={<PeopleDetails />} />
                     <Route path='/logs' element={<Logs />} />
                 </Route>
 
