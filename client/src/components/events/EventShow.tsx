@@ -11,6 +11,7 @@ import { useDeleteEventMutation } from '../../redux/store';
 
 import EventForm from './EventForm';
 import { Days_Counter } from '../utils/Counter';
+import { MonthDayYear } from '../utils/Formatting';
 
 const EventShow = ({ event, hostImage, participantImage }: any) => {
     const [openSetting, setOpenSetting] = useState<boolean>(false);
@@ -26,16 +27,6 @@ const EventShow = ({ event, hostImage, participantImage }: any) => {
     const handleCloseEventModal = () => {
         setShowEventModal(false);
     }
-
-    const limit_words = (paragraph: string) => {
-        const words = paragraph.split(" ");
-        
-        if (words.length > 38) {
-            return words.splice(0, 38).join(" ") + "...";
-        }
-
-        return paragraph;
-    };
     
     console.log('results: ', results);
     const handleOpenSetting = () => {
@@ -67,8 +58,6 @@ const EventShow = ({ event, hostImage, participantImage }: any) => {
             </div>
 
             <div className='w-full px-2 self-start mx-5 my-5'>
-                
-
                 <div className='flex w-full items-center justify-between '>
                     <h1 className='text-xl font-semibold'>{event.name}</h1>
 
@@ -76,14 +65,14 @@ const EventShow = ({ event, hostImage, participantImage }: any) => {
                 </div>
                 
 
-                <p className='mt-2'>{limit_words(event.description)}</p>
+                <p className='mt-2 h-[4.5rem] event_description'>{event.description}</p>
             </div>
 
-            <div className='flex flex-col gap-1 flex-shrink-0 border-transparent border-l-secondary-grey-light border-r-secondary-grey-light border h-full w-60'>
+            <div className='flex flex-col gap-1 flex-shrink-0 border-transparent border-l-secondary-grey-light border-r-secondary-grey-light border h-full w-80'>
                 <div className='flex flex-col gap-3 mx-5 my-5'>
                     <div className='flex justify-between'>
-                        <span>{event.startDate}</span> -
-                        <span>{event.startDate}</span>
+                        <span>{MonthDayYear(event.startDate)}</span> -
+                        <span>{MonthDayYear(event.endDate)}</span>
                     </div>
                     <h1 className='text-4xl font-thin text-center'>{Days_Counter(event.startDate, event.endDate)}</h1>
                     <h1 className='text-md text-center font-thin'>Days Left</h1>
