@@ -51,11 +51,12 @@ const PeopleShow = ({user}: any) => {
         return <CircularProgress />
     }
 
+    const onlineBackgroundColor = user.isOnline ? 'bg-secondary-green' : 'bg-secondary-grey';
     return (
         <li
             className={`flex items-center shadow-box rounded-md pl-5 mx-5 h-[8rem] cursor-pointer relative`}
         >
-            <span className='inline-block bg-secondary-green text-white py-0.5 px-4 absolute top-0 left-0 rounded-tl-md rounded-br-md text-sm'>{user.isOnline ? 'Online' : 'Offline'}</span>
+            <span className={`inline-block ${onlineBackgroundColor} text-white py-0.5 px-4 absolute top-0 left-0 rounded-tl-md rounded-br-md text-sm`}>{user.isOnline ? 'Online' : 'Offline'}</span>
 
             <div className='flex-shrink-0 flex flex-col items-center gap-1'>    
                 <img src={PreviewImage} className='w-14 h-14 rounded-full' alt='test cute dog'/>
