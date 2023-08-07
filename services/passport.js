@@ -80,6 +80,9 @@ module.exports = (passport) => {
                 if (existingUser) {
                     // User already exists, proceed with authentication
                     console.log(`user already exist in the database`);
+
+                    existingUser.isOnline = true;
+                    await existingUser.save();
                     return done(null, existingUser);
                 }
     
