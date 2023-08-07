@@ -86,18 +86,36 @@ router.post('/login', (req, res, next) => {
 
 
 // User Log out
-router.get('/logout', (req, res, next) => {
+router.get('/logout', async (req, res, next) => {
+    const userId = req.user.id;
     
-    req.session.destroy((error) => {
-        console.log("Destroyed cookie");
-        if (error) {
-            console.error(error);
-            return res.status(500).send('Internal Server Error');
+    try {
+        const user = await User.findByPk(userId);
+
+        if (user) {
+            // Update the isOnline attribute to false
+            user.isOnline = false;
+            await user.save();
         }
-        res.clearCookie("connect.sid");
-        console.log("cleared the cookie");
-        return res.redirect('/');
-    });
+
+        // req.logout(); // Log the user out
+
+        req.session.destroy((error) => {
+            console.log("Destroyed cookie");
+            if (error) {
+                console.error(error);
+                return res.status(500).send('Internal Server Error');
+            }
+            res.clearCookie("connect.sid");
+            console.log("cleared the cookie");
+            return res.redirect('/');
+        });
+    } catch (error) {
+        console.error(error);
+        return res.status(500).send('Internal Server Error');
+    }
+
+    
 });
 
 // Check if the user is currently login or not
