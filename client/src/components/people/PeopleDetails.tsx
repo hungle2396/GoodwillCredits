@@ -16,7 +16,7 @@ import { ReactComponent as EmailIcon } from '../../UI/img/email.svg';
 import { ReactComponent as AddressIcon } from '../../UI/img/placeholder.svg';
 
 import { Link } from 'react-router-dom';
-import { lastLoginDate } from '../utils/Formatting';
+import { MonthDayYear } from '../utils/Formatting';
 import PeopleForm from './PeopleForm';
 
 const PeopleDetails = () => {
@@ -82,7 +82,7 @@ const PeopleDetails = () => {
                     <div className='flex justify-between items-center h-10 bg-white px-10 rounded-l-md rounded-r-md'>
                         <div className='flex gap-2'>
                             <p className='text-secondary-grey'>Last Login:</p>
-                            <span>{lastLoginDate(user.updatedAt)}</span>
+                            <span>{MonthDayYear(user.updatedAt)}</span>
                         </div>
 
                         <div className='flex gap-4'>
@@ -122,7 +122,7 @@ const PeopleDetails = () => {
                                     <p>Birthday</p>
                                 </div>
 
-                                <p className='basis-1/2'>{lastLoginDate(user.birthday) || '-'}</p>
+                                <p className='basis-1/2'>{MonthDayYear(user.birthday) || '-'}</p>
                             </div>
 
                             <div className='flex w-full text-xl items-center gap-2'>

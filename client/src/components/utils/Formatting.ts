@@ -1,6 +1,6 @@
 
 
-export const lastLoginDate = (date: Date) => {
+export const MonthDayYear = (date: Date) => {
     // Convert to Date
     const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 

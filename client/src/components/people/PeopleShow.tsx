@@ -8,7 +8,7 @@ import { ReactComponent as RightArrowIcon } from '../../UI/img/right-chevron.svg
 import { useNavigate } from 'react-router-dom';
 import { useFetchUserQuery } from '../../redux/store';
 import useDeletePeople from '../customHooks/useDeletePeople';
-import { lastLoginDate } from '../utils/Formatting';
+import { MonthDayYear } from '../utils/Formatting';
 
 import PeopleForm from './PeopleForm';
 import { CircularProgress } from '@mui/material';
@@ -84,7 +84,7 @@ const PeopleShow = ({user}: any) => {
 
                 <div className='flex flex-col gap-1 w-28'>
                     <h1 className='text-sm text-secondary-grey'>Last Login</h1>
-                    <p className='overflow-hidden whitespace-nowrap text-ellipsis'>{lastLoginDate(user.updatedAt)}</p>
+                    <p className='overflow-hidden whitespace-nowrap text-ellipsis'>{MonthDayYear(user.updatedAt)}</p>
                 </div>
             </div>
 
@@ -100,7 +100,6 @@ const PeopleShow = ({user}: any) => {
                             ''
                         }
                         
-
                         <div>
                             <RightArrowIcon 
                                 className='w-10 h-10'

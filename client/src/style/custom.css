@@ -75,6 +75,12 @@ body {
     animation: rainbow-animation 6s infinite alternate;
 }
 
+.event_description {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100%;
+}
+
 @keyframes rainbow-animation {
     10% { fill: #D65DB1 }
     20% { fill: #FF6F91 }
