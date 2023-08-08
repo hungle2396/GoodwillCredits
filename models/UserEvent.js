@@ -30,6 +30,11 @@ module.exports = (sequelize, DataTypes) => {
     },
     isHost: {
       type: DataTypes.BOOLEAN
+    },
+    totalCredits: {
+      type: DataTypes.INTEGER,
+      defaultValue: 0,
+      allowNull: false
     }
   }, {
     sequelize,
