@@ -14,6 +14,7 @@ import Logs from "../layout/Logs";
 import Error from "../layout/Error";
 import Header from "../common/Header";
 import Copyright from "../common/Copyright";
+import EventDetails from '../events/EventDetails';
 
 const ClientRoutes = ( { user }: clientRoutesProp ) => {
     return (
@@ -31,6 +32,7 @@ const ClientRoutes = ( { user }: clientRoutesProp ) => {
                     <Route path='/usersetting' element={<UserSetting />} />
                     <Route path='/people' element={<People />} />
                     <Route path='/people/:id' element={<PeopleDetails />} />
+                    <Route path='/events/:id' element={<EventDetails />} />
                     <Route path='/logs' element={<Logs />} />
                 </Route>
 

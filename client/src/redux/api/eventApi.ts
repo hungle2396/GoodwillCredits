@@ -50,7 +50,7 @@ const eventApi = createApi({
             deleteEvent: builder.mutation({
                 invalidatesTags: ['Event'],
                 query: ({ eventId, userId }) => {
-                    console.log('-In the deleteEvent RTKK Query delete function-');
+                    console.log('-In the deleteEvent RTK Query delete function-');
                     return {
                         url: `/events/${eventId}`,
                         method: 'DELETE',
