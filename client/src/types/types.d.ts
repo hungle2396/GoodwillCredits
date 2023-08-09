@@ -44,6 +44,26 @@ interface peopleFormProp {
     onCloseSetting?: () => void;
 }
 
+interface participantProp {
+    id: string,
+    isHost: boolean,
+    totalCredits: number,
+    user: {
+        firstName: string,
+        isOnline: boolean,
+        lastName: string,
+        updatedAt: date
+    }
+}
+
+interface participantShowProp {
+    participant: participantProp
+}
+
+interface participantListProps {
+    eventId: string;
+}
+
 declare module "*.jpg" {
     const path: string;
     export default path;

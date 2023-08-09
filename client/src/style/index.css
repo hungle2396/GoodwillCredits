@@ -18,8 +18,28 @@
         py-2 px-8
         shadow-[0_3px_10px_rgb(0,0,0,0.2)]
         text-white
+        rounded-md
         bg-secondary-blue hover:bg-secondary-blue-dark
     }
+
+    .btn-green {
+        @apply
+        py-2 px-8
+        shadow-[0_3px_10px_rgb(0,0,0,0.2)]
+        text-white
+        rounded-md
+        bg-secondary-green hover:bg-secopndary-green-dark
+    }
+
+    .btn-red {
+        @apply
+        py-2 px-8
+        shadow-[0_3px_10px_rgb(0,0,0,0.2)]
+        text-white
+        rounded-md
+        bg-secondary-red hover:bg-secondary-red-dark
+    }
+
     .btn-normal {
         @apply
         bg-transparent

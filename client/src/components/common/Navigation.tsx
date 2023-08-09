@@ -13,10 +13,10 @@ const Navigation = ({ isActive }: any) => {
             <Link 
                 to={'/dashboard'}
                 className={`
-                    flex items-center gap-2 py-3 rounded-md
+                    flex items-center gap-2 py-3 px-5 rounded-md
                     ${isActive === 'events' ? active : ''}`}
             >
-                <EventIcon className='w-5 h-5 ml-5'/>
+                <EventIcon className='w-5 h-5'/>
                 Events
             </Link>
 
