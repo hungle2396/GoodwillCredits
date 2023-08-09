@@ -22,7 +22,7 @@ const EventList = () => {
     } else if (eventsData && Array.isArray(eventsData)) {
         renderedEvents = eventsData.map((event: eventProp) => {
             return ( 
-                <EventShow key={event.id} event={event} hostImage={PreviewImage} participantImage={HappyKid} /> 
+                <EventShow key={event.id} event={event} /> 
             )
         });
     }

@@ -5,15 +5,17 @@ import { ReactComponent as DeleteIcon } from '../../UI/img/trash-can.svg';
 import { ReactComponent as EventSettingIcon } from '../../UI/img/more.svg';
 import { ReactComponent as CloseIcon } from '../../UI/img/close.svg';
 import { ReactComponent as RightArrowIcon } from '../../UI/img/right-chevron.svg';
-
+import HappyKid from '../../UI/img/Happy_Kid.jpg';
 import { useFetchUserQuery } from '../../redux/store';
 import { useDeleteEventMutation } from '../../redux/store';
 
 import EventForm from './EventForm';
 import { Days_Counter } from '../utils/Counter';
 import { MonthDayYear } from '../utils/Formatting';
+import { useNavigate } from 'react-router-dom';
 
-const EventShow = ({ event, hostImage, participantImage }: any) => {
+const EventShow = ({ event }: any) => {
+    const navigate = useNavigate();
     const [openSetting, setOpenSetting] = useState<boolean>(false);
     const [showEventModal, setShowEventModal] = useState<boolean>(false);
 
@@ -45,6 +47,10 @@ const EventShow = ({ event, hostImage, participantImage }: any) => {
         });
     };
 
+    const handleEventDetails = () => {
+        navigate(`/events/${event.id}`);    
+    }
+
     return (
         <li
             className={`flex items-center shadow-box rounded-md pl-5 mx-5 h-[10rem] cursor-pointer relative`}
@@ -52,7 +58,7 @@ const EventShow = ({ event, hostImage, participantImage }: any) => {
             <span className='inline-block bg-secondary-green text-white py-0.5 px-4 absolute top-0 left-0 rounded-tl-md rounded-br-md text-sm'>{event.active ? 'Active' : 'Inactive'}</span>
 
             <div className='flex-shrink-0 flex flex-col items-center gap-1'>    
-                <img src={hostImage} className='w-14 h-14 rounded-full' alt='test cute dog'/>
+                <img src={HappyKid} className='w-14 h-14 rounded-full' alt='test cute dog'/>
 
                 <p className='text-md font-medium'>{`${event.host.firstName} ${event.host.lastName}`}</p>
             </div>
@@ -74,8 +80,8 @@ const EventShow = ({ event, hostImage, participantImage }: any) => {
                         <span>{MonthDayYear(event.startDate)}</span> -
                         <span>{MonthDayYear(event.endDate)}</span>
                     </div>
-                    <h1 className='text-4xl font-thin text-center'>{Days_Counter(event.startDate, event.endDate)}</h1>
-                    <h1 className='text-md text-center font-thin'>Days Left</h1>
+                    <h1 className='text-5xl font-thin text-center'>{Days_Counter(event.startDate, event.endDate)}</h1>
+                    <h1 className='text-md text-center'>Days Left</h1>
                 </div>
             </div>
 
@@ -87,7 +93,7 @@ const EventShow = ({ event, hostImage, participantImage }: any) => {
                             <EventSettingIcon className='w-5 h-5 fill-secondary-grey' />
                         </div>
 
-                        <div>
+                        <div onClick={handleEventDetails}>
                             <RightArrowIcon className='w-10 h-10' />
                         </div>
                     </>
