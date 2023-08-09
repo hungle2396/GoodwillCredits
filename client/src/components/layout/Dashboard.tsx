@@ -1,13 +1,9 @@
-import React, { useState } from 'react';
-
-
+import React from 'react';
 import Navigation from '../common/Navigation';
 import EventCreate from '../events/EventCreate';
 import EventList from '../events/EventList';
 
 const Dashboard = () => {
-    console.log('In the dashboard component');
-    
     return (
         <main className='flex-grow relative
                          flex gap-5 my-5

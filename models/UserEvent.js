@@ -11,6 +11,14 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      UserEvent.belongsTo(models.User, {
+        foreignKey: 'userId',
+        as: 'user', // Define alias for User model
+      });
+      UserEvent.belongsTo(models.Event, {
+        foreignKey: 'eventId',
+        as: 'event', // Define alias for Event model
+      });
     }
   }
   UserEvent.init({
