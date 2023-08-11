@@ -53,7 +53,7 @@ const EventShow = ({ event }: any) => {
 
     return (
         <li
-            className={`flex items-center shadow-box rounded-md pl-5 mx-5 h-[10rem] cursor-pointer relative`}
+            className={`flex items-center shadow-box rounded-md pl-5 mx-5 h-[10rem] relative`}
         >
             <span className='inline-block bg-secondary-green text-white py-0.5 px-4 absolute top-0 left-0 rounded-tl-md rounded-br-md text-sm'>{event.active ? 'Active' : 'Inactive'}</span>
 

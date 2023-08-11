@@ -9,6 +9,7 @@ import { ReactComponent as RightArrowIcon } from '../../UI/img/right-chevron.svg
 import { MonthDayYear } from '../utils/Formatting';
 
 import ParticipantList from '../participants/ParticipantList';
+import ParticipantCreate from '../participants/ParticipantCreate';
 
 const EventDetails = () => {
     const { id } = useParams();
@@ -29,7 +30,7 @@ const EventDetails = () => {
     });
 
     return (
-        <main className='flex-grow relative
+        <main className='relative
                          flex gap-5 my-5
                         '
         >
@@ -82,11 +83,11 @@ const EventDetails = () => {
                         <p>{event.description}</p>
                     </div>
 
-                    <div className='participant_container bg-secondary-grey-light-2 rounded-md p-5 flex-grow'>
-                        <div className='flex justify-between items-center'>
-                            <h1 className='text-2xl font-medium'>Participants</h1>
+                    <div className='participant_container bg-secondary-grey-light-2 rounded-md p-5 h-full'>
+                        <div>
+                            <h1 className='text-2xl font-medium ml-5 mb-5'>Participants</h1>
 
-                            <button className='btn-blue'>Add Participant</button>
+                            <ParticipantCreate event={event} />
                         </div>
 
                         {id && <ParticipantList eventId={id} />}

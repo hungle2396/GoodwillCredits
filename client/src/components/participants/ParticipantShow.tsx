@@ -4,7 +4,7 @@ import { MonthDayYear } from '../utils/Formatting';
 
 const ParticipantShow = ({ participant }: participantShowProp ) => {
     return (
-        <li className='flex h-24 my-5 bg-white shadow-box rounded-lg'>
+        <li className='flex h-[6rem] mb-5 bg-white shadow-box rounded-lg'>
             <div className='flex basis-1/3 items-center px-5 border border-y-0 border-l-0 border-secondary-grey-light'>
                 <img 
                     src={HappyKid}

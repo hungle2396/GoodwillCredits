@@ -13,7 +13,7 @@ import PeopleDetails from '../people/PeopleDetails';
 import Logs from "../layout/Logs";
 import Error from "../layout/Error";
 import Header from "../common/Header";
-import Copyright from "../common/Copyright";
+import Footer from "../common/Footer";
 import EventDetails from '../events/EventDetails';
 
 const ClientRoutes = ( { user }: clientRoutesProp ) => {
@@ -40,7 +40,6 @@ const ClientRoutes = ( { user }: clientRoutesProp ) => {
                 {/* Error Page */}
                 <Route path='*' element={<Error />} />
             </Routes>
-            <Copyright />
         </>
     )
 }

@@ -58,6 +58,7 @@ const PeopleDetails = () => {
     return (
         <main className='flex-grow relative
                          flex gap-5 my-5
+                         
                         '
         >
             <div className='basis-1/5'>

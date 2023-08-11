@@ -23,7 +23,7 @@ const ParticipantList = ({ eventId }: participantListProps) => {
     console.log('participants: ', participantsData);
 
     return (
-        <ul>
+        <ul className='gap-5 hide-scrollbar px-5 my-5'>
             {renderedParticipants}
         </ul>
     )

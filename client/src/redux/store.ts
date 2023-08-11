@@ -47,5 +47,6 @@ export {
 } from './api/eventApi';
 
 export {
-    useFetchParticipantsQuery
+    useFetchParticipantsQuery,
+    useAddParticipantMutation
 } from './api/participantApi';

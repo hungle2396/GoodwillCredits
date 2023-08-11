@@ -45,8 +45,59 @@ router.get('/event/:eventId', async (req, res) => {
     }
 });
 
-// router.post('/', async (req, res) => {
+router.post('/', async (req, res) => {
+    const { userId, eventId, email} = req.body;
 
-// })
+    try {
+        // Check if the user exist
+        const user = await User.findOne({
+            where: {
+                email: email
+            }
+        });
+
+        if (!user) {
+            return res.status(404).json({
+                error: 'User does not exist in the system.'
+            });
+        }
+
+        // Check if the event exist
+        const event = await Event.findOne({
+            where: {
+                id: eventId
+            }
+        });
+
+        if (!event) {
+            return res.status(404).json({
+                error: 'Event does not exist in the system.'
+            });
+        }
+
+        // Check if the user who is adding new participant is a host
+        if (event.hostId !== userId) {
+            return res.status(403).json({
+                error: 'You do not have permission to add new participant'
+            })
+        };
+
+        // Add user to the event
+        await UserEvent.create({
+            userId: user.id,
+            eventId: eventId,
+            isHost: false,
+        });
+
+        return res.status(200).json({
+            message: `Successfully added ${email}`
+        });
+    } catch (error) {
+        console.error('Error: ', error);
+        return res.status(500).json({
+            error: error
+        })
+    }
+})
 
 module.exports = router;

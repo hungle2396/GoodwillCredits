@@ -54,7 +54,7 @@ const PeopleShow = ({user}: any) => {
     const onlineBackgroundColor = user.isOnline ? 'bg-secondary-green' : 'bg-secondary-grey';
     return (
         <li
-            className={`flex items-center shadow-box rounded-md pl-5 mx-5 h-[8rem] cursor-pointer relative`}
+            className={`flex items-center shadow-box rounded-md pl-5 mx-5 h-[8rem] relative`}
         >
             <span className={`inline-block ${onlineBackgroundColor} text-white py-0.5 px-4 absolute top-0 left-0 rounded-tl-md rounded-br-md text-sm`}>{user.isOnline ? 'Online' : 'Offline'}</span>
 
@@ -83,7 +83,7 @@ const PeopleShow = ({user}: any) => {
                     <p className='overflow-hidden whitespace-nowrap text-ellipsis'>{user.role}</p>
                 </div>
 
-                <div className='flex flex-col gap-1 w-28'>
+                <div className='flex flex-col gap-1 w-32'>
                     <h1 className='text-sm text-secondary-grey'>Last Login</h1>
                     <p className='overflow-hidden whitespace-nowrap text-ellipsis'>{MonthDayYear(user.updatedAt)}</p>
                 </div>

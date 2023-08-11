@@ -17,12 +17,27 @@ const participantApi = createApi({
                     }
                 }
             }),
+            addParticipant: builder.mutation({
+                invalidatesTags: ['Participant'],
+                query: ({userId, eventId, email}) => {
+                    return {
+                        url: `/participants`,
+                        method: 'POST',
+                        body: {
+                            userId,
+                            eventId,
+                            email
+                        }
+                    }
+                }
+            })
         }
     }
 });
 
 export const {
     useFetchParticipantsQuery,
+    useAddParticipantMutation
 } = participantApi;
 
 export { participantApi };
