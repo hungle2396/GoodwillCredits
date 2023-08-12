@@ -16,7 +16,7 @@ const App = () => {
     // Check if the current route is the error page
 
     return (
-        <div className="flex flex-col min-h-screen mx-20">
+        <div className='body'>
             <BrowserRouter>
                 <ClientRoutes user={userId}  />
             </BrowserRouter>
