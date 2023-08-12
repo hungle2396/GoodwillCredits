@@ -13,7 +13,6 @@ import PeopleDetails from '../people/PeopleDetails';
 import Logs from "../layout/Logs";
 import Error from "../layout/Error";
 import Header from "../common/Header";
-import Footer from "../common/Footer";
 import EventDetails from '../events/EventDetails';
 
 const ClientRoutes = ( { user }: clientRoutesProp ) => {
