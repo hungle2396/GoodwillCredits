@@ -1,0 +1,135 @@
+
+.body {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    margin: 0 5rem 0 5rem;
+    height: 100vh;
+}
+
+header {
+    height: 5rem;
+}
+
+main {
+   flex-grow: 1;
+}
+
+footer {
+    height: 3rem;
+}
+
+.input {
+    border-bottom: 1px solid #e2e2e2;
+    background-color: transparent;
+    padding: 2px 0;
+}
+
+.input::placeholder {
+    font-size: 14px;
+}
+
+.input:focus {
+    outline: none;
+    border-bottom: 1px solid #BD33E5;
+}
+
+.background-primary {
+    background: linear-gradient(100deg, #f8ebfc, #fff, #f8ebfc)
+}
+
+.border-top {
+    border-top: 1px solid #e1e1e1;
+}
+
+.border-bottom {
+    border-bottom: 1px solid #e1e1e1;
+}
+
+.bg_landing {
+    background-image: url('../UI/img/blue_blurry_bg.jpg');
+    -o-background-size: 80rem;
+    -webkit-background-size: 80rem;
+    -moz-background-size: 80rem;
+    background-size: 80rem;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.btn-gradient-border {
+    background: linear-gradient(white, white) padding-box,
+                linear-gradient(to right, #c447e8, #aa2ece) border-box;
+    border-radius: 10px;
+    border: 3px solid transparent;
+}
+
+
+.line-grey {
+    border-top: 1.5px solid #eeeeee;
+    margin: 2rem auto;
+    width: 90%;
+}
+
+.spread_animation {
+    transition: transform 0.2s ease;
+}
+
+.spread_animation:hover img {
+    transform: translateX(3px);
+}
+
+.spread_animation:hover a {
+    transform: translateX(-3px);
+}
+
+.shadow-box {
+    box-shadow: 0 3px 10px rgb(0,0,0,0.2);
+}
+
+/* Rainbow animation */
+
+.rainbow {
+    animation: rainbow-animation 6s infinite alternate;
+}
+
+.event_description {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100%;
+}
+
+@keyframes rainbow-animation {
+    10% { fill: #D65DB1 }
+    20% { fill: #FF6F91 }
+    40%  { fill: #FF9671; }
+    60%  { fill: #FFC75F; }
+    80% { fill: #2388FF; }
+    100%  { fill: #66bf5b; }
+}
+
+/* Select option */
+select.decorated option:hover {
+    box-shadow: 0 0 10px 100px #aa2ece inset;
+}
+
+
+/* Scrollbar */
+.hide-scrollbar {
+    overflow-y: scroll;
+}
+
+* {
+    scrollbar-width: thin;
+    scrollbar-color: blue;
+  }
+  
+  /* Chrome, Edge, and Safari */
+  *::-webkit-scrollbar {
+    width: 3px;
+  }
+  
+  *::-webkit-scrollbar-thumb {
+    border-radius: 20px;
+    border: 5px solid #bebebe;
+  }
