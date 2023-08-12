@@ -83,7 +83,7 @@ const EventDetails = () => {
                         <p>{event.description}</p>
                     </div>
 
-                    <div className='participant_container bg-secondary-grey-light-2 rounded-md p-5 h-full'>
+                    <div className='participant_container bg-secondary-grey-light-2 rounded-md p-5 h-[35rem]'>
                         <div>
                             <h1 className='text-2xl font-medium ml-5 mb-5'>Participants</h1>
 

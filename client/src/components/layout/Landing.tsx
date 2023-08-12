@@ -3,7 +3,7 @@ let AnimatedPiggyBank = require("../../UI/img/PiggyBank.gif");
 
 
 const Landing = () => {
-    console.log("In Landing component");
+    
     return (
         <>
             <main className="bg_landing">

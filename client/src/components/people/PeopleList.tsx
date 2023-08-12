@@ -26,8 +26,8 @@ const PeopleList = () => {
     }
 
     return (
-        <div className="h-[44rem] hide-scrollbar py-2">
-            <ul className='flex flex-col gap-4'>
+        <div className="h-[45rem] hide-scrollbar py-2">
+            <ul className='flex flex-col gap-5'>
                 {usersData && usersData.length > 0 ? renderedPeople : <p className='text-2xl text-gray-400'>No Event So Far, Please Create One.</p>}
             </ul>
         </div>

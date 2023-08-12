@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { ReactComponent as StarsIcon } from '../../UI/img/3-stars.svg';
 import { ReactComponent as EditIcon } from '../../UI/img/edit.svg';
 import { ReactComponent as DeleteIcon } from '../../UI/img/trash-can.svg';
 import { ReactComponent as EventSettingIcon } from '../../UI/img/more.svg';
