@@ -216,10 +216,11 @@ const PeopleForm = ({ mode, personData, onClose, onCloseSetting }: peopleFormPro
                                     <input 
                                         className='input'
                                         type='text'
-                                        placeholder='Zip code'
+                                        placeholder='12345'
                                         value={zipCode}
                                         maxLength={5}
                                         minLength={5}
+                                        pattern='[0-9]{5}'
                                         onChange={((e) => setZipCode(e.target.value))}
                                     />
                                 </div>

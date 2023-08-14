@@ -49,6 +49,7 @@ interface participantProp {
     isHost: boolean,
     totalCredits: number,
     user: {
+        id: string,
         firstName: string,
         isOnline: boolean,
         lastName: string,
@@ -57,10 +58,13 @@ interface participantProp {
 }
 
 interface participantShowProp {
-    participant: participantProp
+    participant: participantProp,
+    user: userProp,
+    isHost: boolean
 }
 
 interface participantListProps {
+    isHost: boolean;
     eventId: string;
 }
 

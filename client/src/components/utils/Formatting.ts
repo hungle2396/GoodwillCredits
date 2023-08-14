@@ -1,12 +1,21 @@
 
 
-export const MonthDayYear = (date: Date) => {
+export const MonthDayYear = (date: Date | string) => {
     // Convert to Date
     const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 
-    date = new Date(date);
+    if (typeof date === 'string') {
+        const parsedDate = new Date(date);
 
-    console.log('date: ', date);
+        // Check if the parsed date is valid
+        if (!isNaN(parsedDate.getTime())) {
+            date = parsedDate;
+        } else {
+            return '-';
+        }
+    }
+
+    date = new Date(date);
     const month = months[date.getMonth()];
     const day = date.getUTCDate();
     const year = date.getFullYear();

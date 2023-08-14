@@ -4,9 +4,11 @@ import { MonthDayYear } from '../utils/Formatting';
 import { ReactComponent as MoreIcon } from '../../UI/img/more.svg';
 import { ReactComponent as DeleteIcon } from '../../UI/img/trash-can.svg';
 import { ReactComponent as CloseIcon } from '../../UI/img/close.svg';
+import { useDeleteParticipantMutation } from '../../redux/store';
 
-const ParticipantShow = ({ participant }: participantShowProp ) => {
+const ParticipantShow = ({ user, participant, isHost }: participantShowProp ) => {
     const [openSetting, setOpenSetting] = useState<boolean>(false);
+    const [deleteParticipant, result] = useDeleteParticipantMutation();
 
     const handleOpenSetting = () => {
         setOpenSetting(true);
@@ -16,6 +18,26 @@ const ParticipantShow = ({ participant }: participantShowProp ) => {
         setOpenSetting(false);
     };
 
+    const handleDeleteParticipant = async () => {
+        try {
+            const response = await deleteParticipant({
+                userId: user.id,
+                participantId: participant.id,
+                isHost: isHost           
+            });
+
+            console.log('Response after deleting participant: ', response);
+        } catch (error) {
+            console.error('Error deleting participant:', error);
+        }
+        
+    }
+
+    console.log('participant: ', participant);
+
+    const isCurrentUser = user.id === participant.user.id;
+
+    console.log('result: ', result);
     return (
         <li className='flex h-[6rem] mb-5 bg-white shadow-box rounded-lg'>
             <div className='flex basis-1/3 items-center px-5 border border-y-0 border-l-0 border-secondary-grey-light'>
@@ -48,9 +70,13 @@ const ParticipantShow = ({ participant }: participantShowProp ) => {
 
                 {!openSetting && (
                     <>
-                        <MoreIcon className='w-4 h-4 absolute top-2 right-3' onClick={handleOpenSetting} />
+                        {
+                            (isHost || isCurrentUser) &&
+                            <MoreIcon className='w-4 h-4 absolute top-2 right-3' onClick={handleOpenSetting} />
+                        }
 
-                        {participant.user.isOnline ? <h4 className='text-secondary-green font-medium'>Online</h4> 
+                        {
+                            participant.user.isOnline ? <h4 className='text-secondary-green font-medium'>Online</h4> 
                             :
                             <>
                                 <h4 className='text-sm'>Last Login</h4>
@@ -64,7 +90,9 @@ const ParticipantShow = ({ participant }: participantShowProp ) => {
                     <>
                         <CloseIcon className='w-5 h-5 absolute top-2 right-3 cursor-pointer' onClick={handleCloseSetting} />
 
-                        <button className='flex gap-2 hover:fill-secondary-red hover:text-secondary-red cursor-pointer'>
+                        <button className='flex gap-2 hover:fill-secondary-red hover:text-secondary-red cursor-pointer'
+                        onClick={handleDeleteParticipant}
+                        >
                             <DeleteIcon className='w5 h-5' />
                             Delete
                         </button>

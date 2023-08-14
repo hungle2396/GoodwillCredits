@@ -30,7 +30,7 @@ router.get('/event/:eventId', async (req, res) => {
                 {
                     model: User,
                     as: 'user', // Define alias for User model
-                    attributes: ['firstName', 'lastName', 'isOnline', 'updatedAt']
+                    attributes: ['id','firstName', 'lastName', 'isOnline', 'updatedAt']
                 }
             ]
         })
@@ -97,6 +97,50 @@ router.post('/', async (req, res) => {
         return res.status(500).json({
             error: error
         })
+    }
+})
+
+// Delete Participant
+router.delete('/:participantId', async (req, res) => {
+    const participantId = req.params.participantId;
+
+    const { userId, isHost } = req.body;
+    
+    try {
+        // Check if the user exist
+        const user = await User.findByPk(userId);
+
+        if (!user) {
+            return res.status(404).json({
+                error: 'User does not exist in the system'
+            });
+        };
+
+        // Check if the participant exist in the event
+        const participant = await UserEvent.findByPk(participantId);
+
+        if (!participant) {
+            return res.status(404).json({
+                error: 'This participant does not exist in this event.'
+            })
+        };
+
+        // Check if the user has permission to delete participant
+        // Host and the participant themselves only
+        if (!isHost && participant.userId !== userId) {
+            return res.status(403).json({
+                error: 'You do not have authorization to delete this participant.'
+            })
+        }
+
+        // Delete the participant from the event
+        await participant.destroy();
+
+        return res.status(200).json({
+            message: 'Successfully removed the participant'
+        });
+    } catch (error) {
+
     }
 })
 

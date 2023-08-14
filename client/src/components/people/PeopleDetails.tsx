@@ -123,7 +123,7 @@ const PeopleDetails = () => {
                                     <p>Birthday</p>
                                 </div>
 
-                                <p className='basis-1/2'>{MonthDayYear(user.birthday) || '-'}</p>
+                                <p className='basis-1/2'>{user.birthday ?MonthDayYear(user.birthday) : '-'}</p>
                             </div>
 
                             <div className='flex w-full text-xl items-center gap-2'>
@@ -150,7 +150,7 @@ const PeopleDetails = () => {
                                     <p>Mailing Address</p>
                                 </div>
 
-                                <p className='basis-1/2'>{user.address ? `${user.address} ${user.city}, ${user.state}, ${user.zipCode}` : '-'}</p>
+                                <p className='basis-1/2'>{user.address ? `${user.address}, ${user.city}, ${user.state}, ${user.zipCode}` : '-'}</p>
                             </div>
 
                             <div className='flex w-full text-xl items-center gap-2'>
