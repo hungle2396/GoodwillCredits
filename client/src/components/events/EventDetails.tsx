@@ -29,6 +29,8 @@ const EventDetails = () => {
         return event.id === id;
     });
 
+    const isHost = userData.id === event.hostId;
+
     return (
         <main className='relative
                          flex gap-5 my-5
@@ -43,7 +45,7 @@ const EventDetails = () => {
                            '
             >
                <div className='flex gap-2 items-center'>
-                    <Link to={'/events'}>Events</Link>
+                    <Link to={'/dashboard'}>Events</Link>
                     <RightArrowIcon className='w-4 h-3' />
                     <p>Event Details</p>
                 </div>
@@ -90,7 +92,7 @@ const EventDetails = () => {
                             <ParticipantCreate event={event} />
                         </div>
 
-                        {id && <ParticipantList eventId={id} />}
+                        {id && <ParticipantList eventId={id} isHost={isHost} />}
                     </div>
                 </div>
             </div>

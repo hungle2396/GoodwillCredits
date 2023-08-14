@@ -3,7 +3,7 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 const participantApi = createApi({
     reducerPath: 'participantReducerPath',
     baseQuery: fetchBaseQuery({
-        baseUrl: '/api'
+        baseUrl: '/api/participants'
     }),
     tagTypes: ['Participant'],
     endpoints(builder) {
@@ -12,7 +12,7 @@ const participantApi = createApi({
                 providesTags: ['Participant'],
                 query: ({ eventId }) => {
                     return {
-                        url: `/participants/event/${eventId}`,
+                        url: `/event/${eventId}`,
                         method: 'GET'
                     }
                 }
@@ -21,12 +21,25 @@ const participantApi = createApi({
                 invalidatesTags: ['Participant'],
                 query: ({userId, eventId, email}) => {
                     return {
-                        url: `/participants`,
+                        url: `/`,
                         method: 'POST',
                         body: {
                             userId,
                             eventId,
                             email
+                        }
+                    }
+                }
+            }),
+            deleteParticipant: builder.mutation({
+                invalidatesTags: ['Participant'],
+                query: ({userId, participantId, isHost}) => {
+                    return {
+                        url: `/${participantId}`,
+                        method: 'DELETE',
+                        body: {
+                            userId,
+                            isHost
                         }
                     }
                 }
@@ -37,7 +50,8 @@ const participantApi = createApi({
 
 export const {
     useFetchParticipantsQuery,
-    useAddParticipantMutation
+    useAddParticipantMutation,
+    useDeleteParticipantMutation
 } = participantApi;
 
 export { participantApi };

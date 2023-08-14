@@ -48,5 +48,6 @@ export {
 
 export {
     useFetchParticipantsQuery,
-    useAddParticipantMutation
+    useAddParticipantMutation,
+    useDeleteParticipantMutation
 } from './api/participantApi';
