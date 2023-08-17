@@ -14,14 +14,10 @@ const Header = () => {
     const dropDownRef = useRef<HTMLDivElement>(null);
 
     const handleDropDownOpen = () => {
-        console.log("In the handleDropDownOpen function");
         setIsDropDownOpen((prevState) => !prevState);
     }
 
     const handleDropDownOutside = (event: MouseEvent) => {
-        console.log("In the handleDropDownOutside function");
-        console.log("event target: ", event.target);
-        console.log("dropDownRef.current: ", dropDownRef.current);
         if (dropDownRef.current && !dropDownRef.current.contains(event.target as Node)) {
             setIsDropDownOpen(false);
         }
@@ -98,7 +94,7 @@ const Header = () => {
 
     return (
         <header>
-            <div className="flex justify-between items-center h-full border-transparent border-bottom">
+            <div className="header flex justify-between items-center h-full border-transparent border-bottom">
                 <Link to={data ? '/dashboard' : '/'} className="text-lg btn-normal font-medium">Goodwill Credit</Link>
                 {renderContent()}
             </div>

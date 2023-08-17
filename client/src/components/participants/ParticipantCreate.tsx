@@ -18,7 +18,7 @@ const ParticipantCreate = ({ event }: any) => {
 
     return (
         <div className='w-full flex justify-between px-5'>
-            <div className='flex items-center rounded-md bg-secondary-grey-light p-2 w-96'>
+            <div className='flex items-center rounded-md bg-secondary-grey-light p-2 w-72'>
                 <SearchIcon className='w-4 h-4' />
                 <input 
                     className='event_search bg-transparent text-gray-600 outline-none mx-2 w-full'

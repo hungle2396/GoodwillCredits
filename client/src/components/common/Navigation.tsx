@@ -13,7 +13,7 @@ const Navigation = ({ isActive }: any) => {
             <Link 
                 to={'/dashboard'}
                 className={`
-                    flex items-center gap-2 py-3 px-5 rounded-md
+                    flex items-center gap-2 py-3 pl-5 pr-20 rounded-md
                     ${isActive === 'events' ? active : ''}`}
             >
                 <EventIcon className='w-5 h-5'/>
@@ -23,20 +23,20 @@ const Navigation = ({ isActive }: any) => {
             <Link
                 to={'/people'}
                 className={`
-                    flex items-center gap-2 py-3 rounded-md
+                    flex items-center gap-2 py-3 pl-5 pr-20 rounded-md
                     ${isActive === 'people' ? active : ''}`}
             >
-                <PeopleIcon className='w-5 h-5 ml-5' />
+                <PeopleIcon className='w-5 h-5' />
                 People
             </Link>
 
             <Link 
                 to={'/logs'}
                 className={`
-                    flex items-center gap-2 py-3 rounded-md
+                    flex items-center gap-2 py-3 pl-5 pr-20 rounded-md
                     ${isActive === 'logs' ? active : ''}`}
             >
-                <LogsIcon className='w-5 h-5 ml-5' />
+                <LogsIcon className='w-5 h-5' />
                 Logs
             </Link>
         </nav>
