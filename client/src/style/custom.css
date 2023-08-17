@@ -8,16 +8,16 @@
     height: 100vh;
 }
 
-header {
+.header {
     height: 4rem;
 }
 
-main {
+.main {
    flex-grow: 1;
 }
 
-footer {
-    height: 3rem;
+.footer {
+    height: 4rem;
 }
 
 .input {

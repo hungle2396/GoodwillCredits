@@ -40,7 +40,7 @@ const EventDetails = () => {
                 <Navigation isActive='events' />
             </div>
             
-            <div className='basis-3/5
+            <div className='md:basis-4/5 lg:basis-4/5 xl:basis-3/5 2xl:basis-3/5
                             flex flex-col
                            '
             >

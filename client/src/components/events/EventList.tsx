@@ -12,9 +12,6 @@ const EventList = () => {
     const { data: userData, isLoading: isUserLoading } = useFetchUserQuery();
     const { data: eventsData, isLoading: isEventsLoading, isError } = useFetchUserEventsQuery({ userId: userData.id });
 
-    console.log('user: ', userData);
-
-    console.log('events: ', eventsData);
     let renderedEvents = null;
 
     if (isUserLoading || isEventsLoading) {
@@ -22,7 +19,10 @@ const EventList = () => {
     } else if (eventsData && Array.isArray(eventsData)) {
         renderedEvents = eventsData.map((event: eventProp) => {
             return ( 
-                <EventShow key={event.id} event={event} /> 
+                <EventShow 
+                    key={event.id} 
+                    event={event}
+                /> 
             )
         });
     }
@@ -33,7 +33,7 @@ const EventList = () => {
 
     return (
         <div className="h-[45rem] hide-scrollbar py-2">
-            <ul className='flex flex-col gap-5'>
+            <ul className='flex flex-col gap-5 px-5'>
                 {eventsData && eventsData.length > 0 ? renderedEvents : <p className='text-2xl text-gray-400'>No Event So Far, Please Create One.</p>}
             </ul>
         </div>

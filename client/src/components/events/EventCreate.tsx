@@ -15,8 +15,8 @@ const EventCreate = () => {
     }
 
     return (
-        <div className='w-full flex justify-between'>
-            <div className='flex items-center rounded-md bg-secondary-grey-light p-2 w-96 ml-5'>
+        <div className='w-full flex justify-between px-5'>
+            <div className='flex items-center rounded-md bg-secondary-grey-light p-2 w-96'>
                 <SearchIcon className='w-4 h-4' />
                 <input 
                     className='event_search bg-transparent text-gray-600 outline-none mx-2 w-full'
@@ -27,7 +27,7 @@ const EventCreate = () => {
             </div>
 
             <button 
-                className='btn-blue rounded-md mr-5'
+                className='btn-blue rounded-md'
                 onClick={handleOpenEventModal}
             >
             Create Event
