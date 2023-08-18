@@ -1,0 +1,39 @@
+'use strict';
+const {
+  Model
+} = require('sequelize');
+module.exports = (sequelize, DataTypes) => {
+  class Task extends Model {
+    /**
+     * Helper method for defining associations.
+     * This method is not a part of Sequelize lifecycle.
+     * The `models/index` file will call this method automatically.
+     */
+    static associate(models) {
+      // define association here
+      Task.belongsTo(models.User, {
+        foreignKey: 'userId'
+      });
+
+      Task.belongsTo(models.Event, {
+        foreignKey: 'eventId'
+      });
+    }
+  }
+  Task.init({
+    id: {
+      type: DataTypes.UUID,
+      defaultValue: UUIDV4,
+      primaryKey: true
+    },
+    eventId: DataTypes.UUID,
+    userId: DataTypes.UUID,
+    description: DataTypes.STRING,
+    credits: DataTypes.INTEGER
+  }, {
+    sequelize,
+    tableName: 'tasks',
+    modelName: 'Task',
+  });
+  return Task;
+};
