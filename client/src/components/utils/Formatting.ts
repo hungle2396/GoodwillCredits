@@ -45,7 +45,7 @@ export const MonthDayYearDigital = (date: Date | string) => {
     const day = date.getUTCDate();
     const year = date.getFullYear();
     
-    const formattedDate = `${month} / ${day} / ${year}`;
+    const formattedDate = `${month}/${day}/${year}`;
 
     return formattedDate;
 }
