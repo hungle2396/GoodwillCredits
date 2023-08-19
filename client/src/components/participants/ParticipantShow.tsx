@@ -6,6 +6,8 @@ import { ReactComponent as DeleteIcon } from '../../UI/img/trash-can.svg';
 import { ReactComponent as CloseIcon } from '../../UI/img/close.svg';
 import { useDeleteParticipantMutation } from '../../redux/store';
 
+import TaskCreate from '../tasks/TaskCreate';
+
 const ParticipantShow = ({ user, participant, isHost }: participantShowProp ) => {
     const [openSetting, setOpenSetting] = useState<boolean>(false);
     const [deleteParticipant, result] = useDeleteParticipantMutation();
@@ -60,10 +62,7 @@ const ParticipantShow = ({ user, participant, isHost }: participantShowProp ) =>
                     <span>credits</span>
                 </div>
 
-                <div className='credits_btn_container flex gap-3'>
-                    <button className='btn-green px-3 py-1.5'>+</button>
-                    <button className='btn-red px-3.5 py-1.5'>-</button>
-                </div>
+                <TaskCreate user={user} participant={participant} />
             </div>
 
             <div className='flex flex-col basis-1/6 items-center justify-center gap-1 relative'>

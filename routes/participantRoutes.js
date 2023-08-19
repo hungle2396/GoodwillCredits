@@ -25,7 +25,7 @@ router.get('/event/:eventId', async (req, res) => {
             where: {
                 eventId: event.id
             },
-            attributes: ['id', 'isHost', 'totalCredits'],
+            attributes: ['id', 'userId', 'eventId', 'isHost', 'totalCredits'],
             include: [
                 {
                     model: User,

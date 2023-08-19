@@ -4,13 +4,15 @@ import { authApi } from './api/authApi';
 import { eventApi } from './api/eventApi';
 import { userApi } from './api/userApi';
 import { participantApi } from './api/participantApi';
+import { taskApi } from './api/taskApi';
 
 export const store = configureStore({
     reducer: {
         [authApi.reducerPath]: authApi.reducer,
         [eventApi.reducerPath]: eventApi.reducer,
         [userApi.reducerPath]: userApi.reducer,
-        [participantApi.reducerPath]: participantApi.reducer
+        [participantApi.reducerPath]: participantApi.reducer,
+        [taskApi.reducerPath]: taskApi.reducer
     },
     middleware: (getDefaultMiddleware) => {
         return getDefaultMiddleware()
@@ -18,6 +20,7 @@ export const store = configureStore({
         .concat(eventApi.middleware)
         .concat(userApi.middleware)
         .concat(participantApi.middleware)
+        .concat(taskApi.middleware)
     }
 });
 
@@ -51,3 +54,8 @@ export {
     useAddParticipantMutation,
     useDeleteParticipantMutation
 } from './api/participantApi';
+
+export {
+    useFetchTasksQuery,
+    useAddTaskMutation
+} from './api/taskApi';

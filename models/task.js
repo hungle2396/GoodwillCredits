@@ -1,6 +1,6 @@
 'use strict';
 const {
-  Model
+  Model, UUIDV4
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   class Task extends Model {
@@ -26,10 +26,26 @@ module.exports = (sequelize, DataTypes) => {
       defaultValue: UUIDV4,
       primaryKey: true
     },
-    eventId: DataTypes.UUID,
-    userId: DataTypes.UUID,
-    description: DataTypes.STRING,
-    credits: DataTypes.INTEGER
+    eventId: {
+      type: DataTypes.UUID,
+      allowNull: false
+    },
+    userId: {
+      type: DataTypes.UUID,
+      allowNull: false
+    },
+    description: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
+    transactionType: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
+    credits: {
+      type: DataTypes.INTEGER,
+      allowNull: false
+    }
   }, {
     sequelize,
     tableName: 'tasks',
