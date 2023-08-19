@@ -18,7 +18,10 @@ module.exports = {
         'secondary-red-dark': '#cc4a1a',
         'secondary-grey': '#7C7C7C',
         'secondary-grey-light': '#d9d9d9',
-        'secondary-grey-light-2': '#f2f2f2'
+        'secondary-grey-light-2': '#f2f2f2',
+        'secondary-coral': '#FF6F61',
+        'secondary-emerald': '#009B77',
+        'secondary-rose': '#C3447A'
       }
     },
   },

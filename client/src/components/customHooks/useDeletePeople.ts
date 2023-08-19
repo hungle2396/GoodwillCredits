@@ -10,9 +10,6 @@ const useDeletePeople = () => {
 
     const handleDeletePeople = async (accountId: string, userId: string, role: string) => {
 
-        console.log('accountId: ', accountId);
-        console.log('userId :', userId);
-        console.log('role: ', role);
         try {
             await deletePeople({
                 userId: userId,

@@ -11,3 +11,10 @@ export const states = [
     'South Dakota', 'Tennessee', 'Texas', 'Utah', 'Vermont',
     'Virginia', 'Washington', 'West Virginia', 'Wisconsin', 'Wyoming'
 ]
+
+export const tagColors = {
+    Other: 'bg-primary-purple',
+    Homework: 'bg-secondary-coral',
+    Chores: 'bg-secondary-emerald',
+    Holiday: 'bg-secondary-rose'
+}

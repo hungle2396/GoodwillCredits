@@ -16,9 +16,9 @@ interface eventProp {
     id: string,
     name: string,
     description: string,
-    start_date: string,
-    end_date: string,
-    host_id: string
+    startDate: string,
+    endDate: string,
+    hostId: string
 }
 
 interface userProp {
@@ -66,6 +66,13 @@ interface participantShowProp {
 interface participantListProps {
     isHost: boolean;
     eventId: string;
+}
+
+interface tagColorsProp {
+    Other: string,
+    Homework: string,
+    Chores: string,
+    Holiday: string
 }
 
 declare module "*.jpg" {

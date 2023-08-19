@@ -6,7 +6,6 @@ import GoogleImage from "../../UI/img/google.png";
 import { useFetchUserQuery, useUserRegistrationMutation } from '../../redux/store';
 
 const Register = () => {
-    console.log("In Register Component");
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
     const [email, setEmail] = useState('');
@@ -24,7 +23,6 @@ const Register = () => {
     //       navigate('/dashboard');
     //     }
     // }, [data, navigate]);
-    console.log('results: ', results);
 
 
     const handleRegister = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -40,8 +38,6 @@ const Register = () => {
             };
 
             response = await userRegistration(credentials).unwrap();
-
-            console.log(response);
 
             if (response.user) {
                 // Registration successed, refetch the most updated user data

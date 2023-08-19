@@ -32,7 +32,6 @@ const ParticipantForm = ({ eventData, onClose }: any) => {
     
 
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-        console.log('in the handleSubmit function in ParticipantForm');
         event.preventDefault();
 
         const newParticipant = {
@@ -43,8 +42,6 @@ const ParticipantForm = ({ eventData, onClose }: any) => {
 
         try {
             const response = await addParticipant(newParticipant)
-
-            console.log('Add Participant Response: ', response);
 
             // Close the Event Form
             onClose();

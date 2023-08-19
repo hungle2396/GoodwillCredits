@@ -13,17 +13,13 @@ const TaskForm = ({ mode, userData, participantData, onClose }: any) => {
 
     const [createTask] = useAddTaskMutation();
     
-    console.log('mode in TaskForm: ', mode);
-    const handleAmount = (value: number) => {
-        if (value < 0) {
-            setTaskCredits(0)
-        } else {
-            setTaskCredits(value)
-        }
-    }
+    const handleCreditsInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const inputValue = e.target.value;
+        const numericValue = inputValue.replace(/\D/g, ''); // Remove non-numeric characters
+        setTaskCredits(Number(numericValue));
+    };
 
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-        console.log('in the handleSubmit function in EventForm');
         event.preventDefault();
 
         const taskData = {
@@ -39,7 +35,6 @@ const TaskForm = ({ mode, userData, participantData, onClose }: any) => {
             const response = await createTask(taskData);
 
             // Check if the response come back successfully or not
-            console.log('response', response);
             onClose();
 
             // Manually refetch participants after adding the task
@@ -50,7 +45,8 @@ const TaskForm = ({ mode, userData, participantData, onClose }: any) => {
         
     };
 
-    const titleColor = mode === 'Add' ? 'text-secondary-green' : 'text-secondary-red';
+    const transactionColor = mode === 'Add' ? 'text-secondary-green' : 'text-secondary-red';
+
     return ReactDOM.createPortal (
         <div className='w-full'>
             <div className='absolute inset-0 bg-black-transparent'></div>
@@ -58,7 +54,7 @@ const TaskForm = ({ mode, userData, participantData, onClose }: any) => {
                 <div className='w-[30rem] bg-white p-10 rounded-md relative'>
                     <CloseIcon className='w-8 h-8 absolute top-3 right-3 hover:cursor-pointer' onClick={onClose} />
                     
-                    <h1 className={`task_title text-4xl font-semibold mb-5 ${titleColor}`}>{mode === 'Add' ? 'Add Good Action' : 'Add Bad Action'}</h1>
+                    <h1 className={`task_title text-4xl font-semibold mb-5 ${transactionColor}`}>{mode === 'Add' ? 'Add Good Action' : 'Add Bad Action'}</h1>
 
                     <form className='event_form flex flex-col gap-5' onSubmit={handleSubmit}>
                         <div className='field-group flex'>
@@ -87,14 +83,12 @@ const TaskForm = ({ mode, userData, participantData, onClose }: any) => {
                         <div className='field-group flex flex-col'>
                             <label className='label' htmlFor='task_credits'>Credits</label>
                             <input 
-                                className='input text-primary-purple'
-                                type='number'
+                                className={`input h-10 text-lg ${transactionColor} font-semibold `}
+                                type='text'
                                 value={taskCredits}
-                                onChange={(e) => handleAmount(Number(e.target.value))}
+                                onChange={handleCreditsInput}
                                 required 
                             />
-                                
-                            
                         </div>
 
                         <button className='cancel_btn flex flex-shrink ml-auto btn-primary'>Submit</button>

@@ -30,9 +30,6 @@ const userApi = createApi({
             editUser: builder.mutation({
                 invalidatesTags: ['User'],
                 query: ({ accountId, newData }) => {
-                    console.log('---- In the userApi! ------');
-                    console.log('accountId: ', accountId);
-                    console.log('personData: ', newData);
                     return {
                         url:`/users/edit/${accountId}`,
                         body: newData,

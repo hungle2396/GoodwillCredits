@@ -7,8 +7,6 @@ import { useFetchUsersQuery } from "../../redux/store";
 const PeopleList = () => {
     const { data: usersData, isLoading: isUsersLoading, isError } = useFetchUsersQuery();
 
-    console.log('user: ', usersData);
-
     let renderedPeople = null;
 
     if (isUsersLoading) {

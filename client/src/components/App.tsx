@@ -11,9 +11,6 @@ const App = () => {
     }
 
     const userId = data?.id || '';
-     
-    console.log('data, ', data);
-    // Check if the current route is the error page
 
     return (
         <div className="body">

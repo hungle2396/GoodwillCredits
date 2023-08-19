@@ -52,11 +52,7 @@ const PeopleForm = ({ mode, personData, onClose, onCloseSetting }: peopleFormPro
         return <option key={index} value={state}>{state}</option>
     });
 
-    console.log('personData: ', personData);
-
-    console.log('role: ', role);
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-        console.log('in the handleSubmit function in EventForm');
         event.preventDefault();
 
         const newData = {
@@ -74,26 +70,19 @@ const PeopleForm = ({ mode, personData, onClose, onCloseSetting }: peopleFormPro
             role: role
         }
 
-        console.log('newData: ', newData);
         try {
             if (mode === 'create') {
                 
                 const response = await createUser(newData);
 
-                console.log('response: ', response);
-
                 // Check if the response come back successfully or not
             }
     
             if (mode === 'edit') {
-                
-                console.log('newPerson: ', newData);
                 const response = await editUser({
                     accountId: personData.id,
                     newData
                 });
-
-                console.log('edited response: ', response)
 
                 // Check if the response come back successfully or not
             }

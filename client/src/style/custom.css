@@ -107,6 +107,10 @@
     max-width: 100%;
 }
 
+.event-inactive {
+    opacity: 0.2; /* Adjust the opacity value as needed */
+}
+
 @keyframes rainbow-animation {
     10% { fill: #D65DB1 }
     20% { fill: #FF6F91 }

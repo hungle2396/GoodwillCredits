@@ -6,7 +6,6 @@ import UserDropDown from "./UserDropDown";
 import CuteDog from "../../UI/img/cute_dog.jpg";
 
 const Header = () => {
-    console.log("In the header component");
     const { data, isFetching } = useFetchUserQuery();
     const location = useLocation();
 
@@ -24,18 +23,13 @@ const Header = () => {
     }
 
     useEffect(() => {
-        console.log("Setting up event listener in useEffect!");
         document.addEventListener('click', handleDropDownOutside);
 
         return () => {
-            console.log("Cleaning up the event listener in useEffect!");
             document.removeEventListener('click', handleDropDownOutside);
         }
     }, []);
 
-    console.log("location: ", location);
-
-    console.log(data);
     const renderContent = () => {
         switch (data) {
             // Still fetching data 
@@ -44,7 +38,7 @@ const Header = () => {
             case null:
                 return (
                     <ul className="flex gap-5">
-                        <li>
+                        {/* <li>
                             <a className="btn-normal" href="/about">
                                 About
                             </a>
@@ -54,7 +48,7 @@ const Header = () => {
                             <a className="btn-normal" href="/contact">
                                 Contact
                             </a>
-                        </li>
+                        </li> */}
 
                         {/* Render only register link if we are not in the register route */}
                         {location.pathname !== "/register" && (

@@ -19,8 +19,6 @@ export const MonthDayYear = (date: Date | string) => {
     const month = months[date.getMonth()];
     const day = date.getUTCDate();
     const year = date.getFullYear();
-
-    console.log('monthNumber: ', month);
     
     const formattedDate = `${month} ${day}, ${year}`;
 

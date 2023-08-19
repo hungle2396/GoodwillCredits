@@ -4,7 +4,6 @@ import { useFetchUserQuery, useUserLoginMutation } from '../../redux/store';
 import GoogleImage from "../../UI/img/google.png";
 
 const Login = () => {
-  console.log("In Login Component");
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [registrationError, setRegistrationError] = useState('');
@@ -17,14 +16,10 @@ const Login = () => {
     event.preventDefault();
 
     try {
-      console.log("In the try handleLogin function");
       const credentials = { email, password };
-      console.log('credentials: ', credentials);
-
-      console.log("before user login");
+    
       const response = await userLogin(credentials).unwrap();
-      console.log('response: ', response);
-
+      
       if (response.user) {
         await refetch();
         navigate('/dashboard');

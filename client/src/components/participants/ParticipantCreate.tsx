@@ -7,7 +7,6 @@ const ParticipantCreate = ({ event }: any) => {
     const [showParticipantModal, setShowParticipantModal] = useState<boolean>(false);
     const [participantSearch, setParticipantSearch] = useState<string>('');
 
-    console.log('event in participant create form: ', event);
     const handleOpenParticipantModal = () => {
         setShowParticipantModal(true);
     }

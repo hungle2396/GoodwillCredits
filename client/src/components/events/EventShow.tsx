@@ -11,6 +11,8 @@ import { useDeleteEventMutation } from '../../redux/store';
 import EventForm from './EventForm';
 import { Days_Counter } from '../utils/Counter';
 import { MonthDayYearDigital } from '../utils/Formatting';
+import { tagColors } from '../utils/ArrayItems';
+
 import { useNavigate } from 'react-router-dom';
 
 const EventShow = ({ event }: any) => {
@@ -67,11 +69,16 @@ const EventShow = ({ event }: any) => {
         }
     }, []);
 
+    const onlineBackgroundColor = event.active? 'bg-secondary-green' : 'bg-secondary-grey';
+
+    const inactiveClassName = event.active ? '' : 'opacity-80 bg-gray-200';
+
     return (
+        
         <li
-            className='flex items-center shadow-box rounded-md h-[10rem] w-full relative'
+            className={`${inactiveClassName} flex items-center shadow-box rounded-md h-[10rem] w-full relative`}
         >
-            <span className='inline-block bg-secondary-green text-white py-0.5 px-4 absolute top-0 left-0 rounded-tl-md rounded-br-md text-sm'>{event.active ? 'Active' : 'Inactive'}</span>
+            <span className={`inline-block ${onlineBackgroundColor} bg-secondary-green text-white py-0.5 px-4 absolute top-0 left-0 rounded-tl-md rounded-br-md text-sm`}>{event.active ? 'Active' : 'Inactive'}</span>
 
             <div className='
                 host_container flex flex-col items-center gap-1
@@ -86,12 +93,12 @@ const EventShow = ({ event }: any) => {
                 <div className='flex items-start justify-between gap-3'>
                     <h1 className='text-xl font-semibold'>{event.name}</h1>
 
-                    <span className='py-1 px-5 rounded-md bg-primary-purple text-white text-sm'>{event.tag}</span>
+                    <span className={`py-1 px-2 w-24 rounded-md bg-primary-purple text-white text-sm text-center ${tagColors[event.tag as keyof tagColorsProp]}`}>{event.tag}</span>
                 </div>
                 <p className='mt-2 h-[4.5rem] event_description'>{event.description}</p>
             </div>
 
-            <div className='flex flex-col gap-1 border-transparent border-l-secondary-grey-light border-r-secondary-grey-light border h-full w-50 flex-shrink-0'>
+            <div className='flex flex-col gap-1 border-transparent border-l-secondary-grey-light border-r-secondary-grey-light border h-full w-52 flex-shrink-0'>
                 <div className='flex flex-col gap-3 p-5'>
                     <div className='flex justify-between text-sm gap-2'>
                         <span>{MonthDayYearDigital(event.startDate)}</span> -
@@ -121,7 +128,7 @@ const EventShow = ({ event }: any) => {
                 )}
                 
                 {openSetting && (
-                    <div className='flex flex-col gap-3 bg-white text-md'>
+                    <div className='flex flex-col gap-3 bg-transparent text-md'>
                         <button className='flex items-center rounded-md top-2 right-2 absolute' onClick={handleCloseSetting}>
                             <CloseIcon className='w-5 h-5' />
                         </button>
