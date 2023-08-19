@@ -89,7 +89,7 @@ const Header = () => {
     return (
         <header>
             <div className="header flex justify-between items-center h-full border-transparent border-bottom">
-                <Link to={data ? '/dashboard' : '/'} className="text-lg btn-normal font-medium">Goodwill Credit</Link>
+                <Link to={data ? '/dashboard' : '/'} className="text-lg btn-normal font-medium">Goodwill Credits</Link>
                 {renderContent()}
             </div>
         </header>
