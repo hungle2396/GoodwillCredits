@@ -52,13 +52,14 @@ const localLoginRoutes = require('./routes/traditional_login');
 const eventRoutes = require('./routes/eventRoutes');
 const userRoutes = require('./routes/userRoutes');
 const participantRoutes = require('./routes/participantRoutes');
+const taskRoutes = require('./routes/taskRoutes');
 
 app.use('/auth/google', googleRoutes);
 app.use('/api', localLoginRoutes);
 app.use('/api/users', userRoutes);
 app.use('/api/events', eventRoutes);
 app.use('/api/participants', participantRoutes);
-
+app.use('/api/tasks', taskRoutes);
 
 // connect to the database
 const connectToDatabase = async () => {
