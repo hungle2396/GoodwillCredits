@@ -27,19 +27,14 @@ const ParticipantShow = ({ user, participant, isHost }: participantShowProp ) =>
                 participantId: participant.id,
                 isHost: isHost           
             });
-
-            console.log('Response after deleting participant: ', response);
         } catch (error) {
             console.error('Error deleting participant:', error);
         }
         
     }
 
-    console.log('participant: ', participant);
-
     const isCurrentUser = user.id === participant.user.id;
 
-    console.log('result: ', result);
     return (
         <li className='flex h-[6rem] mb-5 bg-white shadow-box rounded-lg'>
             <div className='flex basis-1/3 items-center px-5 border border-y-0 border-l-0 border-secondary-grey-light'>

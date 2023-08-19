@@ -25,8 +25,8 @@ const UserDropDown = () => {
             <div className="line-grey"></div>
 
             <div className="profile--container">
-                <ul className="flex justify-between">
-                    <li><a className="btn-normal" href="/usersetting">Setting</a></li>
+                <ul className="flex justify-center">
+                    {/* <li><a className="btn-normal" href="/usersetting">Setting</a></li> */}
                     <li><a className="btn-normal" href="/api/logout">Log out</a></li>
                 </ul>
             </div>

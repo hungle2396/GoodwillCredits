@@ -38,7 +38,6 @@ const PeopleDetails = () => {
     // Find the specific user from the users cache
     const user = peopleData?.find((user: userProp) => user.id === id);
 
-    console.log('userData: ', userData);
     if (userLoading) {
         return <CircularProgress />
     }

@@ -39,7 +39,6 @@ const eventApi = createApi({
             editEvent: builder.mutation({
                 invalidatesTags: ['Event'],
                 query: ({ eventId, event }) => {
-                    console.log('In the edit Event API, eventId: ', eventId);
                     return {
                         url: `/events/${eventId}`,
                         method: 'PUT',
@@ -50,7 +49,6 @@ const eventApi = createApi({
             deleteEvent: builder.mutation({
                 invalidatesTags: ['Event'],
                 query: ({ eventId, userId }) => {
-                    console.log('-In the deleteEvent RTK Query delete function-');
                     return {
                         url: `/events/${eventId}`,
                         method: 'DELETE',

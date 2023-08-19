@@ -2,9 +2,6 @@ import { Navigate, useLocation, Outlet } from "react-router-dom";
 
 const ProtectedRoutes = ({ user }: protectedRoutesProps) => {
     const location = useLocation();
-    console.log("In Protected Route Component");
-
-    console.log("ProtectedRoute Data: ", user);
 
     if (!user) {
         if (location.pathname === '/') {
@@ -12,7 +9,6 @@ const ProtectedRoutes = ({ user }: protectedRoutesProps) => {
         }
 
         if (location.pathname === '/login' || location.pathname === '/register') {
-            console.log("Not logged in and in login and register route!");
             return <Outlet />
         }
         

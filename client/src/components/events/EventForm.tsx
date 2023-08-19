@@ -30,11 +30,7 @@ const EventForm = ({ mode, eventData, onClose, onCloseSetting }: any) => {
     const [createEvent] = useCreateEventMutation();
     const [editEvent] = useEditEventMutation();
 
-    // console.log('eventId: ', eventData.id);
-
-    console.log('eventActive: ', eventActive);
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-        console.log('in the handleSubmit function in EventForm');
         event.preventDefault();
 
         const newEvent = {
@@ -51,23 +47,13 @@ const EventForm = ({ mode, eventData, onClose, onCloseSetting }: any) => {
             if (mode === 'create') {
                 
                 const response = await createEvent(newEvent);
-
-                console.log('response: ', response);
-
-                // Check if the response come back successfully or not
             }
     
             if (mode === 'edit') {
-                
-                console.log('newEvent: ', newEvent);
                 const response = await editEvent({
                     eventId: eventData.id,
                     event: newEvent
                 });
-
-                console.log('edited response: ', response)
-
-                // Check if the response come back successfully or not
             }
     
             // Close the Event Form
