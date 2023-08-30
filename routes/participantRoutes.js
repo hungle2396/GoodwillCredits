@@ -6,9 +6,6 @@ const { User, Event, UserEvent } = require('../models/index');
 router.get('/event/:eventId', async (req, res) => {
     const eventId = req.params.eventId;
 
-    console.log('In the event participants route');
-    console.log('eventId: ', eventId);
-
     try {
         // Check if the event exist
         const event = await Event.findByPk(eventId);
@@ -19,7 +16,6 @@ router.get('/event/:eventId', async (req, res) => {
             });
         }
 
-        console.log('Finding all the particpants related to this event');
         const participants = await UserEvent.findAll({
             // Need help finding all the participants in related event
             where: {

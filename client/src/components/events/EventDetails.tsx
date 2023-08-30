@@ -10,6 +10,7 @@ import { MonthDayYear } from '../utils/Formatting';
 
 import ParticipantList from '../participants/ParticipantList';
 import ParticipantCreate from '../participants/ParticipantCreate';
+import TaskApprovalCreate from '../tasksApproval/TaskApprovalCreate';
 
 const EventDetails = () => {
     const { id } = useParams();
@@ -40,7 +41,7 @@ const EventDetails = () => {
                 <Navigation isActive='events' />
             </div>
             
-            <div className='md:basis-4/5 lg:basis-4/5 xl:basis-3/5 2xl:basis-3/5
+            <div className='md:basis-4/5 lg:basis-4/5 xl:basis-4/5 2xl:basis-4/5
                             flex flex-col
                            '
             >
@@ -50,8 +51,13 @@ const EventDetails = () => {
                     <p>Event Details</p>
                 </div>
 
-                <div className='eventDetails_container flex flex-col gap-5 h-full'>
-                    <h1 className='text-3xl font-semibold mt-5'>{event.name}</h1>
+                <div className='eventDetails-container flex flex-col gap-5 h-full'>
+                    <div className='flex items-center justify-between'>
+                        <h1 className='text-3xl font-semibold mt-5'>{event.name}</h1>
+
+                        <TaskApprovalCreate event={event} isHost={isHost} />
+                    </div>
+                    
 
                     <div className='flex gap-5 justify-between'>
                         <div>

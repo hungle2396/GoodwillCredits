@@ -67,7 +67,7 @@ module.exports = (passport) => {
             proxy: true
         },
         async (accessToken, refreshToken, profile, done) => {
-    
+            console.log('accessToken: ', accessToken);
             console.log('profile: ', profile);
             try {
                 console.log('Finding existing user! ');
