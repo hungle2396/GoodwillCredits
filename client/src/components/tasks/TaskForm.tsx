@@ -9,7 +9,7 @@ const TaskForm = ({ mode, userData, participantData, onClose }: any) => {
     const [taskDescription, setTaskDescription] = useState<string>('');
     const [taskCredits, setTaskCredits] = useState<number>(0);
     
-    const participantsQuery = useFetchParticipantsQuery({ eventId: participantData.eventId });
+    const { refetch } = useFetchParticipantsQuery({ eventId: participantData.eventId });
 
     const [createTask] = useAddTaskMutation();
     
@@ -23,8 +23,7 @@ const TaskForm = ({ mode, userData, participantData, onClose }: any) => {
         event.preventDefault();
 
         const taskData = {
-            userId: userData.id,
-            participantUserId: participantData.userId,
+            participantId: participantData.userId,
             eventId: participantData.eventId,
             description: taskDescription,
             transactionType: mode,
@@ -38,7 +37,7 @@ const TaskForm = ({ mode, userData, participantData, onClose }: any) => {
             onClose();
 
             // Manually refetch participants after adding the task
-            participantsQuery.refetch();
+            refetch();
         } catch (error) {
             console.error('Error during API call: ', error);
         }

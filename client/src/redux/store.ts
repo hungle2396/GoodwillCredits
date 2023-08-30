@@ -57,5 +57,7 @@ export {
 
 export {
     useFetchTasksQuery,
-    useAddTaskMutation
+    useFetchApprovalTasksQuery,
+    useAddTaskMutation,
+    useApprovalTaskMutation
 } from './api/taskApi';

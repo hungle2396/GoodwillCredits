@@ -18,3 +18,9 @@ export const tagColors = {
     Chores: 'bg-secondary-emerald',
     Holiday: 'bg-secondary-rose'
 }
+
+export const taskStatusColors = {
+    Pending: 'text-secondary-grey',
+    Rejected: 'text-secondary-red',
+    Approved: 'text-secondary-green'
+}

@@ -75,6 +75,36 @@ interface tagColorsProp {
     Holiday: string
 }
 
+interface taskStatusColorsProp {
+    Pending: string,
+    Rejected: string,
+    Approved: string
+}
+
+interface taskProp {
+    id: string,
+    eventId: string, 
+    participantId: string, 
+    transactionType: string,
+    approvalStatus: string,
+    credits: number 
+}
+
+interface taskApprovalProp {
+    id: string,
+    eventId: string,
+    userId: string,
+    description: string,
+    credits: number,
+    createdAt: string,
+    transactionType: string,
+    status: string,
+    user: {
+        firstName: string,
+        lastName: string
+    }
+}
+
 declare module "*.jpg" {
     const path: string;
     export default path;

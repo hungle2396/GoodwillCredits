@@ -51,7 +51,7 @@ const ParticipantShow = ({ user, participant, isHost }: participantShowProp ) =>
                 </div>
             </div>
 
-            <div className='flex basis-3/6 items-center justify-around border border-y-0 border-l-0 border-secondary-grey-light'>
+            <div className='flex basis-3/6 items-center justify-between px-10 border border-y-0 border-l-0 border-secondary-grey-light'>
                 <div>
                     <span className='text-3xl mr-2'>{participant.totalCredits}</span>
                     <span>credits</span>
