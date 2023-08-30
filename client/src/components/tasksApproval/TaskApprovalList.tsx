@@ -73,7 +73,7 @@ const TaskApprovalList = ({ event, isHost }: any) => {
                         {isHost ? 
                             (
                             <>
-                                <button>
+                                <button onClick={() => handleApproveTask(task, 'Rejected')}>
                                     <RejectIcon className='w-8 h-8' />
                                 </button>
 
