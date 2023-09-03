@@ -6,7 +6,7 @@ import { useFetchUserEventsQuery } from '../../redux/store';
 import { CircularProgress } from '@mui/material';
 import { Link } from 'react-router-dom';
 import { ReactComponent as RightArrowIcon } from '../../UI/img/right-chevron.svg';
-import { MonthDayYear } from '../utils/Formatting';
+import { MonthDayYearByNumber } from '../utils/Formatting';
 
 import ParticipantList from '../participants/ParticipantList';
 import ParticipantCreate from '../participants/ParticipantCreate';
@@ -77,12 +77,12 @@ const EventDetails = () => {
 
                         <div>
                             <h4 className='text-md font-normal text-secondary-grey'>Start Date</h4>
-                            <h3>{MonthDayYear(event.startDate)}</h3>
+                            <h3>{MonthDayYearByNumber(event.startDate)}</h3>
                         </div>
 
                         <div>
                             <h4 className='text-md font-normal text-secondary-grey'>End Date</h4>
-                            <h3>{MonthDayYear(event.endDate)}</h3>
+                            <h3>{MonthDayYearByNumber(event.endDate)}</h3>
                         </div>
                     </div>
 

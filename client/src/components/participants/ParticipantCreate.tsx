@@ -1,4 +1,3 @@
-
 import React, {useState} from 'react';
 import { ReactComponent as SearchIcon } from '../../UI/img/searchIcon.svg';
 import ParticipantForm from './ParticipantForm';

@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
 import ReactDOM from 'react-dom';
 import { ReactComponent as CloseIcon } from '../../UI/img/close.svg';
+import { CircularProgress } from '@mui/material';
+import { toast } from 'react-toastify';
+
 import { useFetchUserQuery } from '../../redux/store';
 import { useAddParticipantMutation } from '../../redux/store';
 import { useFetchUsersQuery } from '../../redux/store';
-import { CircularProgress } from '@mui/material';
 
 const ParticipantForm = ({ eventData, onClose }: any) => {
     const [participantEmail, setParticipantEmail] = useState<string>('');
@@ -41,10 +43,12 @@ const ParticipantForm = ({ eventData, onClose }: any) => {
         }
 
         try {
-            const response = await addParticipant(newParticipant)
+            const response = await addParticipant(newParticipant);
 
             // Close the Event Form
             onClose();
+
+            toast.success((response as { data: any; }).data.message);
         } catch (error) {
             console.error('Error during API call: ', error);
         }

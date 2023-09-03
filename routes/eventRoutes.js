@@ -9,7 +9,6 @@ router.get('/', async (req, res) => {
 
         return res.json(events);
     } catch (error) {
-        console.error('Error retrieving events: ', error);
         res.status(500).json({ error: 'An error occured while retrieving events data' });
     }
 })
@@ -20,8 +19,6 @@ router.get('/users/:userId', async (req, res) => {
     // Get the user id
     const userId = req.params.userId;
 
-    console.log('In the events route');
-    console.log('userId', userId);
     try {
         // Check if the user exist
         const user = await User.findByPk(userId);
@@ -32,7 +29,6 @@ router.get('/users/:userId', async (req, res) => {
             });
         }
 
-        console.log('Finding specific events');
         // Find the events related to this user
         const events = await Event.findAll({
             include: [
@@ -54,11 +50,8 @@ router.get('/users/:userId', async (req, res) => {
             ]
         });
 
-        console.log('events ', events);
         return res.json(events);
     } catch (error) {
-        console.error('Error: ', error);
-
         return res.status(500).json({
             error: error
         });
@@ -88,10 +81,12 @@ router.post('/', async (req, res) => {
             isHost: true
         });
 
-        res.json(event);
+        res.status(200).json({
+            message: `Successfully created new event.`
+        });
     } catch (error) {
         console.error('Error creating event: ', error);
-        res.status(500).json({ error: 'An error occurred while creating the event' });
+        res.status(500).json({ error: 'Error creating new event.' });
     }
 });
 
@@ -108,16 +103,13 @@ router.put('/:id', async (req, res) => {
         endDate 
     } = req.body;
 
-    console.log('In the event Edit Route');
-    console.log('eventId: ', eventId);
-
     try {
         // Check if the event exist
         const event = await Event.findByPk(eventId);
 
         if (!event) {
             return res.status(404).json({
-                message: 'Event Does Not Exist'
+                message: 'Event Does Not Exist.'
             });
         }
 
@@ -131,14 +123,14 @@ router.put('/:id', async (req, res) => {
 
         if (!userEvent) {
             return res.status(404).json({
-                error: 'Event does not have any association with this user'
+                error: 'Event does not have any association with this user.'
             });
         };
 
         // Check if the user has permission to edit
         if (!userEvent.isHost) {
             return res.status(403).json({
-                error: 'You do not have authority to edit this event'
+                error: 'You do not have permission to edit this event.'
             })
         };
 
@@ -152,15 +144,15 @@ router.put('/:id', async (req, res) => {
 
         await event.save();
 
-        return res.json({
-            message: 'Edited the event successfully!'
+        return res.status(200).json({
+            message: 'Successfully Edited.'
         });
 
     } catch (error) {
         console.error('Error Editing Event: ', error);
 
         return res.status(500).json({
-            error: 'Error Editing the Event'
+            error: 'Error Editing the Event.'
         });
     }
 })
@@ -197,16 +189,17 @@ router.delete('/:id', async (req, res) => {
         // Check if the user has permission to edit
         if (!userEvent.isHost) {
             return res.status(403).json({
-                error: 'You do not have authority to delete this event'
+                error: 'You do not have permission to delete this event.'
             })
         };
 
+        const eventName = event.name;
         // Delete the event
         await event.destroy();
 
         // Send the response to the client
-        return res.json({
-            message: 'Successfully deleted the event'
+        return res.status(200).json({
+            message: `Successfully deleted ${eventName}.`
         });
     } catch (error) {
         console.error('Error deleting event: ', error);

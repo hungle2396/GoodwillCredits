@@ -191,14 +191,12 @@ router.post('/approval/:taskId', async (req, res) => {
         // Check if the task exist
         const task = await Task.findByPk(taskId);
 
-        console.log('----found task----');
         if (!task) {
             return res.status(404).json({
                 error: 'This task does not exist.'
             })
         };
 
-        console.log('------finding participant-----');
         // Find participant that submitted the task
         const participant = await UserEvent.findOne({
             where: {
@@ -207,15 +205,12 @@ router.post('/approval/:taskId', async (req, res) => {
             }
         });
 
-        console.log('-----participant: ', participant);
-
         if (!participant) {
             return res.status(404).json({
                 error: 'This user is not in the event.'
             })
         };
 
-        console.log('------Check if the host has permission: ', isHost);
         // Check if the user has permission to approve
         if (!isHost) {
             return res.status(403).json({
@@ -223,10 +218,8 @@ router.post('/approval/:taskId', async (req, res) => {
             })
         };
 
-        console.log('isHost: ', isHost);
         // Approve and add or substract points from pariticpant
         if (approvalStatus === 'Approved') {
-            console.log('---Approving the task---');
             task.status = 'Approved';
 
             if (transactionType === 'Add') {
@@ -241,7 +234,7 @@ router.post('/approval/:taskId', async (req, res) => {
             await participant.save();
 
             return res.status(200).json({
-                message: 'Successfully Approved.'
+                message: `Successfully Approved ${task.description}.`
             });
         } 
         
@@ -251,7 +244,7 @@ router.post('/approval/:taskId', async (req, res) => {
             await task.save();
 
             return res.status(200).json({
-                message: 'Successfully Rejected.'
+                message: `Successfully Rejected ${task.description}.`
             });
         }
     } catch (error) {

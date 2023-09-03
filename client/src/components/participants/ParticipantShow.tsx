@@ -5,7 +5,7 @@ import { ReactComponent as MoreIcon } from '../../UI/img/more.svg';
 import { ReactComponent as DeleteIcon } from '../../UI/img/trash-can.svg';
 import { ReactComponent as CloseIcon } from '../../UI/img/close.svg';
 import { useDeleteParticipantMutation } from '../../redux/store';
-
+import { toast } from 'react-toastify';
 import TaskCreate from '../tasks/TaskCreate';
 
 const ParticipantShow = ({ user, participant, isHost }: participantShowProp ) => {
@@ -27,8 +27,21 @@ const ParticipantShow = ({ user, participant, isHost }: participantShowProp ) =>
                 participantId: participant.id,
                 isHost: isHost           
             });
+
+            console.log('response: ', response);
+            if ((response as any)?.error?.status > 200) {
+                throw new Error((response as any)?.error?.data?.error);
+            }
+
+            const responseMessage = (response as responseMessageProp)?.data?.message;
+
+            toast.success(responseMessage);
         } catch (error) {
-            console.error('Error deleting participant:', error);
+            if (typeof error === 'object') {
+                toast.error((error as Error).message);
+            } else {
+                toast.error('Failed to delete participant.');
+            }
         }
         
     }
@@ -88,13 +101,11 @@ const ParticipantShow = ({ user, participant, isHost }: participantShowProp ) =>
                         onClick={handleDeleteParticipant}
                         >
                             <DeleteIcon className='w5 h-5' />
-                            Delete
+                            Remove
                         </button>
                     </>
                     
-                )
-
-                }
+                )}
                 
             </div>
         </li>

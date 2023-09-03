@@ -28,31 +28,25 @@ module.exports = (passport) => {
     passport.use(
         new LocalStrategy(
             {
-                usernameField: "email",
-                passwordField: "password",
+                usernameField: 'email', // field in the request body
+                passwordField: 'password', // field in the request body
                 passReqToCallback: true, // allows us to pass back the entire request to the callback
                 session: true,
             },
             async (req, email, password, done) => {
-                console.log("trying to log in as ", email);
-
                 const user = await User.findOne({
                     where: { email: email }
                 });
 
-                console.log("user is: ", user);
                 if (!user) {
-                    return done(null, false, { message: 'Incorrect email.' });
+                    return done(null, false, { error: 'Incorrect email, please try again.' });
                 }
 
                 bcrypt.compare(password, user.password, (err, res) => {
                     if (res) {
-                        console.log("Successfully login!");
-                        const userinfo = user.get();
-                        return done(null, userinfo);
+                        return done(null, user);
                     } else {
-                        console.log("Incorrect password");
-                        return done(null, false, { message: "Incorrect password."});
+                        return done(null, false, { error: "Incorrect password, please try again."});
                     }
                 })
             }

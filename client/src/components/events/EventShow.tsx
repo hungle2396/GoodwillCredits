@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
+import { toast } from 'react-toastify';
 import { ReactComponent as EditIcon } from '../../UI/img/edit.svg';
 import { ReactComponent as DeleteIcon } from '../../UI/img/trash-can.svg';
 import { ReactComponent as EventSettingIcon } from '../../UI/img/more.svg';
@@ -10,7 +11,7 @@ import { useDeleteEventMutation } from '../../redux/store';
 
 import EventForm from './EventForm';
 import { Days_Counter } from '../utils/Counter';
-import { MonthDayYearDigital } from '../utils/Formatting';
+import { MonthDayYearByNumber } from '../utils/Formatting';
 import { tagColors } from '../utils/ArrayItems';
 
 import { useNavigate } from 'react-router-dom';
@@ -50,11 +51,29 @@ const EventShow = ({ event }: any) => {
         event.stopPropagation();
     };
 
-    const handleDeleteEvent = (eventId: string) => {
-        deleteEvent({ 
-            eventId: eventId,
-            userId: userData.id
-        });
+    const handleDeleteEvent = async (eventId: string) => {
+        try {
+            const response = await deleteEvent({ 
+                eventId: eventId,
+                userId: userData.id
+            });
+
+            console.log('response: ', response);
+            if ((response as any)?.error?.status > 200) {
+                throw new Error((response as any)?.error?.data?.error);
+            }
+
+            const responseMessage = (response as any).data?.message;
+
+            toast.success(responseMessage);
+        } catch (error) {
+            if (typeof error === 'object') {
+                toast.error((error as Error).message);
+            } else {
+                toast.error('Failed to delete event.');
+            }
+        }
+        
     };
 
     const handleEventDetails = () => {
@@ -101,8 +120,8 @@ const EventShow = ({ event }: any) => {
             <div className='flex flex-col gap-1 border-transparent border-l-secondary-grey-light border-r-secondary-grey-light border h-full w-52 flex-shrink-0'>
                 <div className='flex flex-col gap-3 p-5'>
                     <div className='flex justify-between text-sm gap-2'>
-                        <span>{MonthDayYearDigital(event.startDate)}</span> -
-                        <span>{MonthDayYearDigital(event.endDate)}</span>
+                        <span>{MonthDayYearByNumber(event.startDate)}</span> -
+                        <span>{MonthDayYearByNumber(event.endDate)}</span>
                     </div>
                     <h1 className='text-5xl font-thin text-center'>{Days_Counter(event.startDate, event.endDate)}</h1>
                     <h1 className='text-md text-center'>Days Left</h1>
