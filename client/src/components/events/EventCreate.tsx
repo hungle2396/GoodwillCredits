@@ -14,6 +14,16 @@ const EventCreate = () => {
         setShowEventModal(false);
     }
 
+    const initialEventData = {
+        id: '',
+        name: '',
+        description: '',
+        startDate: '',
+        endDate: '',
+        active: true,
+        tag: 'Other'
+    }
+
     return (
         <div className='w-full flex justify-between px-5'>
             <div className='flex items-center rounded-md bg-secondary-grey-light p-2 w-96'>
@@ -34,7 +44,7 @@ const EventCreate = () => {
             </button>
 
             {/* Create Event Form */}
-            {showEventModal && <EventForm mode='create' eventData={''} onClose={handleCloseEventModal} />}
+            {showEventModal && <EventForm mode='create' eventData={initialEventData} onClose={handleCloseEventModal} onCloseSetting={handleCloseEventModal} />}
         </div>
     )
 };

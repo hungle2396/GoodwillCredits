@@ -1,30 +1,19 @@
 import React, { useState } from 'react';
 import ReactDOM from 'react-dom';
 import { ReactComponent as CloseIcon } from '../../UI/img/close.svg';
+import { toast } from 'react-toastify';
 
 import { useFetchUserQuery } from '../../redux/store';
 import { useCreateEventMutation } from '../../redux/api/eventApi';
 import { useEditEventMutation } from '../../redux/api/eventApi';
 
-const EventForm = ({ mode, eventData, onClose, onCloseSetting }: any) => {
-    const [eventName, setEventName] = useState<string>(
-        mode === 'edit' ? eventData.name : ''
-    );
-    const [eventDescription, setEventDescription] = useState<string>(
-        mode === 'edit' ? eventData.description : ''
-    );
-    const [eventTag, setEventTag] = useState<string>(
-        mode === 'edit' ? eventData.tag : 'Other'
-    );
-    const [eventActive, setEventActive] = useState<boolean>(
-        mode === 'edit' ? eventData.active : ''
-    );
-    const [eventStartDate, setEventStartDate] = useState<string>(
-        mode === 'edit' ? eventData.startDate : ''
-    );
-    const [eventEndDate, setEventEndDate] = useState<string>(
-        mode === 'edit' ? eventData.endDate : ''
-    );
+const EventForm = ({ mode, eventData, onClose, onCloseSetting }: eventFormProp) => {
+    const [eventName, setEventName] = useState<string>(eventData.name);
+    const [eventDescription, setEventDescription] = useState<string>(eventData.description);
+    const [eventTag, setEventTag] = useState<string>(eventData.tag);
+    const [eventActive, setEventActive] = useState<boolean>(eventData.active);
+    const [eventStartDate, setEventStartDate] = useState<string>(eventData.startDate);
+    const [eventEndDate, setEventEndDate] = useState<string>(eventData.endDate);
 
     const { data: userData, isFetching } = useFetchUserQuery();
     const [createEvent] = useCreateEventMutation();
@@ -44,25 +33,39 @@ const EventForm = ({ mode, eventData, onClose, onCloseSetting }: any) => {
         }
 
         try {
+            let response;
+
             if (mode === 'create') {
                 
-                const response = await createEvent(newEvent);
+                response = await createEvent(newEvent);
+
+                if ((response as any)?.error?.status > 200) {
+                    throw new Error((response as any)?.error?.data?.error);
+                }
             }
     
             if (mode === 'edit') {
-                const response = await editEvent({
+                response = await editEvent({
                     eventId: eventData.id,
                     event: newEvent
                 });
+
+                if ((response as any)?.error?.status > 200) {
+                    throw new Error((response as any)?.error?.data?.error);
+                }
             }
     
+            toast.success((response as any).data.message);
             // Close the Event Form
             onClose();
             onCloseSetting();
         } catch (error) {
-            console.error('Error during API call: ', error);
+            if (typeof error === 'object') {
+                toast.error((error as Error).message);
+            } else {
+                toast.error('Internal Error');
+            }
         }
-        
     };
 
     return ReactDOM.createPortal (
@@ -124,9 +127,10 @@ const EventForm = ({ mode, eventData, onClose, onCloseSetting }: any) => {
                                     <div>
                                         <input 
                                         type="radio" className="accent-primary-purple-light" id="event_active" 
-                                        name="event_active" 
-                                        value='true' 
-                                        onClick={() => setEventActive(true)} />
+                                        name="event_active"
+                                        checked={eventActive === true}
+                                        onChange={() => setEventActive(true)}
+                                        />
                                         <label htmlFor="event_active">Yes</label>
                                     </div>
                                     
@@ -134,9 +138,10 @@ const EventForm = ({ mode, eventData, onClose, onCloseSetting }: any) => {
                                         <input 
                                             type="radio"
                                             id="event_inactive"
-                                            className="accent-primary-purple-light" name="event_active" 
-                                            value='false' 
-                                            onClick={() => setEventActive(false)} />
+                                            className="accent-primary-purple-light" name="event_inactive"
+                                            checked={eventActive === false}
+                                            onChange={() => setEventActive(false)}
+                                        />
                                         <label htmlFor="event_inactive">No</label>
                                     </div>
                                 </div>

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import ReactDOM from 'react-dom';
 import { ReactComponent as CloseIcon } from '../../UI/img/close.svg';
+import { toast } from 'react-toastify';
 
 import { useFetchUserQuery } from '../../redux/store';
 import { useCreateUserMutation } from '../../redux/store';
@@ -70,28 +71,34 @@ const PeopleForm = ({ mode, personData, onClose, onCloseSetting }: peopleFormPro
             role: role
         }
 
+        let response;
         try {
             if (mode === 'create') {
                 
-                const response = await createUser(newData);
+                response = await createUser(newData);
 
                 // Check if the response come back successfully or not
             }
     
             if (mode === 'edit') {
-                const response = await editUser({
+                response = await editUser({
                     accountId: personData.id,
                     newData
-                });
-
-                // Check if the response come back successfully or not
+                })
             }
     
+            // Display notification message
+            toast.success((response as { data: any; }).data.message);
+
             // Close the Event Form
             onClose();
             onCloseSetting?.();
         } catch (error) {
-            console.error('Error during API call: ', error);
+            if (typeof error === 'object') {
+                toast.error((error as Error).message);
+            } else {
+                toast.error('Internal Error');
+            }
         }
         
     };

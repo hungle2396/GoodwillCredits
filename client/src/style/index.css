@@ -49,6 +49,13 @@
         active:translate-y-px
     }
 
+    .btn-disabled {
+        @apply
+        bg-primary-purple-light-1
+        text-gray-400
+        py-2 px-8
+        rounded-md
+    }
     .bg-black-transparent {
         @apply
         bg-black

@@ -18,7 +18,7 @@ router.post('/register', async (req, res) => {
 
     if (existingUser) {
         // User already exists, proceed with authentication
-        return res.status(409).json({ error: "Email already exists" })
+        return res.status(409).json({ error: 'Email already exists.' })
     }
 
     try {
@@ -45,7 +45,7 @@ router.post('/register', async (req, res) => {
                 return res.status(500).json({ error: "Error registering user. "});
             }
 
-            res.status(201).json({ 
+            return res.status(201).json({ 
                 message: 'User registered successfully.',
                 redirectUrl: '/dashboard',
                 user: newUser,
@@ -61,14 +61,15 @@ router.post('/register', async (req, res) => {
 router.post('/login', (req, res, next) => {
     passport.authenticate('local', (err, user, info) => {
         if (err) {
-            return next(err);
+            return res.status(500).json({
+                error: 'Internal server error'
+            });
         }
 
-        console.log("User: ", user);
         if (!user) {
             return res.status(401).json({
-                message: "Incorrect username or password"
-            })
+                error: info.error
+            });
         }
 
         req.logIn(user, (err) => {

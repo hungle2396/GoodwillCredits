@@ -13,12 +13,13 @@ interface eventListProp {
 }
 
 interface eventProp {
-    id: string,
+    id?: string,
     name: string,
     description: string,
     startDate: string,
     endDate: string,
-    hostId: string
+    active: boolean,
+    tag: string
 }
 
 interface userProp {
@@ -42,6 +43,13 @@ interface peopleFormProp {
     personData: userProp,
     onClose: () => void;
     onCloseSetting?: () => void;
+}
+
+interface eventFormProp {
+    mode: string,
+    eventData: eventProp,
+    onClose: () => void;
+    onCloseSetting: () => void;
 }
 
 interface participantProp {
@@ -103,6 +111,27 @@ interface taskApprovalProp {
         firstName: string,
         lastName: string
     }
+}
+
+interface responseMessageProp {
+    error?: {
+        data?: {
+            error: string
+        },
+        status?: number
+    }
+    data?: {
+        message?: string
+    },
+    status?: number,
+}
+
+interface errorMessageProp {
+    data?: {
+        message?: string,
+        error?: string
+    },
+    status?: number
 }
 
 declare module "*.jpg" {

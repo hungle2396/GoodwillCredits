@@ -30,8 +30,7 @@ router.get('/event/:eventId', async (req, res) => {
                 }
             ]
         })
-
-        console.log('participants: ', participants);
+        
         return res.json(participants);
     } catch (error) {
         console.error('Error: ', error);
@@ -41,6 +40,7 @@ router.get('/event/:eventId', async (req, res) => {
     }
 });
 
+// Add Participant
 router.post('/', async (req, res) => {
     const { userId, eventId, email} = req.body;
 
@@ -86,7 +86,7 @@ router.post('/', async (req, res) => {
         });
 
         return res.status(200).json({
-            message: `Successfully added ${email}`
+            message: `Successfully added ${user.firstName}.`
         });
     } catch (error) {
         console.error('Error: ', error);
@@ -113,7 +113,18 @@ router.delete('/:participantId', async (req, res) => {
         };
 
         // Check if the participant exist in the event
-        const participant = await UserEvent.findByPk(participantId);
+        const participant = await UserEvent.findOne({
+            where: {
+                id: participantId
+            },
+            include: [
+                {
+                    model: User,
+                    as: 'user', // Define alias for User model
+                    attributes: ['id','firstName', 'lastName', 'isOnline', 'updatedAt']
+                }
+            ]
+        });
 
         if (!participant) {
             return res.status(404).json({
@@ -125,18 +136,22 @@ router.delete('/:participantId', async (req, res) => {
         // Host and the participant themselves only
         if (!isHost && participant.userId !== userId) {
             return res.status(403).json({
-                error: 'You do not have authorization to delete this participant.'
+                error: 'You do not have permission to delete this participant.'
             })
         }
+
+        const participantName = `${participant.user.firstName} ${participant.user.lastName}`;
 
         // Delete the participant from the event
         await participant.destroy();
 
         return res.status(200).json({
-            message: 'Successfully removed the participant'
+            message: `Successfully removed ${participantName}.`
         });
     } catch (error) {
-
+        return res.status(500).json({
+            error: 'Failed to delete participant.'
+        })
     }
 })
 

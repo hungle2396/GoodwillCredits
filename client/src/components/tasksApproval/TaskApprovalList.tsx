@@ -1,7 +1,7 @@
 import React from 'react';
 import { CircularProgress } from '@mui/material';
 import ParticipantImage from '../../UI/img/Happy_Kid.jpg';
-import { MonthDayYearDigital } from '../utils/Formatting';
+import { MonthDayYearByNumber } from '../utils/Formatting';
 import { ReactComponent as RejectIcon } from '../../UI/img/cancel.svg';
 import { ReactComponent as ApproveIcon } from '../../UI/img/check.svg';
 import { taskStatusColors } from '../utils/ArrayItems';
@@ -9,6 +9,7 @@ import { taskStatusColors } from '../utils/ArrayItems';
 import { useFetchApprovalTasksQuery } from '../../redux/store';
 import { useApprovalTaskMutation } from '../../redux/store';
 import { useFetchParticipantsQuery } from '../../redux/store';
+import { toast } from 'react-toastify';
 
 const TaskApprovalList = ({ event, isHost }: any) => {
     const { data , isLoading, isFetching, isError } = useFetchApprovalTasksQuery({ eventId: event.id });
@@ -26,8 +27,11 @@ const TaskApprovalList = ({ event, isHost }: any) => {
             }
 
             const response = await approveTask(taskData);
+            
+            toast.success((response as { data: any; }).data.message);
         } catch (error) {
             console.error('Error Approving Task: ', error);
+            toast.error('Error Approving the task.')
         }
     };
 
@@ -64,8 +68,8 @@ const TaskApprovalList = ({ event, isHost }: any) => {
                         <h1 className={`text-xl font-semibold ${task.transactionType === 'Add' ? 'text-green-500' : 'text-secondary-red'}`}>{creditStatusColor}</h1>
                     </div>
 
-                    <div className='flex ml-auto items-center justify-center px-3 border border-y-0 border-x-1 border-secondary-grey'>
-                        <p className='text-md'>{MonthDayYearDigital(task.createdAt)}</p>
+                    <div className='flex w-32 ml-auto items-center justify-center px-3 border border-y-0 border-x-1 border-secondary-grey'>
+                        <p className='text-md'>{MonthDayYearByNumber(task.createdAt)}</p>
                     </div>
 
                     

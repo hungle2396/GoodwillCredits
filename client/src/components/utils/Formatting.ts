@@ -16,7 +16,8 @@ export const MonthDayYear = (date: Date | string) => {
     }
 
     date = new Date(date);
-    const month = months[date.getMonth()];
+    const monthIndex = date.getUTCMonth();
+    const month = months[monthIndex];
     const day = date.getUTCDate();
     const year = date.getFullYear();
     
@@ -25,7 +26,7 @@ export const MonthDayYear = (date: Date | string) => {
     return formattedDate;
 }
 
-export const MonthDayYearDigital = (date: Date | string) => {
+export const MonthDayYearByNumber = (date: Date | string) => {
 
     if (typeof date === 'string') {
         const parsedDate = new Date(date);
@@ -39,7 +40,8 @@ export const MonthDayYearDigital = (date: Date | string) => {
     }
 
     date = new Date(date);
-    const month = date.getMonth();
+    const month = date.getUTCMonth() + 1;
+    console.log('month: ', month);
     const day = date.getUTCDate();
     const year = date.getFullYear();
     
