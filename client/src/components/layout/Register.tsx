@@ -51,8 +51,16 @@ const Register = () => {
     }
 
     return (
-        <div className='flex-grow flex justify-center'>
-            <div className='form__container flex flex-col w-96 mt-28'>
+        <div className='
+            signUp_container 
+            flex flex-grow justify-center 
+            mx-5'
+        >
+            <div className='
+                form__container
+                flex flex-col 
+                w-96 my-5 2xl:my-0 2xl:justify-center
+            '>
                 <h2 className='text-center text-4xl font-semibold'>Sign up</h2>
 
                 <div className='flex flex-col mt-10'>
