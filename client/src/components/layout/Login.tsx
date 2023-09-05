@@ -21,14 +21,17 @@ const Login = () => {
     
       const response = await userLogin(credentials).unwrap();
       
+      if ((response as any)?.error?.status > 200) {
+        throw new Error((response as any)?.error?.data?.error);
+      }
+
       if (response.user) {
         await currentUserRefetch();
         navigate('/dashboard');
       }
     } catch (error) {
-        if ((error as errorMessageProp).status === 401) {
-          const errorMessage = (error as errorMessageProp)?.data?.error;
-          toast.error(errorMessage);
+        if (typeof error === 'object') {
+          toast.error((error as Error).message);
         } else {
           toast.error('Error logging in.');
         }

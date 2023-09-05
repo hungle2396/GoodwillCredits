@@ -13,7 +13,9 @@ const App = () => {
     const userId = data?.id || '';
 
     return (
-        <div className="body">
+        <div className="
+            body
+        ">
             <BrowserRouter>
                 <ClientRoutes user={userId}  />
             </BrowserRouter>

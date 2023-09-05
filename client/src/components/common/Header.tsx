@@ -37,7 +37,10 @@ const Header = () => {
                 return null;
             case null:
                 return (
-                    <ul className="flex gap-5">
+                    <ul className="
+                        flex gap-5
+                        sm:text-sm md:text-base
+                    ">
                         {/* <li>
                             <a className="btn-normal" href="/about">
                                 About
@@ -53,7 +56,9 @@ const Header = () => {
                         {/* Render only register link if we are not in the register route */}
                         {location.pathname !== "/register" && (
                             <li>
-                            <a className="btn-primary" href="/register">
+                            <a className="
+                                btn-primary-sm md:btn-primary
+                            " href="/register">
                                 Sign up
                             </a>
                         </li>
@@ -76,7 +81,6 @@ const Header = () => {
                         ref={dropDownRef}
                     >
                         <img className="w-10 h-10 rounded-full" src={CuteDog} alt="dog" />
-                        {/* <a className="btn-normal" href="/api/logout">Log out</a> */}
                         
                         <p className="font-medium">{data.firstName}</p>
 
@@ -88,8 +92,18 @@ const Header = () => {
 
     return (
         <header>
-            <div className="header flex justify-between items-center h-full border-transparent border-bottom">
-                <Link to={data ? '/dashboard' : '/'} className="text-lg btn-normal font-medium">Goodwill Credits</Link>
+            <div className="
+                header flex
+                mx-4 
+                justify-between items-center 
+                h-full border-transparent border-bottom
+                text-sm
+            ">
+                <Link to={data ? '/dashboard' : '/'} className="
+                    btn-normal
+                    font-medium text-base md:text-xl
+                    
+                ">Goodwill Credits</Link>
                 {renderContent()}
             </div>
         </header>

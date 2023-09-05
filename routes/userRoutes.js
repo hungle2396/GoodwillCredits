@@ -54,6 +54,19 @@ router.post('/', async (req, res) => {
             });
         };
 
+        // Check if the user email already exist
+        const isEmailExist = await User.findOne({
+            where: {
+                email: email
+            }
+        });
+
+        if (isEmailExist) {
+            return res.status(409).json({
+                error: 'Email already exist.'
+            })
+        };
+
         const hashedPassword = await bcrypt.hash(password, 10);
         const newUser = await User.create({
             firstName: firstName,
@@ -70,7 +83,9 @@ router.post('/', async (req, res) => {
             registrationType: 'email'
         });
 
-        return res.json(newUser);
+        return res.status(200).json({
+            message: `Successfully created ${firstName} ${lastName}.`
+        });
     } catch (error) {
         console.log('Error creating new user', error);
 

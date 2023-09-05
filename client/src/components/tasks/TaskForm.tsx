@@ -4,6 +4,7 @@ import { ReactComponent as CloseIcon } from '../../UI/img/close.svg';
 
 import { useAddTaskMutation } from '../../redux/store';
 import { useFetchParticipantsQuery } from '../../redux/store';
+import { toast } from 'react-toastify';
 
 const TaskForm = ({ mode, userData, participantData, onClose }: any) => {
     const [taskDescription, setTaskDescription] = useState<string>('');
@@ -38,10 +39,14 @@ const TaskForm = ({ mode, userData, participantData, onClose }: any) => {
 
             // Manually refetch participants after adding the task
             refetch();
+            toast.success((response as { data: any; }).data.message);
         } catch (error) {
-            console.error('Error during API call: ', error);
+            if (typeof error === 'object') {
+                toast.error((error as Error).message);
+            } else {
+                toast.error('Internal System Error.');
+            }
         }
-        
     };
 
     const transactionColor = mode === 'Add' ? 'text-secondary-green' : 'text-secondary-red';

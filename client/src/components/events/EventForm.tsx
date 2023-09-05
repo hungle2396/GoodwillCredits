@@ -36,12 +36,7 @@ const EventForm = ({ mode, eventData, onClose, onCloseSetting }: eventFormProp) 
             let response;
 
             if (mode === 'create') {
-                
                 response = await createEvent(newEvent);
-
-                if ((response as any)?.error?.status > 200) {
-                    throw new Error((response as any)?.error?.data?.error);
-                }
             }
     
             if (mode === 'edit') {
@@ -49,12 +44,12 @@ const EventForm = ({ mode, eventData, onClose, onCloseSetting }: eventFormProp) 
                     eventId: eventData.id,
                     event: newEvent
                 });
-
-                if ((response as any)?.error?.status > 200) {
-                    throw new Error((response as any)?.error?.data?.error);
-                }
             }
     
+            if ((response as any)?.error?.status > 200) {
+                throw new Error((response as any)?.error?.data?.error);
+            }
+
             toast.success((response as any).data.message);
             // Close the Event Form
             onClose();
