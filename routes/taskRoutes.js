@@ -149,10 +149,9 @@ router.post('/', async (req, res) => {
 
             await participant.save();
         }
-        
 
         return res.status(200).json({
-            message: `Successfully submitted credits`
+            message: 'Successfully submitted task.'
         });
 
     } catch (error) {

@@ -12,10 +12,29 @@
         active:bg-primary-purple-dark active:translate-y-px
         ;
     }
+    
+    .btn-primary-sm {
+        @apply 
+        py-2 px-4
+        bg-primary-purple hover:bg-primary-purple-light
+        text-white
+        rounded-md
+        active:bg-primary-purple-dark active:translate-y-px
+        ;
+    }
 
     .btn-blue {
         @apply
         py-2 px-8
+        shadow-[0_3px_10px_rgb(0,0,0,0.2)]
+        text-white
+        rounded-md
+        bg-secondary-blue hover:bg-secondary-blue-dark
+    }
+
+    .btn-blue-sm {
+        @apply
+        py-2 px-4
         shadow-[0_3px_10px_rgb(0,0,0,0.2)]
         text-white
         rounded-md
@@ -31,9 +50,27 @@
         bg-secondary-green hover:bg-secopndary-green-dark
     }
 
+    .btn-green-sm {
+        @apply
+        py-2 px-4
+        shadow-[0_3px_10px_rgb(0,0,0,0.2)]
+        text-white
+        rounded-md
+        bg-secondary-green hover:bg-secopndary-green-dark
+    }
+
     .btn-red {
         @apply
         py-2 px-8
+        shadow-[0_3px_10px_rgb(0,0,0,0.2)]
+        text-white
+        rounded-md
+        bg-secondary-red hover:bg-secondary-red-dark
+    }
+
+    .btn-red {
+        @apply
+        py-2 px-4
         shadow-[0_3px_10px_rgb(0,0,0,0.2)]
         text-white
         rounded-md
@@ -56,6 +93,15 @@
         py-2 px-8
         rounded-md
     }
+
+    .btn-disabled-sm {
+        @apply
+        bg-primary-purple-light-1
+        text-gray-400
+        py-2 px-4
+        rounded-md
+    }
+
     .bg-black-transparent {
         @apply
         bg-black

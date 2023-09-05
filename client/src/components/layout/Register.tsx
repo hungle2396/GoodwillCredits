@@ -28,6 +28,10 @@ const Register = () => {
 
             let response = await userRegistration(credentials).unwrap();
 
+            if ((response as any)?.error?.status > 200) {
+                throw new Error((response as any)?.error?.data?.error);
+            }
+
             if (response.user) {
                 // Registration succeeded, refetch the most updated user data
                 await refetch();
@@ -37,13 +41,9 @@ const Register = () => {
 
             
         } catch (error) {
-            console.error('error: ', error);
-
             // Email already exist
-            if ((error as errorMessageProp).status === 409) {
-                const errorMessage = (error as errorMessageProp)?.data?.error;
-                console.log('errorMessage: ', errorMessage);
-                toast.error(errorMessage);
+            if (typeof error === 'object') {
+                toast.error((error as Error).message);
             } else {
                 toast.error('Failed To Register.')
             }

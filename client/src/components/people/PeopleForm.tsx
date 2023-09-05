@@ -87,6 +87,10 @@ const PeopleForm = ({ mode, personData, onClose, onCloseSetting }: peopleFormPro
                 })
             }
     
+            if ((response as any)?.error?.status > 200) {
+                throw new Error((response as any)?.error?.data?.error);
+            }
+
             // Display notification message
             toast.success((response as { data: any; }).data.message);
 
@@ -97,7 +101,7 @@ const PeopleForm = ({ mode, personData, onClose, onCloseSetting }: peopleFormPro
             if (typeof error === 'object') {
                 toast.error((error as Error).message);
             } else {
-                toast.error('Internal Error');
+                toast.error('Failed to add new user.');
             }
         }
         
