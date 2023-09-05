@@ -56,13 +56,37 @@
 
 .bg_landing {
     background-image: url('../UI/img/blue_blurry_bg.jpg');
-    -o-background-size: 80rem;
-    -webkit-background-size: 80rem;
-    -moz-background-size: 80rem;
-    background-size: 80rem;
+    -o-background-size: cover;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
 }
+
+@media (min-width: 1280px) {
+    .bg_landing {
+        background-image: url('../UI/img/blue_blurry_bg.jpg');
+        /* -o-background-size: 60rem;
+        -webkit-background-size: 60rem;
+        -moz-background-size: 60rem; */
+        background-size: 80%;
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+}
+
+/* @media (min-width: 1536px) {
+    .bg_landing {
+        background-image: url('../UI/img/blue_blurry_bg.jpg');
+        -o-background-size: 100rem;
+        -webkit-background-size: 100rem;
+        -moz-background-size: 100rem;
+        background-size: 100rem;
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+} */
 
 .btn-gradient-border {
     background: linear-gradient(white, white) padding-box,

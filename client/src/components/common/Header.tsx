@@ -94,7 +94,7 @@ const Header = () => {
         <header>
             <div className="
                 header flex
-                mx-4 
+                mx-5 
                 justify-between items-center 
                 h-full border-transparent border-bottom
                 text-sm
