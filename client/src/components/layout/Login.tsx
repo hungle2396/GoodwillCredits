@@ -39,8 +39,16 @@ const Login = () => {
   };
 
   return (
-    <div className="flex-grow flex justify-center">
-      <div className="container flex flex-col w-96 mt-28">
+    <div className="
+      flex flex-grow 
+      justify-center
+      mx-5
+    ">
+      <div className="
+        container 
+        flex flex-col 
+        w-96 my-5 2xl:my-0 2xl:justify-center
+      ">
         <h2 className="text-center text-4xl font-semibold">Log in</h2>
       {/* {registrationError && <div>{toast.error(registrationError)}</div>} */}
 
