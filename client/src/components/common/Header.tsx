@@ -39,7 +39,7 @@ const Header = () => {
                 return (
                     <ul className="
                         flex gap-5
-                        sm:text-sm md:text-base
+                        text-sm sm:text-base md:text-lg
                     ">
                         {/* <li>
                             <a className="btn-normal" href="/about">
@@ -57,7 +57,7 @@ const Header = () => {
                         {location.pathname !== "/register" && (
                             <li>
                             <a className="
-                                btn-primary-sm md:btn-primary
+                                btn-primary-sm sm:btn-primary
                             " href="/register">
                                 Sign up
                             </a>
@@ -101,7 +101,7 @@ const Header = () => {
             ">
                 <Link to={data ? '/dashboard' : '/'} className="
                     btn-normal
-                    font-medium text-base md:text-xl
+                    text-sm font-medium sm:text-xl
                     
                 ">Goodwill Credits</Link>
                 {renderContent()}

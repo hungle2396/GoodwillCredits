@@ -6,14 +6,25 @@ import { ReactComponent as LogsIcon } from '../../UI/img/history.svg';
 
 const Navigation = ({ isActive }: any) => {
 
-    const active = 'bg-purple-light-1 rounded-md text-primary-purple fill-primary-purple';
+    const active = 'bg-primary-purple-light-2 rounded-md text-primary-purple fill-primary-purple';
 
     return (
-        <nav className='flex basis-1/4 flex-col text-lg font-semibold gap-2'>
+        <nav className='
+            flex
+            p-3 bg-slate-100
+            rounded-md
+            lg:basis-1/4 
+            text-sm 
+            font-semibold 
+            gap-2
+        '>
             <Link 
                 to={'/dashboard'}
                 className={`
-                    flex items-center gap-2 py-3 pl-5 pr-20 rounded-md
+                    flex 
+                    items-center 
+                    py-3 px-3 lg:pr-20
+                    gap-2 
                     ${isActive === 'events' ? active : ''}`}
             >
                 <EventIcon className='w-5 h-5'/>
@@ -23,7 +34,10 @@ const Navigation = ({ isActive }: any) => {
             <Link
                 to={'/people'}
                 className={`
-                    flex items-center gap-2 py-3 pl-5 pr-20 rounded-md
+                    flex 
+                    items-center 
+                    p-3 lg:pr-20
+                    gap-2
                     ${isActive === 'people' ? active : ''}`}
             >
                 <PeopleIcon className='w-5 h-5' />
@@ -34,10 +48,10 @@ const Navigation = ({ isActive }: any) => {
                 // to={'/logs'}
                 to={'#'}
                 className={`
-                    flex items-center gap-2 py-3 pl-5 pr-20 rounded-md text-secondary-grey-light
+                    flex items-center gap-2 p-3 lg:pr-20
                     ${isActive === 'logs' ? active : ''}`}
             >
-                <LogsIcon className='w-5 h-5 fill-secondary-grey-light' />
+                <LogsIcon className='w-5 h-5' />
                 Logs
             </Link>
         </nav>

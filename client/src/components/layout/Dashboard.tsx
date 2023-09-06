@@ -5,10 +5,11 @@ import EventList from '../events/EventList';
 
 const Dashboard = () => {
     return (
-        <main className='flex-grow relative
-                         flex gap-5 my-5
-                        '
-        >
+        <main className='
+                        flex flex-col
+                        flex-grow
+                        gap-5 my-5 mx-5
+        '>
             <div className='basis-1/5'>
                 <Navigation isActive='events' />
             </div>
@@ -17,7 +18,7 @@ const Dashboard = () => {
                             flex flex-col gap-5
                            '
             >
-                <h1 className='text-3xl font-semibold ml-5'>Events</h1>
+                <h1 className='text-3xl font-semibold md:ml-5'>Events</h1>
                 {/* Event Search and Create Event */}
                 <EventCreate />
 
