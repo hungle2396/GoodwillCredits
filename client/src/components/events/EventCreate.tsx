@@ -1,10 +1,24 @@
-import React, {useState} from 'react';
+import React, { useState, useEffect } from 'react';
 import { ReactComponent as SearchIcon } from '../../UI/img/searchIcon.svg';
 import EventForm from './EventForm';
 
 const EventCreate = () => {
+    const [windowWidth, setWindowWidth] = useState(window.innerWidth);
     const [showEventModal, setShowEventModal] = useState<boolean>(false);
     const [eventSearch, setEventSearch] = useState<string>('');
+
+    useEffect(() => {
+        const handleResize = () => {
+            setWindowWidth(window.innerWidth);
+        };
+
+        window.addEventListener('resize', handleResize);
+
+        // Clean up the event listener when the component unmounts
+        return () => {
+            window.removeEventListener('resize', handleResize);
+        }
+    }, []);
 
     const handleOpenEventModal = () => {
         setShowEventModal(true);
@@ -25,8 +39,8 @@ const EventCreate = () => {
     }
 
     return (
-        <div className='w-full flex justify-between'>
-            <div className='flex items-center rounded-md bg-secondary-grey-light p-2 w-48'>
+        <div className='w-full flex justify-between gap-5'>
+            <div className='flex items-center rounded-md bg-secondary-grey-light p-2 w-96'>
                 <SearchIcon className='w-4 h-4' />
                 <input 
                     className='event_search bg-transparent text-gray-600 outline-none mx-2 w-full'
@@ -39,8 +53,9 @@ const EventCreate = () => {
             <button 
                 className='btn-blue-sm rounded-md text-sm'
                 onClick={handleOpenEventModal}
-            >
-            Create Event
+            >{
+                windowWidth <= 640 ? '+' : 'Create Event'
+            }
             </button>
 
             {/* Create Event Form */}
