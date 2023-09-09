@@ -39,7 +39,7 @@ const EventCreate = () => {
     }
 
     return (
-        <div className='w-full flex justify-between gap-5'>
+        <div className='w-full flex justify-between gap-5 md:px-5 xl:px-0'>
             <div className='flex items-center rounded-md bg-secondary-grey-light p-2 w-96'>
                 <SearchIcon className='w-4 h-4' />
                 <input 

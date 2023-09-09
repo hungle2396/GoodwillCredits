@@ -37,10 +37,10 @@ const Header = () => {
                 return null;
             case null:
                 return (
-                    <ul className="
+                    <ul className='
                         flex gap-5
                         text-sm sm:text-base md:text-lg
-                    ">
+                    '>
                         {/* <li>
                             <a className="btn-normal" href="/about">
                                 About
@@ -54,36 +54,30 @@ const Header = () => {
                         </li> */}
 
                         {/* Render only register link if we are not in the register route */}
-                        {location.pathname !== "/register" && (
+                        {location.pathname !== '/register' && (
                             <li>
-                            <a className="
+                            <a className='
                                 btn-primary-sm sm:btn-primary
-                            " href="/register">
+                            ' href='/register'>
                                 Sign up
                             </a>
                         </li>
                         )}
                         
                         <li>
-                            <a className="btn-normal" href="/login">Login</a>
+                            <a className='btn-normal' href='/login'>Login</a>
                         </li>
-                        
-                        {/* <li >
-                            <a className="text-white ml-3" href="/auth/google">Login with Google</a>
-                        </li> */}
                     </ul>
                 )
             default:
                 return (
                     <div 
-                        className="user_profile--container flex items-center gap-4 relative"
+                        className='user_profile--container flex items-center gap-3 relative'
                         onClick={handleDropDownOpen}
                         ref={dropDownRef}
                     >
-                        <img className="w-10 h-10 rounded-full" src={CuteDog} alt="dog" />
-                        
-                        <p className="font-medium">{data.firstName}</p>
-
+                        <img className='w-10 h-10 rounded-full' src={CuteDog} alt='dog' />
+                        <p className='font-medium'>{data.firstName}</p>
                         {isDropDownOpen && <UserDropDown />}
                     </div>
                 )
@@ -94,7 +88,7 @@ const Header = () => {
         <header>
             <div className="
                 header flex
-                mx-5 
+                mx-5 md:mx-10 
                 justify-between items-center 
                 h-full border-transparent border-bottom
                 text-sm

@@ -1,29 +1,53 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { toast } from 'react-toastify';
+import { useNavigate } from 'react-router-dom';
+import { useFetchUserQuery, useDeleteEventMutation } from '../../redux/store';
+
 import { ReactComponent as EditIcon } from '../../UI/img/edit.svg';
 import { ReactComponent as DeleteIcon } from '../../UI/img/trash-can.svg';
 import { ReactComponent as EventSettingIcon } from '../../UI/img/more.svg';
 import { ReactComponent as CloseIcon } from '../../UI/img/close.svg';
 import { ReactComponent as RightArrowIcon } from '../../UI/img/right-chevron.svg';
 import HappyKid from '../../UI/img/Happy_Kid.jpg';
-import { useFetchUserQuery } from '../../redux/store';
-import { useDeleteEventMutation } from '../../redux/store';
 
 import EventForm from './EventForm';
 import { Days_Counter } from '../utils/Counter';
 import { MonthDayYearByNumber } from '../utils/Formatting';
+import { MonthDayYear } from '../utils/Formatting';
 import { tagColors } from '../utils/ArrayItems';
 
-import { useNavigate } from 'react-router-dom';
+
 
 const EventShow = ({ event }: any) => {
     const navigate = useNavigate();
     const settingReference = useRef<HTMLDivElement>(null);
 
+    const [windowWidth, setWindowWidth] = useState(window.innerWidth);
     const [openSetting, setOpenSetting] = useState<boolean>(false);
     const [showEventModal, setShowEventModal] = useState<boolean>(false);
     const [deleteEvent] = useDeleteEventMutation();
     const {data: userData} = useFetchUserQuery();
+
+    useEffect(() => {
+        const handleResize = () => {
+            setWindowWidth(window.innerWidth);
+        };
+
+        window.addEventListener('resize', handleResize);
+
+        // Clean up the event listener when the component unmounts
+        return () => {
+            window.removeEventListener('resize', handleResize);
+        }
+    }, []);
+    
+    useEffect(() => {
+        document.addEventListener('click', handleClickOutsideSetting);
+
+        return () => {
+            document.removeEventListener('click', handleClickOutsideSetting);
+        }
+    }, []);
 
     const handleOpenEventModal = () => {
         setShowEventModal(true);
@@ -73,38 +97,52 @@ const EventShow = ({ event }: any) => {
                 toast.error('Failed to delete event.');
             }
         }
-        
     };
 
     const handleEventDetails = () => {
         navigate(`/events/${event.id}`);    
     }
 
-    useEffect(() => {
-        document.addEventListener('click', handleClickOutsideSetting);
-
-        return () => {
-            document.removeEventListener('click', handleClickOutsideSetting);
+    const handleClickItem = () => {
+        if (windowWidth <= 768) {
+            handleEventDetails();
         }
-    }, []);
+    }
 
     const onlineBackgroundColor = event.active? 'bg-secondary-green' : 'bg-secondary-grey';
 
     const inactiveClassName = event.active ? '' : 'opacity-80 bg-gray-200';
 
+    const isTabletMode = windowWidth >= 640 && windowWidth <= 768;
+
+    const isCursor = windowWidth <= 768 ? 'cursor-pointer' : 'default';
+
     return (
-        
         <li
-            className={`${inactiveClassName} flex items-center shadow-box rounded-md md:h-[10rem] w-full`}
+            onClick={handleClickItem}
+            className={`${inactiveClassName}
+                flex flex-col md:flex-row
+                md:h-[10rem] 
+                w-full
+                items-center 
+                shadow-box 
+                rounded-md 
+                xl:bg-white
+                ${isCursor}
+            `}
         >
             
-            <div className='flex w-full h-full'>
+            <div className='
+                flex 
+                w-full h-full md:basis-2/3
+                custom-border-bottom
+            '>
 
                 <div className='
                     host_container 
                     flex flex-col
-                    gap-1
                     w-24 md:w-32
+                    relative
                 '>    
                     
                     <span className={`
@@ -113,6 +151,7 @@ const EventShow = ({ event }: any) => {
                         bg-secondary-green  
                         rounded-tl-md rounded-br-md 
                         text-white text-sm text-center
+                        absolute top-0 left-0
                         ${onlineBackgroundColor}
                     `}>
                             {event.active ? 'Active' : 'Inactive'}
@@ -122,62 +161,151 @@ const EventShow = ({ event }: any) => {
                     <div className='
                         flex flex-col 
                         h-full
-                        items-center mt-5
+                        items-center
+                        md:justify-center
+                        mt-14 md:mt-5
                     '>
                         <img src={HappyKid} className='w-14 h-14 rounded-full' alt='test cute dog'/>
 
-                        <p className='text-md font-medium'>{`${event.host.firstName} ${event.host.lastName}`}</p>
+                        <p className='text-md font-medium'>{`${event.host.firstName}`}</p>
                     </div>
-                    
                 </div>
 
+                {/* Event Description */}
                 <div className='
-                    flex flex-col
+                    flex flex-col flex-grow
                     h-full w-full
                     p-3
-                    md:py-5 md:pr-5 
-                    md:basis-4/6
+                    md:w-80
+                    
+                    gap-2
                 '>
                     
-
                     <div className='
                         flex 
-                        items-center sm:justify-between gap-2
+                        h-full md:h-auto
+                        items-center md:items-start
+                        sm:justify-between 
+                        gap-3
                         relative
                     '>
-                        <h1 className='text-base font-semibold mt-8'>{event.name}</h1>
+                        <h1 className='
+                            max-h-6 w-56
+                            mt-10 md:mt-0
+                            text-base md:text-lg
+                            font-semibold
+                            overflow-hidden whitespace-nowrap text-ellipsis
+                        '>{event.name}</h1>
                         
                         <span className={`
                             p-1 w-24 rounded-md
                             bg-primary-purple
                             text-white text-xs text-center
-                            absolute top-0 right-0 sm:static
+                            absolute top-0 right-0 md:static
                             ${tagColors[event.tag as keyof tagColorsProp]}
                         `}>
                             {event.tag}
                         </span>
                     </div>
 
-                    <p className='h-[4rem] text-sm event_description'>{event.description}</p>
+                    <p className='
+                        event_description
+                        h-[4rem] md:h-auto
+                        text-xs md:text-sm
+                        
+                        text-gray-500
+                    '>{event.description}</p>
                     
                 </div>
             </div>
             
 
-            {/* <div>
-                <div className='flex flex-col gap-1 border-transparent border-l-secondary-grey-light border-r-secondary-grey-light border h-full w-52 flex-shrink-0'>
-                    <div className='flex flex-col gap-3 p-5'>
-                        <div className='flex justify-between text-sm gap-2'>
-                            <span>{MonthDayYearByNumber(event.startDate)}</span> -
-                            <span>{MonthDayYearByNumber(event.endDate)}</span>
+            {/* 2nd Column */}
+            <div className='
+                md:flex
+                h-full 
+                w-full md:w-0 
+                md:basis-1/3 
+                py-5 sm:py-0
+            '>
+                
+                {/* Date Container */}
+                <div className='
+                    flex flex-col flex-shrink-0
+                    h-full w-full md:w-0 md:basis-2/3
+                    md:p-3
+                    md:items-center
+                    md:border md:border-transparent md:border-l-secondary-grey-light md:border-r-secondary-grey-light
+                    gap-1
+                '>
+                    {/* Date */}
+                    <div className='
+                        flex flex-col sm:flex-row md:flex-col
+                        sm:h-[6rem] md:h-auto
+                        justify-center items-center sm:justify-normal md:justify-center
+                        gap-3
+                    '>
+                        <div className='
+                            flex
+                            h-full sm:basis-7/12 md:w-[10rem] md:h-auto
+                            sm:custom-border-right md:border-0
+                            md:justify-center
+                            text-sm 
+                            gap-2
+                        '>
+                            {
+                                isTabletMode ? (
+                                    <div className='
+                                        flex
+                                        h-full sm:w-full
+                                        justify-center items-center sm:justify-between
+                                        gap-5 px-5
+                                    '>
+                                        <div>
+                                            <h4>Start Date</h4>
+                                            <span>{MonthDayYear(event.startDate)}</span>
+                                        </div>
+
+                                        <div>
+                                            <h4>End Date</h4>
+                                            <span>{MonthDayYear(event.endDate)}</span>
+                                        </div>
+                                    </div>
+                                ) : (
+                                    <>
+                                        <span>{MonthDayYearByNumber(event.startDate)}</span> -
+                                        <span>{MonthDayYearByNumber(event.endDate)}</span>
+                                    </>
+                                )
+                            }
+                            
                         </div>
-                        <h1 className='text-5xl font-thin text-center'>{Days_Counter(event.startDate, event.endDate)}</h1>
-                        <h1 className='text-md text-center'>Days Left</h1>
+
+                        <div className='
+                            flex flex-col sm:flex-row md:flex-col
+                            sm:basis-1/2 sm:h-full
+                            sm:justify-center 
+                            sm:items-center
+                            gap-2
+                        '>
+                            <h1 className='text-5xl font-medium text-center'>{Days_Counter(event.startDate, event.endDate)}</h1>
+                            <h1 className='text-md text-center'>Days Left</h1>
+                        </div>
+                        
                     </div>
                 </div>
 
-                <div 
-                    className='flex justify-center items-center h-full relative w-28 flex-shrink-0' 
+                {
+                    windowWidth >= 768 && (
+                        <div className='
+                            flex
+                            flex-shrink-0
+                            h-full
+                            basis-1/3
+                            justify-center 
+                            items-center 
+                            relative
+                    ' 
                     ref={settingReference} 
                     onClick={handleClickInsideSetting}
                 >
@@ -216,7 +344,10 @@ const EventShow = ({ event }: any) => {
                         </div>
                     )}
                 </div>
-            </div> */}
+                    )
+                }
+                
+            </div>
             
 
             {/* Create Event Form */}

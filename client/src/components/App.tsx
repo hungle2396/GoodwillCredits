@@ -15,6 +15,7 @@ const App = () => {
     return (
         <div className="
             body
+            relative
         ">
             <BrowserRouter>
                 <ClientRoutes user={userId}  />

@@ -32,10 +32,17 @@ const EventList = () => {
     }
 
     return (
-        <div className="md:h-[45rem] md:hide-scrollbar md:py-2">
+        <div className="
+            events_container
+            xl:flex-grow
+            md:h-[40rem] xl:h-full
+            md:py-2
+            md:overflow-auto
+        ">
             <ul className='
-                flex flex-col
-                gap-5 md:px-5
+                flex flex-col h-full
+                md:px-5
+                gap-5
             '>
                 {eventsData && eventsData.length > 0 ? renderedEvents : <p className='text-2xl text-gray-400'>No Event So Far, Please Create One.</p>}
             </ul>
