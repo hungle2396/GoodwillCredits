@@ -107,4 +107,24 @@
         bg-black
         bg-opacity-20
     }
+
+    .custom-border-right {
+        @apply
+        border border-transparent border-r-secondary-grey-light
+    }
+
+    .custom-border-top {
+        @apply
+        border border-transparent border-t-secondary-grey-light
+    }
+
+    .custom-border-left {
+        @apply
+        border border-transparent border-l-secondary-grey-light
+    }
+
+    .custom-border-bottom {
+        @apply
+        border border-transparent border-b-secondary-grey-light
+    }
 }

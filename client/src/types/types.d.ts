@@ -22,6 +22,23 @@ interface eventProp {
     tag: string
 }
 
+interface eventHostProp {
+    active: boolean,
+    createdAt: string,
+    description: string,
+    endDate: string,
+    host: {
+        firstName: string,
+        lastName: string,
+    }
+    hostId: string,
+    id: string,
+    name: string,
+    startDate: string,
+    tag: string,
+    updatedAt: string
+}
+
 interface userProp {
     id?: string,
     firstName?: string,
