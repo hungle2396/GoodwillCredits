@@ -189,13 +189,13 @@ const EventShow = ({ event }: any) => {
                         gap-3
                         relative
                     '>
-                        <h1 className='
+                        <h4 className='
                             w-56
                             mt-5 md:mt-0
                             text-base md:text-lg
                             font-semibold
                             overflow-hidden whitespace-nowrap text-ellipsis
-                        '>{event.name}</h1>
+                        '>{event.name}</h4>
                         
                         <span className={`
                             p-1 w-24 rounded-md
@@ -210,7 +210,7 @@ const EventShow = ({ event }: any) => {
 
                     <p className='
                         event_description
-                        h-[7rem] md:h-auto
+                        h-[5rem] md:h-auto
                         text-xs md:text-sm
                         text-gray-500
                     '>{event.description}</p>
