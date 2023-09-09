@@ -177,8 +177,7 @@ const EventShow = ({ event }: any) => {
                     h-full w-full
                     p-3
                     md:w-80
-                    
-                    gap-2
+                    gap-1
                 '>
                     
                     <div className='
@@ -191,7 +190,7 @@ const EventShow = ({ event }: any) => {
                     '>
                         <h1 className='
                             max-h-6 w-56
-                            mt-10 md:mt-0
+                            mt-5 md:mt-0
                             text-base md:text-lg
                             font-semibold
                             overflow-hidden whitespace-nowrap text-ellipsis
