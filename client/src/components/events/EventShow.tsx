@@ -210,7 +210,7 @@ const EventShow = ({ event }: any) => {
 
                     <p className='
                         event_description
-                        h-[5rem] md:h-auto
+                        h-[7rem] md:h-auto
                         text-xs md:text-sm
                         text-gray-500
                     '>{event.description}</p>
