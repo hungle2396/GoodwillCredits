@@ -113,7 +113,7 @@ const EventShow = ({ event }: any) => {
 
     const inactiveClassName = event.active ? '' : 'opacity-80 bg-gray-200';
 
-    const isTabletMode = windowWidth >= 640 && windowWidth <= 768;
+    const isTabletMode = windowWidth >= 640 && windowWidth < 768;
 
     const isCursor = windowWidth <= 768 ? 'cursor-pointer' : 'default';
 
@@ -178,12 +178,12 @@ const EventShow = ({ event }: any) => {
                     h-full w-full
                     p-3
                     md:w-80
-                    gap-1 lg:gap-2
+                    gap-2
                 '>
                     
                     <div className='
                         flex 
-                        h-full md:h-auto
+                        md:h-auto
                         items-center md:items-start
                         sm:justify-between 
                         gap-3
@@ -191,7 +191,7 @@ const EventShow = ({ event }: any) => {
                     '>
                         <h4 className='
                             w-56
-                            mt-5 md:mt-0
+                            mt-8 md:mt-0
                             text-base md:text-lg
                             font-semibold
                             overflow-hidden whitespace-nowrap text-ellipsis
@@ -210,7 +210,7 @@ const EventShow = ({ event }: any) => {
 
                     <p className='
                         event_description
-                        h-[5rem] md:h-auto
+                        h-[3rem] md:h-[5rem] lg:h-auto
                         text-xs md:text-sm
                         text-gray-500
                     '>{event.description}</p>
@@ -249,7 +249,7 @@ const EventShow = ({ event }: any) => {
                             h-full sm:basis-7/12 md:w-[10rem] md:h-auto
                             sm:custom-border-right md:border-0
                             md:justify-center
-                            text-sm 
+                            md:text-xs
                             gap-2
                         '>
                             {
