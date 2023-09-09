@@ -134,7 +134,8 @@ const EventShow = ({ event }: any) => {
             
             <div className='
                 flex 
-                w-full h-full md:basis-2/3
+                w-full h-full md:basis-2/3 
+                pb-3
                 custom-border-bottom
             '>
 
@@ -177,7 +178,6 @@ const EventShow = ({ event }: any) => {
                     h-full w-full
                     p-3
                     md:w-80
-                    gap-1
                 '>
                     
                     <div className='
